@@ -13,7 +13,7 @@ struct StringHandler {
         let date = Date()
         let calendar = Calendar.current
         var string: String = """
-        Logger by Alisher Khalykbayev
+        SkyLogger by Alisher Khalykbayev
 
         Date: \(calendar.component(.day, from: date)).\(calendar.component(.month, from: date))
         
@@ -27,11 +27,13 @@ struct StringHandler {
             Location: \(TimeZone.current.identifier)
             Time Zone: \(TimeZone.current.abbreviation() ?? "null")
 
-        Additional parameters:
         """
-        additionalParameters.forEach({
-            string.append("\n\($0.key): \($0.value ?? "")")
-        })
+        if !additionalParameters.isEmpty {
+            string.append("Additional parameters:")
+            additionalParameters.forEach({
+                string.append("\n\($0.key): \($0.value ?? "")")
+            })
+        }
         string.append("\n\n\n")
         return string
     }
@@ -39,7 +41,7 @@ struct StringHandler {
     static func generateLogKindFirstLine(kind: Log.Kind) -> String {
         var result: String = ""
         let kindTitle: String = "\(kind.emoji) \(kind.rawValue)"
-        result.append("􀄌 Logger: ")
+        result.append("| SkyLogger: ")
         result.append(kindTitle)
         let date = Date()
         let calendar = Calendar.current
@@ -65,7 +67,7 @@ struct StringHandler {
     }
     
     static func convertLogToString(_ log: Log) -> String {
-        var result: String = "\n\n"
+        var result: String = "\n"
         
         result.append(generateLogKindFirstLine(kind: log.kind))
         
@@ -93,11 +95,12 @@ struct StringHandler {
             }()
             result.append(data)
         })
+        result.append("\n")
         return result
     }
     
     static func getTabSpace(repeatCount: Int, newLine: Bool = true) -> String {
-        return (newLine ? "\n􀄌" : "") + String(repeating: "    ", count: repeatCount)
+        return (newLine ? "\n|" : "") + String(repeating: "    ", count: repeatCount)
     }
     
 }

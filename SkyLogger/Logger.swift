@@ -23,7 +23,7 @@ import UIKit
 public class Logger {
     
     private static let singleton: Logger = .init()
-    private static let divider: String = "\n    􀄌 "
+    private static let divider: String = "\n    | "
     
     private var logs: [Log] = []
     
@@ -48,7 +48,7 @@ extension Logger {
     
     public static func log(_ log: Log, file: String = #file, _ function: String = #function, _ line: Int = #line) {
         Logger.singleton.logs.append(log)
-        Logger.print(StringHandler.convertLogToString(log))
+        Swift.print(StringHandler.convertLogToString(log))
     }
     
     public static func share(vc: UIViewController, tintColor: UIColor) {
