@@ -11,11 +11,19 @@ import Foundation
 class Log {
     
     let kind: Kind
-    let additionalParameters: [Parameter]
+    let message: [Any?]?
+    let parameters: [Parameter]?
+    let file: String
+    let function: String
+    let line: String
     
-    internal init(kind: Log.Kind, additionalParameters: [Log.Parameter]) {
+    init(kind: Log.Kind, message: [Any?]? = nil, parameters: [Log.Parameter]?, file: String = #file, _ function: String = #function, _ line: Int = #line) {
         self.kind = kind
-        self.additionalParameters = additionalParameters
+        self.message = message
+        self.parameters = parameters
+        self.file = file
+        self.function = function
+        self.line = String(line)
     }
     
 }
@@ -71,3 +79,35 @@ extension Log {
     }
     
 }
+
+//MARK:- Enums And Classes
+extension Log {
+    
+    enum LineKind: CaseIterable {
+        case file
+        case message
+        
+        private var rawValue: String {
+            switch self {
+                case .file:
+                    return "File"
+                case .message:
+                    return "Message"
+            }
+        }
+        
+        var formattedRawValue: String {
+            let firstSymbol: String = {
+                switch self {
+                    case .file:
+                        return "📝"
+                    case .message:
+                        return "ℹ️"
+                }
+            }()
+            return StringHandler.getTabSpace(repeatCount: 1) + firstSymbol + " " + self.rawValue
+        }
+    }
+    
+}
+

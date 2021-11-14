@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7479080B27418EDE0071DE0F /* StringHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479080A27418EDE0071DE0F /* StringHandler.swift */; };
+		74CB1D342739BFA100EBD2A4 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB1D332739BFA100EBD2A4 /* FileManager.swift */; };
 		74F22642273983F400A08532 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F22641273983F400A08532 /* Log.swift */; };
 		74F50EC3273824520093E44F /* SkyLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 74F50EC1273824520093E44F /* SkyLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74F50ECC27383B930093E44F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F50ECB27383B930093E44F /* Logger.swift */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7479080A27418EDE0071DE0F /* StringHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHandler.swift; sourceTree = "<group>"; };
+		74CB1D332739BFA100EBD2A4 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		74F22641273983F400A08532 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		74F50EBE273824520093E44F /* SkyLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SkyLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74F50EC1273824520093E44F /* SkyLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkyLogger.h; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 				74F22641273983F400A08532 /* Log.swift */,
 				74F50EC1273824520093E44F /* SkyLogger.h */,
 				74F50EC2273824520093E44F /* Info.plist */,
+				74CB1D332739BFA100EBD2A4 /* FileManager.swift */,
+				7479080A27418EDE0071DE0F /* StringHandler.swift */,
 			);
 			path = SkyLogger;
 			sourceTree = "<group>";
@@ -143,6 +149,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74CB1D342739BFA100EBD2A4 /* FileManager.swift in Sources */,
+				7479080B27418EDE0071DE0F /* StringHandler.swift in Sources */,
 				74F50ED027383BFE0093E44F /* Device.swift in Sources */,
 				74F50ECC27383B930093E44F /* Logger.swift in Sources */,
 				74F22642273983F400A08532 /* Log.swift in Sources */,
