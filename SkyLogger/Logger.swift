@@ -8,18 +8,6 @@
 
 import UIKit
 
-//func log(kind: Log.Kind, message: Any?..., file: String = #file, _ function: String = #function, _ line: Int = #line) {
-//    Logger.log(kind: kind, message: message, parameters: nil, file: file, function: function, line: line)
-//}
-//
-//func log(kind: Log.Kind, message: Log.Parameter..., file: String = #file, _ function: String = #function, _ line: Int = #line) {
-//    Logger.log(kind: kind, message: nil, parameters: message, file: file, function: function, line: line)
-//}
-//
-//func log(kind: Log.Kind, parameters: [Log.Parameter], file: String = #file, _ function: String = #function, _ line: Int = #line) {
-//    Logger.log(kind: kind, message: nil, parameters: parameters, file: file, function: function, line: line)
-//}
-
 public class Logger {
     
     private static let singleton: Logger = .init()

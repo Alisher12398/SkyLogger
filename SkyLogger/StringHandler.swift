@@ -14,11 +14,11 @@ struct StringHandler {
         let calendar = Calendar.current
         var string: String = """
         SkyLogger by Alisher Khalykbayev
-
+        
         Date: \(calendar.component(.day, from: date)).\(calendar.component(.month, from: date))
         
         App Version: \(appVersion)
-
+        
         Device
             Name: \(UIDevice.current.getModelFromAll())
             Identifier: \(UIDevice.current.identifier)
@@ -26,7 +26,7 @@ struct StringHandler {
             System Name: \(UIDevice.current.systemName)
             Location: \(TimeZone.current.identifier)
             Time Zone: \(TimeZone.current.abbreviation() ?? "null")
-
+        
         """
         if !additionalParameters.isEmpty {
             string.append("Additional parameters:")
@@ -75,22 +75,22 @@ struct StringHandler {
             result.append(item.formattedRawValue)
             let data: String = {
                 switch item {
-                    case .file:
-                        let fileFiltered: String = String(log.file.split(separator: "/").last ?? "")
-                        return getTabSpace(repeatCount: 2) + "  " + "\(fileFiltered); \(log.function): \(log.line)"
-                        
-                    case .message:
-                        var dataResult: String = ""
-                        let tabSpace = getTabSpace(repeatCount: 2) + "  "
-                        if let message = log.message {
-                            dataResult.append(tabSpace + "\(message)")
+                case .file:
+                    let fileFiltered: String = String(log.file.split(separator: "/").last ?? "")
+                    return getTabSpace(repeatCount: 2) + "  " + "\(fileFiltered); \(log.function): \(log.line)"
+                    
+                case .message:
+                    var dataResult: String = ""
+                    let tabSpace = getTabSpace(repeatCount: 2) + "  "
+                    if let message = log.message {
+                        dataResult.append(tabSpace + "\(message)")
+                    }
+                    if let parameters = log.parameters {
+                        for value in parameters {
+                            dataResult.append(tabSpace + "\(value.key): \(value.value ?? "nil")")
                         }
-                        if let parameters = log.parameters {
-                            for value in parameters {
-                                dataResult.append(tabSpace + "\(value.key): \(value.value ?? "nil")")
-                            }
-                        }
-                        return dataResult
+                    }
+                    return dataResult
                 }
             }()
             result.append(data)
@@ -110,15 +110,22 @@ fileprivate extension Calendar {
     func component(_ component: Calendar.Component, from date: Date) -> String {
         let valueInt: Int = self.component(component, from: date)
         switch component {
-            case .month, .day, .hour, .minute, .second:
-                var value: String = String(valueInt)
-                if value.count == 1 { value.insert("0", at: value.startIndex) }
-                return value
-            default:
-                return String(valueInt)
+        case .month, .day, .hour, .minute, .second:
+            var value: String = String(valueInt)
+            if value.count == 1 { value.insert("0", at: value.startIndex) }
+            return value
+        default:
+            return String(valueInt)
         }
     }
     
 }
 
-
+public extension Data {
+    var prettyPrintedJSONString: String? {
+        guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
+              let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+              let prettyPrintedString = String(data: data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) else { return nil }
+        return prettyPrintedString
+    }
+}

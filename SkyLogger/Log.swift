@@ -98,20 +98,20 @@ extension Log {
         
         private var rawValue: String {
             switch self {
-                case .file:
-                    return "File"
-                case .message:
-                    return "Message"
+            case .file:
+                return "File"
+            case .message:
+                return "Message"
             }
         }
         
         var formattedRawValue: String {
             let firstSymbol: String = {
                 switch self {
-                    case .file:
-                        return "📝"
-                    case .message:
-                        return "ℹ️"
+                case .file:
+                    return "📝"
+                case .message:
+                    return "ℹ️"
                 }
             }()
             return StringHandler.getTabSpace(repeatCount: 1) + firstSymbol + " " + self.rawValue
