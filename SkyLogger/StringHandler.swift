@@ -77,11 +77,11 @@ struct StringHandler {
                 switch item {
                     case .file:
                         let fileFiltered: String = String(log.file.split(separator: "/").last ?? "")
-                        return getTabSpace(repeatCount: 2) + "| " + "\(fileFiltered); \(log.function): \(log.line)"
+                        return getTabSpace(repeatCount: 2) + "  " + "\(fileFiltered); \(log.function): \(log.line)"
                         
                     case .message:
                         var dataResult: String = ""
-                        let tabSpace = getTabSpace(repeatCount: 2) + "| "
+                        let tabSpace = getTabSpace(repeatCount: 2) + "  "
                         if let message = log.message {
                             dataResult.append(tabSpace + "\(message)")
                         }
