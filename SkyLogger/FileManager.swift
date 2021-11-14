@@ -46,7 +46,7 @@ extension FileManager {
         guard let textFileURL = textFileURL else { return nil }
         let header: String = StringHandler.generateInfoHeaderString(appVersion: appVersion, additionalParameters: additionalParameters)
         write(header)
-        write(StringHandler.convertLogsToString(logs: logs))
+        write(StringHandler.convertLogsToString(logs))
         return textFileURL
     }
     

@@ -56,15 +56,15 @@ struct StringHandler {
         return result
     }
     
-    static func convertLogsToString(logs: [Log]) -> String {
+    static func convertLogsToString(_ logs: [Log]) -> String {
         var result: String = ""
         logs.forEach({
-            result.append(convertLogToString(log: $0))
+            result.append(convertLogToString($0))
         })
         return result
     }
     
-    static func convertLogToString(log: Log) -> String {
+    static func convertLogToString(_ log: Log) -> String {
         var result: String = "\n\n"
         
         result.append(generateLogKindFirstLine(kind: log.kind))
@@ -80,17 +80,12 @@ struct StringHandler {
                     case .message:
                         var dataResult: String = ""
                         let tabSpace = getTabSpace(repeatCount: 2) + "| "
-                        if let message = log.parameters {
-                            for value in message {
+                        if let message = log.message {
+                            dataResult.append(tabSpace + "\(message)")
+                        }
+                        if let parameters = log.parameters {
+                            for value in parameters {
                                 dataResult.append(tabSpace + "\(value.key): \(value.value ?? "nil")")
-                            }
-                        } else if let message = log.message {
-                            if message.count == 1, let messageFirst = message.first {
-                                dataResult.append(tabSpace + "\(messageFirst ?? "nil")")
-                            } else if message.count > 1 {
-                                for (index, value) in message.enumerated() {
-                                    dataResult.append(tabSpace + "Paramater \(index): \(value ?? "nil")")
-                                }
                             }
                         }
                         return dataResult

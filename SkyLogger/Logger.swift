@@ -20,18 +20,18 @@ import UIKit
 //    Logger.log(kind: kind, message: nil, parameters: parameters, file: file, function: function, line: line)
 //}
 
-class Logger {
+public class Logger {
     
     private static let singleton: Logger = .init()
     private static let divider: String = "\n    􀄌 "
     
-    var logs: [Log] = []
+    private var logs: [Log] = []
     
     private var appVersion: String = "unknown"
     private var additionalParameters: [Log.Parameter] = []
     
     static func print(_ text: String, file: String = #file, _ function: String = #function, _ line: Int = #line) {
-        print("SkyLogger Print. File: \(file); Function: \(function); Line: \(line); text: \(text)")
+        Swift.print("SkyLogger Print. File: \(file); Function: \(function); Line: \(line); text: \(text)")
     }
 }
 
@@ -47,7 +47,8 @@ extension Logger {
     }
     
     public static func log(_ log: Log, file: String = #file, _ function: String = #function, _ line: Int = #line) {
-        
+        Logger.singleton.logs.append(log)
+        Logger.print(StringHandler.convertLogToString(log))
     }
     
     public static func share(vc: UIViewController, tintColor: UIColor) {

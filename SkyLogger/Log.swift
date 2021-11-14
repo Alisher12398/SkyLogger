@@ -8,16 +8,25 @@
 
 import Foundation
 
-class Log {
+public class Log {
     
     let kind: Kind
-    let message: [Any?]?
+    let message: Any?
     let parameters: [Parameter]?
     let file: String
     let function: String
     let line: String
     
-    init(kind: Log.Kind, message: [Any?]? = nil, parameters: [Log.Parameter]?, file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    public init(kind: Log.Kind, message: Any? = nil, parameters: Log.Parameter..., file: String = #file, _ function: String = #function, _ line: Int = #line) {
+        self.kind = kind
+        self.message = message
+        self.parameters = parameters
+        self.file = file
+        self.function = function
+        self.line = String(line)
+    }
+    
+    public init(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter]?, file: String = #file, _ function: String = #function, _ line: Int = #line) {
         self.kind = kind
         self.message = message
         self.parameters = parameters
@@ -30,7 +39,7 @@ class Log {
 
 extension Log {
     
-    enum Kind {
+    public enum Kind {
         case print
         case api
         case system
@@ -68,11 +77,11 @@ extension Log {
         }
     }
     
-    class Parameter {
+    public class Parameter {
         let key: String
         let value: Any?
         
-        internal init(key: String, value: Any?) {
+        public init(key: String, value: Any?) {
             self.key = key
             self.value = value
         }
