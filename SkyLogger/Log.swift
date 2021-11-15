@@ -46,6 +46,21 @@ extension Log {
         case error
         case warning
         
+        var emoji: String {
+            switch self {
+            case .print:
+                return "⚪"
+            case .api:
+                return "🟢"
+            case .system:
+                return "🔵"
+            case .error:
+                return "🔴"
+            case .warning:
+                return "🟡"
+            }
+        }
+        
         var rawValue: String {
             switch self {
             case .print:
@@ -61,20 +76,7 @@ extension Log {
             }
         }
         
-        var emoji: String {
-            switch self {
-            case .print:
-                return "⚪"
-            case .api:
-                return "🟢"
-            case .system:
-                return "🔵"
-            case .error:
-                return "🔴"
-            case .warning:
-                return "🟡"
-            }
-        }
+        
     }
     
     public class Parameter {

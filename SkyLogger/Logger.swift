@@ -39,8 +39,16 @@ extension Logger {
         Swift.print(StringHandler.convertLogToString(log))
     }
     
+    public static func getTextFile() -> URL? {
+        return FileManager.shared.saveToTextFile(logs: Logger.singleton.logs, appVersion: Logger.singleton.appVersion, additionalParameters: Logger.singleton.additionalParameters)
+    }
+    
+    public static func convertLogsToString() -> String {
+        return StringHandler.convertLogsToString(Logger.singleton.logs)
+    }
+    
     public static func share(vc: UIViewController, tintColor: UIColor) {
-        guard let url = FileManager.shared.saveToTextFile(logs: Logger.singleton.logs, appVersion: Logger.singleton.appVersion, additionalParameters: Logger.singleton.additionalParameters) else { return }
+        guard let url = getTextFile() else { return }
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         activityVC.modalPresentationStyle = .popover
         activityVC.view.tintColor = tintColor
