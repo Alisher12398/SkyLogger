@@ -45,7 +45,7 @@ extension Log {
         case system
         case error
         case warning
-        case custom(key: String, emoji: String = "⚪")
+        case custom(key: String, emoji: String = Kind.print.emoji)
         
         var emoji: String {
             switch self {
