@@ -26,7 +26,7 @@ public class Log {
         self.line = String(line)
     }
     
-    public init(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter]?, file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    public init(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter]? = nil, file: String = #file, _ function: String = #function, _ line: Int = #line) {
         self.kind = kind
         self.message = message
         self.parameters = parameters
@@ -45,10 +45,11 @@ extension Log {
         case system
         case error
         case warning
+        case custom(key: String)
         
         var emoji: String {
             switch self {
-            case .print:
+            case .print, .custom:
                 return "⚪"
             case .api:
                 return "🟢"
@@ -73,6 +74,8 @@ extension Log {
                 return "Error"
             case .warning:
                 return "Warning"
+            case .custom(key: let key):
+                return "Custom. Key: \(key)"
             }
         }
         
