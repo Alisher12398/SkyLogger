@@ -45,11 +45,11 @@ extension Log {
         case system
         case error
         case warning
-        case custom(key: String)
+        case custom(key: String, emoji: String = "⚪")
         
         var emoji: String {
             switch self {
-            case .print, .custom:
+            case .print:
                 return "⚪"
             case .api:
                 return "🟢"
@@ -59,6 +59,8 @@ extension Log {
                 return "🔴"
             case .warning:
                 return "🟡"
+            case .custom(key: _, emoji: let emoji):
+                return emoji
             }
         }
         
