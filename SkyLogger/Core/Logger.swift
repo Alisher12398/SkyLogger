@@ -26,15 +26,16 @@ public class Logger {
 //MARK:- Public Methods
 extension Logger {
     
-    public static func setup(appVersion: String) {
+    public static func setup(appVersion: String, customization: Customization) {
         Logger.singleton.appVersion = appVersion
+        Customization.shared = customization
     }
     
     public static func setAdditionalParameters(_ parameters: [Log.Parameter]) {
         Logger.singleton.additionalParameters = parameters
     }
     
-    public static func log(_ log: Log, file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    public static func log(_ log: Log, file: String = #file, function: String = #function, line: Int = #line) {
         Logger.singleton.logs.append(log)
         Swift.print(StringHandler.convertLogToString(log))
     }
@@ -54,6 +55,11 @@ extension Logger {
         activityVC.view.tintColor = tintColor
         activityVC.popoverPresentationController?.sourceView = vc.view
         vc.navigationController?.present(activityVC, animated: true, completion: nil)
+    }
+    
+    public static func show(nc: UINavigationController) {
+        let vc = LogListViewController()
+        nc.present(vc, animated: true, completion: nil)
     }
     
 }

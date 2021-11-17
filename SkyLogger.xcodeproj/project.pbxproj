@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7458D9D827440F9600140F57 /* LogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D727440F9600140F57 /* LogListViewController.swift */; };
+		7458D9DA27440FA400140F57 /* LogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D927440FA400140F57 /* LogListView.swift */; };
+		7458D9DC2744100900140F57 /* LogListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9DB2744100900140F57 /* LogListPresenter.swift */; };
+		7458D9E1274411DB00140F57 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E0274411DB00140F57 /* BaseView.swift */; };
+		7458D9E42744121D00140F57 /* Customization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E32744121D00140F57 /* Customization.swift */; };
+		7458D9E72744141400140F57 /* LogKindCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E62744141400140F57 /* LogKindCollectionViewCell.swift */; };
 		7479080B27418EDE0071DE0F /* StringHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479080A27418EDE0071DE0F /* StringHandler.swift */; };
 		74CB1D342739BFA100EBD2A4 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB1D332739BFA100EBD2A4 /* FileManager.swift */; };
 		74F22642273983F400A08532 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F22641273983F400A08532 /* Log.swift */; };
@@ -17,6 +23,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7458D9D727440F9600140F57 /* LogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListViewController.swift; sourceTree = "<group>"; };
+		7458D9D927440FA400140F57 /* LogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListView.swift; sourceTree = "<group>"; };
+		7458D9DB2744100900140F57 /* LogListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListPresenter.swift; sourceTree = "<group>"; };
+		7458D9E0274411DB00140F57 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		7458D9E32744121D00140F57 /* Customization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customization.swift; sourceTree = "<group>"; };
+		7458D9E62744141400140F57 /* LogKindCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogKindCollectionViewCell.swift; sourceTree = "<group>"; };
 		7479080A27418EDE0071DE0F /* StringHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHandler.swift; sourceTree = "<group>"; };
 		74CB1D332739BFA100EBD2A4 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		74F22641273983F400A08532 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -39,6 +51,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7458D9D627440F6D00140F57 /* LogList */ = {
+			isa = PBXGroup;
+			children = (
+				7458D9E5274413FF00140F57 /* Views */,
+				7458D9D727440F9600140F57 /* LogListViewController.swift */,
+				7458D9DB2744100900140F57 /* LogListPresenter.swift */,
+				7458D9D927440FA400140F57 /* LogListView.swift */,
+			);
+			path = LogList;
+			sourceTree = "<group>";
+		};
+		7458D9DD2744101400140F57 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				74F50ECF27383BFE0093E44F /* Device.swift */,
+				74F50ECD27383BB60093E44F /* UIDevice + Extension.swift */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		7458D9DE2744102100140F57 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				74CB1D332739BFA100EBD2A4 /* FileManager.swift */,
+				7479080A27418EDE0071DE0F /* StringHandler.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		7458D9DF274411D100140F57 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				74F22641273983F400A08532 /* Log.swift */,
+				7458D9E0274411DB00140F57 /* BaseView.swift */,
+				7458D9E32744121D00140F57 /* Customization.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7458D9E2274411EB00140F57 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				74F50ECB27383B930093E44F /* Logger.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		7458D9E5274413FF00140F57 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7458D9E62744141400140F57 /* LogKindCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		74F50EB4273824520093E44F = {
 			isa = PBXGroup;
 			children = (
@@ -58,14 +125,13 @@
 		74F50EC0273824520093E44F /* SkyLogger */ = {
 			isa = PBXGroup;
 			children = (
-				74F50ECF27383BFE0093E44F /* Device.swift */,
-				74F50ECD27383BB60093E44F /* UIDevice + Extension.swift */,
-				74F50ECB27383B930093E44F /* Logger.swift */,
-				74F22641273983F400A08532 /* Log.swift */,
+				7458D9E2274411EB00140F57 /* Core */,
+				7458D9DF274411D100140F57 /* Models */,
+				7458D9D627440F6D00140F57 /* LogList */,
+				7458D9DE2744102100140F57 /* Utils */,
+				7458D9DD2744101400140F57 /* Device */,
 				74F50EC1273824520093E44F /* SkyLogger.h */,
 				74F50EC2273824520093E44F /* Info.plist */,
-				74CB1D332739BFA100EBD2A4 /* FileManager.swift */,
-				7479080A27418EDE0071DE0F /* StringHandler.swift */,
 			);
 			path = SkyLogger;
 			sourceTree = "<group>";
@@ -152,8 +218,14 @@
 				74CB1D342739BFA100EBD2A4 /* FileManager.swift in Sources */,
 				7479080B27418EDE0071DE0F /* StringHandler.swift in Sources */,
 				74F50ED027383BFE0093E44F /* Device.swift in Sources */,
+				7458D9DC2744100900140F57 /* LogListPresenter.swift in Sources */,
 				74F50ECC27383B930093E44F /* Logger.swift in Sources */,
 				74F22642273983F400A08532 /* Log.swift in Sources */,
+				7458D9E42744121D00140F57 /* Customization.swift in Sources */,
+				7458D9DA27440FA400140F57 /* LogListView.swift in Sources */,
+				7458D9E1274411DB00140F57 /* BaseView.swift in Sources */,
+				7458D9E72744141400140F57 /* LogKindCollectionViewCell.swift in Sources */,
+				7458D9D827440F9600140F57 /* LogListViewController.swift in Sources */,
 				74F50ECE27383BB60093E44F /* UIDevice + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
