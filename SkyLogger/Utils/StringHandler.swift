@@ -81,15 +81,25 @@ struct StringHandler {
                     
                 case .message:
                     var dataResult: String = ""
-                    let tabSpace = getTabSpace(repeatCount: 2) + "  "
                     if let message = log.message {
-                        dataResult.append(tabSpace + "\(message)")
+                        dataResult.append(getMessageLine(key: "Message", value: message))
                     }
+                    
                     if let parameters = log.parameters {
                         for value in parameters {
-                            dataResult.append(tabSpace + "\(value.key): \(value.value ?? "nil")")
+                            dataResult.append(getMessageLine(key: value.key, value: value.value))
                         }
                     }
+                    
+                    switch log.kind {
+                    case .api(data: let data):
+                        SkyLogger.ResponseData.Key.allCases.forEach({
+                            dataResult.append(getMessageLine(key: $0.rawValue, value: $0.getValue(data: data)))
+                        })
+                    default:
+                        ()
+                    }
+                    
                     return dataResult
                 }
             }()
@@ -103,6 +113,10 @@ struct StringHandler {
         return (newLine ? "\n|" : "") + String(repeating: "    ", count: repeatCount)
     }
     
+    private static func getMessageLine(key: String, value: Any?) -> String {
+        let tabSpace = getTabSpace(repeatCount: 2) + "  "
+        return tabSpace + "\(key): \(value ?? "nil")"
+    }
 }
 
 fileprivate extension Calendar {

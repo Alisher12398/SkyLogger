@@ -17,7 +17,7 @@ public class Log {
     let function: String
     let line: String
     
-    public init(kind: Log.Kind, message: Any? = nil, parameters: Log.Parameter..., file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    public init(kind: Log.Kind, message: Any? = nil, parameters: Log.Parameter..., file: String = #file, function: String = #function, _ line: Int = #line) {
         self.kind = kind
         self.message = message
         self.parameters = parameters
@@ -26,7 +26,7 @@ public class Log {
         self.line = String(line)
     }
     
-    public init(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter]? = nil, file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    public init(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter]? = nil, file: String = #file, function: String = #function, line: Int = #line) {
         self.kind = kind
         self.message = message
         self.parameters = parameters
@@ -41,7 +41,7 @@ extension Log {
     
     public enum Kind {
         case print
-        case api
+        case api(data: ResponseData)
         case system
         case error
         case warning
@@ -108,7 +108,7 @@ extension Log {
             case .file:
                 return "File"
             case .message:
-                return "Message"
+                return "Info"
             }
         }
         
