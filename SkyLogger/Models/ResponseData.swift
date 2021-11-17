@@ -24,6 +24,7 @@ public class ResponseData {
         }
         return result
     }
+    let method: String
     let statusCode: Int?
     let headers: [String: String]?
     let urlParameters: [String: Any]?
@@ -35,6 +36,7 @@ public class ResponseData {
         case baseURL
         case urlPath
         case url
+        case method
         case statusCode
         case headers
         case urlParameters
@@ -50,6 +52,8 @@ public class ResponseData {
                 return data.urlPath
             case .url:
                 return data.url
+            case .method:
+                return data.method
             case .statusCode:
                 return data.statusCode
             case .headers:
@@ -70,9 +74,10 @@ public class ResponseData {
         }
     }
     
-    public init(baseURL: URL, urlPath: String, statusCode: Int?, headers: [String : String]?, urlParameters: [String : Any]?, bodyParameters: [String : Any]?, responseBody: String?, error: Error?) {
+    public init(baseURL: URL, urlPath: String, method: String, statusCode: Int?, headers: [String : String]?, urlParameters: [String : Any]?, bodyParameters: [String : Any]?, responseBody: String?, error: Error?) {
         self.baseURL = baseURL
         self.urlPath = urlPath
+        self.method = method
         self.statusCode = statusCode
         self.headers = headers
         self.urlParameters = urlParameters
