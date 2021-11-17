@@ -39,7 +39,57 @@ public class Log {
 
 extension Log {
     
-    public enum Kind {
+    public enum Kind: CaseIterable, Equatable {
+        
+        public static func == (lhs: Log.Kind, rhs: Log.Kind) -> Bool {
+            switch lhs {
+            case .print:
+                switch rhs {
+                case .print:
+                    return true
+                default:
+                    return false
+                }
+            case .api:
+                switch rhs {
+                case .api:
+                    return true
+                default:
+                    return false
+                }
+            case .system:
+                switch rhs {
+                case .system:
+                    return true
+                default:
+                    return false
+                }
+            case .error:
+                switch rhs {
+                case .error:
+                    return true
+                default:
+                    return false
+                }
+            case .warning:
+                switch rhs {
+                case .warning:
+                    return true
+                default:
+                    return false
+                }
+            case .custom:
+                switch rhs {
+                case .custom:
+                    return true
+                default:
+                    return false
+                }
+            }
+        }
+        
+        public static var allCases: [Log.Kind] = [.print, .api(data: .init()), .system, .error, .warning, .custom(key: "")]
+        
         case print
         case api(data: ResponseData)
         case system
@@ -64,7 +114,7 @@ extension Log {
             }
         }
         
-        var rawValue: String {
+        var title: String {
             switch self {
             case .print:
                 return "Print"
@@ -78,6 +128,23 @@ extension Log {
                 return "Warning"
             case .custom(key: let key):
                 return "Custom. Key: \(key)"
+            }
+        }
+        
+        var titleShort: String {
+            switch self {
+            case .print:
+                return "Print"
+            case .api:
+                return "Api"
+            case .system:
+                return "System"
+            case .error:
+                return "Error"
+            case .warning:
+                return "Warning"
+            case .custom:
+                return "Custom"
             }
         }
         

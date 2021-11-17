@@ -10,13 +10,18 @@ import UIKit
 class LogListView: BaseView {
     
     lazy var logKindCollectionView: UICollectionView = {
-        let layout = UICollectionViewLayout.init()
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 16
+        layout.minimumLineSpacing = 16
+        layout.scrollDirection = .horizontal
         let cv = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
         cv.showsVerticalScrollIndicator = false
+        cv.showsHorizontalScrollIndicator = false
         cv.bounces = true
         cv.alwaysBounceVertical = false
         cv.alwaysBounceHorizontal = true
         cv.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        cv.backgroundColor = .clear
         return cv
     }()
     
@@ -41,12 +46,23 @@ class LogListView: BaseView {
 extension LogListView: BaseViewProtocol {
     
     func configure() {
+        backgroundColor = UIColor.lightGray
         addSubview(logKindCollectionView)
         addSubview(listTableView)
     }
     
     func makeConstraints() {
+        logKindCollectionView.snp.makeConstraints({
+            $0.left.right.equalToSuperview()
+            $0.top.equalTo(safeArea.top)
+            $0.height.equalTo(LogKindCollectionViewCell.height)
+        })
         
+        listTableView.snp.makeConstraints({
+            $0.top.equalTo(logKindCollectionView.snp.bottom)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        })
     }
     
 }

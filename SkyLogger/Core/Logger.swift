@@ -29,6 +29,8 @@ extension Logger {
     public static func setup(appVersion: String, customization: Customization) {
         Logger.singleton.appVersion = appVersion
         Customization.shared = customization
+        UINavigationBar.appearance().tintColor = customization.secondaryColor
+        UIApplication.shared.statusBarUIView?.backgroundColor = UIColor.clear
     }
     
     public static func setAdditionalParameters(_ parameters: [Log.Parameter]) {
@@ -57,9 +59,13 @@ extension Logger {
         vc.navigationController?.present(activityVC, animated: true, completion: nil)
     }
     
-    public static func show(nc: UINavigationController) {
+    public static func show(nc: UINavigationController?) {
         let vc = LogListViewController()
-        nc.present(vc, animated: true, completion: nil)
+        nc?.pushViewController(vc, animated: true)
+    }
+    
+    static func getLogs() -> [Log] {
+        return Logger.singleton.logs
     }
     
 }

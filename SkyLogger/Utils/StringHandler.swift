@@ -40,7 +40,7 @@ struct StringHandler {
     
     static func generateLogKindFirstLine(kind: Log.Kind) -> String {
         var result: String = ""
-        let kindTitle: String = "\(kind.emoji) \(kind.rawValue)"
+        let kindTitle: String = "\(kind.emoji) \(kind.title)"
         result.append("| SkyLogger: ")
         result.append(kindTitle)
         let date = Date()

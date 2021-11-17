@@ -10,29 +10,49 @@ import UIKit
 class LogKindCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier: String = "LogKindCollectionViewCell"
-    static var height: CGFloat = 0
-    static var offset: CGFloat = 12
+    static var height: CGFloat = 51
+    static var offset: CGFloat = 16
+    static let labelFont: UIFont = .regular(16)
     
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        configure()
-//    }
+    static func getSize(kind: Log.Kind) -> CGSize {
+        return .init(width: (kind.emoji + " " + kind.titleShort).width(font: labelFont), height: height)
+    }
     
+    lazy var label: UILabel = {
+        let l = UILabel()
+        l.textColor = .black
+        l.font = LogKindCollectionViewCell.labelFont
+        return l
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData() {
-        
+    func setData(title: String, isSelected: Bool) {
+        label.text = title
+        label.textColor = isSelected ? Customization.shared.tintColor : .black
+        makeConstraints()
     }
     
     private func configure() {
         
-        makeConstraints()
     }
     
     private func makeConstraints() {
+        label.snp.removeConstraints()
+        label.removeFromSuperview()
         
+        addSubview(label)
+        
+        label.snp.makeConstraints({
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        })
     }
     
 }

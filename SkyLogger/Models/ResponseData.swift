@@ -9,10 +9,10 @@ import Foundation
 
 public class ResponseData {
     
-    let baseURL: URL
+    let baseURL: URL?
     let urlPath: String
     var url: String {
-        var result: String = baseURL.absoluteString + urlPath
+        var result: String = baseURL?.absoluteString ?? "" + urlPath
         if let urlParameters = urlParameters, !urlParameters.isEmpty {
             result.append("?")
             for (index, item) in urlParameters.enumerated() {
@@ -72,6 +72,18 @@ public class ResponseData {
                 return data.error
             }
         }
+    }
+    
+    public init() {
+        self.baseURL = nil
+        self.urlPath = ""
+        self.method = ""
+        self.statusCode = 0
+        self.headers = nil
+        self.urlParameters = nil
+        self.bodyParameters = nil
+        self.responseBody = nil
+        self.error = nil
     }
     
     public init(baseURL: URL, urlPath: String, method: String, statusCode: Int?, headers: [String : String]?, urlParameters: [String : Any]?, bodyParameters: [String : Any]?, responseBody: String?, error: Error?) {
