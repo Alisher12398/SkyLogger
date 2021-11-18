@@ -38,12 +38,11 @@ struct StringHandler {
         return string
     }
     
-    static func generateLogKindFirstLine(kind: Log.Kind) -> String {
+    static func generateLogKindFirstLine(kind: Log.Kind, date: Date) -> String {
         var result: String = ""
         let kindTitle: String = "\(kind.emoji) \(kind.title)"
         result.append("| SkyLogger: ")
         result.append(kindTitle)
-        let date = Date()
         let calendar = Calendar.current
         result.append(getTabSpace(repeatCount: 1, newLine: false))
         result.append("[")
@@ -69,7 +68,7 @@ struct StringHandler {
     static func convertLogToString(_ log: Log) -> String {
         var result: String = "\n"
         
-        result.append(generateLogKindFirstLine(kind: log.kind))
+        result.append(generateLogKindFirstLine(kind: log.kind, date: log.date))
         
         Log.LineKind.allCases.forEach({ item in
             result.append(item.formattedRawValue)

@@ -16,6 +16,7 @@ public class Log {
     let file: String
     let function: String
     let line: String
+    let date: Date
     
     public init(kind: Log.Kind, message: Any? = nil, parameters: Log.Parameter..., file: String = #file, function: String = #function, _ line: Int = #line) {
         self.kind = kind
@@ -24,6 +25,7 @@ public class Log {
         self.file = file
         self.function = function
         self.line = String(line)
+        self.date = Date()
     }
     
     public init(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter]? = nil, file: String = #file, function: String = #function, line: Int = #line) {
@@ -33,6 +35,7 @@ public class Log {
         self.file = file
         self.function = function
         self.line = String(line)
+        self.date = Date()
     }
     
 }
