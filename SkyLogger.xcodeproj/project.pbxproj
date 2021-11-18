@@ -21,7 +21,6 @@
 		74C0E3612745960800F54583 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3602745960800F54583 /* UIView + Extension.swift */; };
 		74C0E3632745983E00F54583 /* UIApplication + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3622745983E00F54583 /* UIApplication + Extension.swift */; };
 		74C0E3652745A19800F54583 /* LogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3642745A19800F54583 /* LogTableViewCell.swift */; };
-		74C0E36D2745A34800F54583 /* Hue in Frameworks */ = {isa = PBXBuildFile; productRef = 74C0E36C2745A34800F54583 /* Hue */; };
 		74C0E36F2745A3AF00F54583 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E36E2745A3AF00F54583 /* UIColor + Extension.swift */; };
 		74CB1D342739BFA100EBD2A4 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB1D332739BFA100EBD2A4 /* FileManager.swift */; };
 		74EE13F627454EF8009030E1 /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EE13F527454EF8009030E1 /* ResponseData.swift */; };
@@ -65,7 +64,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				74C0E3472745926000F54583 /* SnapKit in Frameworks */,
-				74C0E36D2745A34800F54583 /* Hue in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,7 +211,6 @@
 			name = SkyLogger;
 			packageProductDependencies = (
 				74C0E3462745926000F54583 /* SnapKit */,
-				74C0E36C2745A34800F54583 /* Hue */,
 			);
 			productName = SkyLogger;
 			productReference = 74F50EBE273824520093E44F /* SkyLogger.framework */;
@@ -538,11 +535,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 74C0E3452745926000F54583 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		74C0E36C2745A34800F54583 /* Hue */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 74C0E36B2745A34800F54583 /* XCRemoteSwiftPackageReference "Hue" */;
-			productName = Hue;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
