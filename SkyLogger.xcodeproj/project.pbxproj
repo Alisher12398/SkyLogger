@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		742FD733274911DB00989CA2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 742FD732274911DB00989CA2 /* SnapKit */; };
 		7458D9D827440F9600140F57 /* LogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D727440F9600140F57 /* LogListViewController.swift */; };
 		7458D9DA27440FA400140F57 /* LogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D927440FA400140F57 /* LogListView.swift */; };
 		7458D9DC2744100900140F57 /* LogListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9DB2744100900140F57 /* LogListPresenter.swift */; };
@@ -17,7 +18,6 @@
 		74C0E33F2745891B00F54583 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E33E2745891B00F54583 /* UIFont + Extension.swift */; };
 		74C0E342274589D500F54583 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E341274589D500F54583 /* String + Extension.swift */; };
 		74C0E34427458E7E00F54583 /* Collection + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E34327458E7E00F54583 /* Collection + Extension.swift */; };
-		74C0E3472745926000F54583 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 74C0E3462745926000F54583 /* SnapKit */; };
 		74C0E3612745960800F54583 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3602745960800F54583 /* UIView + Extension.swift */; };
 		74C0E3632745983E00F54583 /* UIApplication + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3622745983E00F54583 /* UIApplication + Extension.swift */; };
 		74C0E3652745A19800F54583 /* LogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3642745A19800F54583 /* LogTableViewCell.swift */; };
@@ -63,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74C0E3472745926000F54583 /* SnapKit in Frameworks */,
+				742FD733274911DB00989CA2 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +210,7 @@
 			);
 			name = SkyLogger;
 			packageProductDependencies = (
-				74C0E3462745926000F54583 /* SnapKit */,
+				742FD732274911DB00989CA2 /* SnapKit */,
 			);
 			productName = SkyLogger;
 			productReference = 74F50EBE273824520093E44F /* SkyLogger.framework */;
@@ -240,8 +240,7 @@
 			);
 			mainGroup = 74F50EB4273824520093E44F;
 			packageReferences = (
-				74C0E3452745926000F54583 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				74C0E36B2745A34800F54583 /* XCRemoteSwiftPackageReference "Hue" */,
+				742FD731274911DB00989CA2 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 74F50EBF273824520093E44F /* Products */;
 			projectDirPath = "";
@@ -512,17 +511,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		74C0E3452745926000F54583 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		742FD731274911DB00989CA2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
-		74C0E36B2745A34800F54583 /* XCRemoteSwiftPackageReference "Hue" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/zenangst/Hue";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.1;
@@ -531,9 +522,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		74C0E3462745926000F54583 /* SnapKit */ = {
+		742FD732274911DB00989CA2 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 74C0E3452745926000F54583 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 742FD731274911DB00989CA2 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
