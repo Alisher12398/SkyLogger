@@ -6,7 +6,7 @@
 #  To see working Podspecs in the CocoaPods repo see https://github.com/CocoaPods/Specs/
 #
 
-Pod::Spec.new do |spec|
+Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -15,9 +15,12 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "SkyLogger"
-  spec.version      = "0.1.1"
-  spec.summary      = "Logger for iOS Apps using Swift."
+  s.platform = :ios
+  s.ios.deployment_target = '11.0'
+  s.name         = "SkyLogger"
+  s.version      = "0.1.1"
+  s.summary      = "Logger for iOS Apps using Swift."
+  s.requires_arc = true
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -28,7 +31,7 @@ Pod::Spec.new do |spec|
   Logger for iOS Apps using Swift.
                    DESC
 
-  spec.homepage     = "https://github.com/Alisher12398/SkyLogger"
+  s.homepage     = "https://github.com/Alisher12398/SkyLogger"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -39,7 +42,7 @@ Pod::Spec.new do |spec|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  spec.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+  s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   # spec.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
@@ -53,10 +56,7 @@ Pod::Spec.new do |spec|
   #  profile URL.
   #
 
-  spec.author             = { "Alisher Khalykbayev" => "Alisher12398@gmail.com" }
-  # Or just: spec.author    = "Alisher Khalykbayev"
-  # spec.authors            = { "Alisher Khalykbayev" => "Alisher12398@gmail.com" }
-  # spec.social_media_url   = "https://twitter.com/Alisher Khalykbayev"
+  s.author             = { "Alisher Khalykbayev" => "alisher.khalykbayev@gmail.com" }
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -80,7 +80,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/Alisher12398/SkyLogger.git", :tag => "#{spec.version}" }
+  s.source       = { :git => "https://github.com/Alisher12398/SkyLogger.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -91,8 +91,9 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Classes", "Classes/**/*.{h,m}"
-  spec.exclude_files = "Classes/Exclude"
+  s.source_files  = "Classes", "Classes/**/*.{h,m}"
+  s.source_files = "SkyLogger/**/*.{swift}"
+  s.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
 
@@ -106,7 +107,7 @@ Pod::Spec.new do |spec|
   #
 
   # spec.resource  = "icon.png"
-  # spec.resources = "Resources/*.png"
+  s.resources = "SkyLogger/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"
 
   # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
@@ -117,8 +118,8 @@ Pod::Spec.new do |spec|
   #  the lib prefix of their name.
   #
 
-  # spec.framework  = "SomeFramework"
-  # spec.frameworks = "SomeFramework", "AnotherFramework"
+  s.framework  = "UIKit"
+  s.dependency = 'SnapKit', '~> 5.0.1'
 
   # spec.library   = "iconv"
   # spec.libraries = "iconv", "xml2"
