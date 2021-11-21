@@ -107,7 +107,7 @@ Pod::Spec.new do |s|
   #
 
   # spec.resource  = "icon.png"
-  s.resources = "SkyLogger/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"
+  # s.resources = "SkyLogger/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"
 
   # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
