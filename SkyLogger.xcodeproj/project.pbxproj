@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		742FD733274911DB00989CA2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 742FD732274911DB00989CA2 /* SnapKit */; };
 		7458D9D827440F9600140F57 /* LogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D727440F9600140F57 /* LogListViewController.swift */; };
 		7458D9DA27440FA400140F57 /* LogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D927440FA400140F57 /* LogListView.swift */; };
 		7458D9DC2744100900140F57 /* LogListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9DB2744100900140F57 /* LogListPresenter.swift */; };
@@ -29,9 +28,12 @@
 		74F50ECC27383B930093E44F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F50ECB27383B930093E44F /* Logger.swift */; };
 		74F50ECE27383BB60093E44F /* UIDevice + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F50ECD27383BB60093E44F /* UIDevice + Extension.swift */; };
 		74F50ED027383BFE0093E44F /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F50ECF27383BFE0093E44F /* Device.swift */; };
+		7D86BCCE37B948E6A025A1E8 /* libPods-SkyLogger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16352AEDEAB8A9F117D191F7 /* libPods-SkyLogger.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16352AEDEAB8A9F117D191F7 /* libPods-SkyLogger.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SkyLogger.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		448EAA7612CC455D2C06801D /* Pods-SkyLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyLogger.debug.xcconfig"; path = "Target Support Files/Pods-SkyLogger/Pods-SkyLogger.debug.xcconfig"; sourceTree = "<group>"; };
 		7458D9D727440F9600140F57 /* LogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListViewController.swift; sourceTree = "<group>"; };
 		7458D9D927440FA400140F57 /* LogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListView.swift; sourceTree = "<group>"; };
 		7458D9DB2744100900140F57 /* LogListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListPresenter.swift; sourceTree = "<group>"; };
@@ -45,7 +47,6 @@
 		74C0E3602745960800F54583 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 		74C0E3622745983E00F54583 /* UIApplication + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication + Extension.swift"; sourceTree = "<group>"; };
 		74C0E3642745A19800F54583 /* LogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewCell.swift; sourceTree = "<group>"; };
-		74C0E3672745A30900F54583 /* Hue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Hue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C0E36E2745A3AF00F54583 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		74CB1D332739BFA100EBD2A4 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		74EE13F527454EF8009030E1 /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
@@ -56,6 +57,7 @@
 		74F50ECB27383B930093E44F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		74F50ECD27383BB60093E44F /* UIDevice + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice + Extension.swift"; sourceTree = "<group>"; };
 		74F50ECF27383BFE0093E44F /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		7C92B1B3FF1701BE24F9E229 /* Pods-SkyLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyLogger.release.xcconfig"; path = "Target Support Files/Pods-SkyLogger/Pods-SkyLogger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,13 +65,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				742FD733274911DB00989CA2 /* SnapKit in Frameworks */,
+				7D86BCCE37B948E6A025A1E8 /* libPods-SkyLogger.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4996094CC4A88832CBF3BE65 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				448EAA7612CC455D2C06801D /* Pods-SkyLogger.debug.xcconfig */,
+				7C92B1B3FF1701BE24F9E229 /* Pods-SkyLogger.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7458D9D627440F6D00140F57 /* LogList */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,7 +155,7 @@
 		74C0E3662745A30900F54583 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				74C0E3672745A30900F54583 /* Hue.framework */,
+				16352AEDEAB8A9F117D191F7 /* libPods-SkyLogger.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -154,6 +166,7 @@
 				74F50EC0273824520093E44F /* SkyLogger */,
 				74F50EBF273824520093E44F /* Products */,
 				74C0E3662745A30900F54583 /* Frameworks */,
+				4996094CC4A88832CBF3BE65 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,6 +211,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74F50EC6273824520093E44F /* Build configuration list for PBXNativeTarget "SkyLogger" */;
 			buildPhases = (
+				0F20EE9BA7AD8B9FAC16E26E /* [CP] Check Pods Manifest.lock */,
 				74F50EB9273824520093E44F /* Headers */,
 				74F50EBA273824520093E44F /* Sources */,
 				74F50EBB273824520093E44F /* Frameworks */,
@@ -209,9 +223,6 @@
 			dependencies = (
 			);
 			name = SkyLogger;
-			packageProductDependencies = (
-				742FD732274911DB00989CA2 /* SnapKit */,
-			);
 			productName = SkyLogger;
 			productReference = 74F50EBE273824520093E44F /* SkyLogger.framework */;
 			productType = "com.apple.product-type.framework";
@@ -239,9 +250,6 @@
 				Base,
 			);
 			mainGroup = 74F50EB4273824520093E44F;
-			packageReferences = (
-				742FD731274911DB00989CA2 /* XCRemoteSwiftPackageReference "SnapKit" */,
-			);
 			productRefGroup = 74F50EBF273824520093E44F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -262,6 +270,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0F20EE9BA7AD8B9FAC16E26E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SkyLogger-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		74729A79274699E500A85B07 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -436,6 +466,7 @@
 		};
 		74F50EC7273824520093E44F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 448EAA7612CC455D2C06801D /* Pods-SkyLogger.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -463,6 +494,7 @@
 		};
 		74F50EC8273824520093E44F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C92B1B3FF1701BE24F9E229 /* Pods-SkyLogger.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -509,25 +541,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		742FD731274911DB00989CA2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		742FD732274911DB00989CA2 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 742FD731274911DB00989CA2 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 74F50EB5273824520093E44F /* Project object */;
 }
