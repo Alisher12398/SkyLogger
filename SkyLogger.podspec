@@ -119,7 +119,7 @@ Pod::Spec.new do |s|
   #
 
   s.framework  = "UIKit"
-  s.dependency = 'SnapKit', '~> 5.0.1'
+  s.dependency 'SnapKit', '~> 5.0.1'
 
   # spec.library   = "iconv"
   # spec.libraries = "iconv", "xml2"
