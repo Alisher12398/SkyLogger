@@ -22,18 +22,4 @@ extension UIView {
         #endif
     }
 
-    func reAddSubview(_ view: UIView) {
-        view.snp.removeConstraints()
-        view.removeFromSuperview()
-        self.addSubview(view)
-    }
-    
-    func reAddSubviews(_ views: [UIView]) {
-        views.forEach({
-            $0.snp.removeConstraints()
-            $0.removeFromSuperview()
-            self.addSubview($0)
-        })
-    }
-    
 }

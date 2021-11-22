@@ -27,7 +27,6 @@ class LogListView: BaseView {
     
     lazy var listTableView: UITableView = {
         let tv = UITableView.init(frame: .zero, style: .plain)
-        tv.separatorStyle = .none
         return tv
     }()
     

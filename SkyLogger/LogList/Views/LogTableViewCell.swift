@@ -25,7 +25,7 @@ class LogTableViewCell: UITableViewCell {
     
     lazy var emojiLabel: UILabel = {
         let l = UILabel()
-        l.font = .regular(12)
+        l.font = .regular(14)
         l.textAlignment = .center
         return l
     }()
@@ -66,29 +66,6 @@ class LogTableViewCell: UITableViewCell {
         l.textAlignment = .left
         return l
     }()
-    
-    lazy var countNumberLabel: UILabel = {
-        let l = UILabel()
-        l.font = .regular(8)
-        l.textAlignment = .left
-        l.textColor = UIColor(hex: "#AFAFAF")
-        return l
-    }()
-    
-    lazy var dateLabel: UILabel = {
-        let l = UILabel()
-        l.font = .regular(8)
-        l.textAlignment = .right
-        l.textColor = UIColor(hex: "#AFAFAF")
-        return l
-    }()
-    
-    lazy var detailButton: UIButton = {
-        let b = UIButton()
-        b.setImage(UIImage(named: "outline_arrow_forward_ios_black_24pt")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        b.tintColor = UIColor(hex: "#AFAFAF")
-        return b
-    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -99,11 +76,10 @@ class LogTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(log: Log, number: Int, allCountNumber: Int) {
+    func setData(log: Log) {
         emojiLabel.text = log.kind.emoji
-        fileRightLabel.text = StringHandler.getFileLine(log: log, haveSpace: false)
-        
-        var parameters = log.parameters ?? []
+        let fileFiltered: String = String(log.file.split(separator: "/").last ?? "")
+        fileRightLabel.text = "\(fileFiltered); \(log.function): \(log.line)"
         
         let infoRightTopLabelText: String? = {
             switch log.kind {
@@ -114,9 +90,6 @@ class LogTableViewCell: UITableViewCell {
             default:
                 if let message = log.message {
                     return "Message: " + String(describing: message)
-                } else if let parameter = parameters.first {
-                    parameters.removeFirst()
-                    return parameter.key + ": " + String(describing: parameter.value)
                 } else {
                     return nil
                 }
@@ -127,11 +100,7 @@ class LogTableViewCell: UITableViewCell {
         let infoRightBottomLabelText: String? = {
             switch log.kind {
             case .api(data: let data):
-                if let statusCode = data.statusCode {
-                    return String(describing: statusCode)
-                } else {
-                    return nil
-                }
+                return String(describing: data.statusCode)
             case .custom:
                 if let message = log.message {
                     return "Message: " + String(describing: message)
@@ -152,102 +121,34 @@ class LogTableViewCell: UITableViewCell {
         }()
         infoRightBottomLabel.text = infoRightBottomLabelText
         
-        countNumberLabel.text = String(number) + "/" + String(allCountNumber)
-        dateLabel.text = StringHandler.getDateString(log.date)
-        
         makeConstraints()
     }
     
     private func configure() {
         selectionStyle = .none
-        fileLeftLabel.text = "📝"
-        infoLeftLabel.text = "ℹ️"
+        fileLeftLabel.text = "📝 File"
+        infoLeftLabel.text = "ℹ️ Info"
     }
     
     private func makeConstraints() {
-        reAddSubview(cellView)
-        cellView.reAddSubviews([
-            emojiLabel,
-            fileLeftLabel,
-            infoLeftLabel,
-            fileRightLabel,
-            infoRightTopLabel,
-            infoRightBottomLabel,
-            countNumberLabel,
-            fileRightLabel,
-            dateLabel,
-            detailButton
-        ])
+        cellView.snp.removeConstraints()
+        cellView.removeFromSuperview()
+        emojiLabel.snp.removeConstraints()
+        emojiLabel.removeFromSuperview()
         
+        addSubview(cellView)
         cellView.snp.makeConstraints({
             $0.left.right.equalToSuperview().inset(16)
             $0.centerY.equalToSuperview()
             $0.height.equalTo(LogTableViewCell.cellViewHeight)
         })
         
+        cellView.addSubview(emojiLabel)
         emojiLabel.snp.makeConstraints({
             $0.left.equalToSuperview().offset(8)
             $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(18)
         })
         
-        fileLeftLabel.snp.makeConstraints({
-            $0.left.equalTo(emojiLabel.snp.right).offset(10)
-            $0.centerY.equalTo(fileRightLabel.snp.centerY)
-            $0.width.equalTo(17)
-            $0.height.equalTo(17)
-        })
-        
-        fileRightLabel.addLeftVerticalLine()
-        fileRightLabel.snp.makeConstraints({
-            $0.left.equalTo(fileLeftLabel.snp.right).offset(17)
-            $0.right.equalToSuperview().inset(8)
-            $0.height.lessThanOrEqualTo(34)
-            $0.top.equalToSuperview().offset(8)
-        })
-        
-        infoLeftLabel.snp.makeConstraints({
-            $0.left.equalTo(fileLeftLabel.snp.left)
-            $0.centerY.equalTo(infoRightTopLabel.snp.centerY)
-            $0.width.equalTo(fileLeftLabel.snp.width)
-            $0.height.equalTo(fileLeftLabel.snp.height)
-        })
-        
-        infoRightTopLabel.addLeftVerticalLine()
-        infoRightTopLabel.snp.makeConstraints({
-            $0.left.equalTo(fileRightLabel.snp.left)
-            $0.right.equalTo(detailButton.snp.left).inset(16)
-            $0.height.lessThanOrEqualTo(34)
-            $0.top.equalTo(fileRightLabel.snp.bottom).offset(10)
-        })
-
-        infoRightBottomLabel.addLeftVerticalLine()
-        infoRightBottomLabel.snp.makeConstraints({
-            $0.left.equalTo(fileRightLabel.snp.left)
-            $0.right.equalTo(dateLabel.snp.left).inset(16)
-            $0.height.equalTo(16)
-            $0.bottom.equalToSuperview().offset(-8)
-        })
-        
-        detailButton.snp.makeConstraints({
-            $0.right.equalToSuperview().inset(8)
-            $0.centerY.equalToSuperview()
-            $0.width.equalTo(20)
-        })
-        
-        countNumberLabel.snp.makeConstraints({
-            $0.left.equalToSuperview().offset(8)
-            $0.right.equalTo(fileLeftLabel.snp.right)
-            $0.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(9)
-        })
-        
-        dateLabel.snp.makeConstraints({
-            $0.right.equalToSuperview().inset(8)
-            $0.bottom.equalToSuperview().inset(8)
-            $0.width.equalTo(65)
-            $0.height.equalTo(9)
-        })
     }
 
 }
