@@ -43,17 +43,7 @@ struct StringHandler {
         let kindTitle: String = "\(kind.emoji) \(kind.title)"
         result.append("| SkyLogger: ")
         result.append(kindTitle)
-        let calendar = Calendar.current
-        result.append(getTabSpace(repeatCount: 1, newLine: false))
-        result.append("[")
-        result.append(calendar.component(.day, from: date))
-        result.append(".")
-        result.append(calendar.component(.month, from: date))
-        result.append(" ")
-        result.append(calendar.component(.hour, from: date))
-        result.append(":")
-        result.append(calendar.component(.minute, from: date))
-        result.append("]")
+        result.append(getDateString(date))
         return result
     }
     
@@ -75,8 +65,7 @@ struct StringHandler {
             let data: String = {
                 switch item {
                 case .file:
-                    let fileFiltered: String = String(log.file.split(separator: "/").last ?? "")
-                    return getTabSpace(repeatCount: 2) + "  " + "\(fileFiltered); \(log.function): \(log.line)"
+                    return getFileLine(log: log, haveSpace: true)
                     
                 case .message:
                     var dataResult: String = ""
@@ -110,6 +99,32 @@ struct StringHandler {
     
     static func getTabSpace(repeatCount: Int, newLine: Bool = true) -> String {
         return (newLine ? "\n|" : "") + String(repeating: "    ", count: repeatCount)
+    }
+    
+    static func getFileLine(log: Log, haveSpace: Bool) -> String {
+        let fileFiltered: String = String(log.file.split(separator: "/").last ?? "")
+        let path: String = "\(fileFiltered); \(log.function): \(log.line)"
+        if haveSpace {
+            return getTabSpace(repeatCount: 2) + "  " + path
+        } else {
+            return path
+        }
+    }
+    
+    static func getDateString(_ date: Date) -> String {
+        let calendar = Calendar.current
+        var result: String = ""
+        result.append(getTabSpace(repeatCount: 1, newLine: false))
+        result.append("[")
+        result.append(calendar.component(.day, from: date))
+        result.append(".")
+        result.append(calendar.component(.month, from: date))
+        result.append(" ")
+        result.append(calendar.component(.hour, from: date))
+        result.append(":")
+        result.append(calendar.component(.minute, from: date))
+        result.append("]")
+        return result
     }
     
     private static func getMessageLine(key: String, value: Any?) -> String {

@@ -152,8 +152,20 @@ extension LogListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogTableViewCell.reuseIdentifier, for: indexPath) as! LogTableViewCell
-        if let log = Logger.getLogs()[safe: indexPath.row] {
-            cell.setData(log: log)
+        
+        let filteredLogs: [Log] = {
+            if selectedLogKindIndex == 0 {
+                return Logger.getLogs()
+            } else {
+                if let kind = Log.Kind.allCases[safe: selectedLogKindIndex - 1] {
+                    return Logger.getLogs().filter({ $0.kind == kind })
+                } else {
+                    return []
+                }
+            }
+        }()
+        if let log = filteredLogs[safe: indexPath.row] {
+            cell.setData(log: log, number: indexPath.row + 1, allCountNumber: filteredLogs.count)
         }
         return cell
     }
