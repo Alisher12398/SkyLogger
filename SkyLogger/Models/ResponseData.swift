@@ -29,8 +29,8 @@ public class ResponseData {
     let headers: [String: String]?
     let urlParameters: [String: Any]?
     let bodyParameters: [String: Any]?
-    let responseBody: String?
     let error: Error?
+    let responseBody: String?
     
     enum Key: String, CaseIterable {
         case baseURL
@@ -41,8 +41,8 @@ public class ResponseData {
         case headers
         case urlParameters
         case bodyParameters
-        case responseBody
         case error
+        case responseBody
         
         func getValue(data: ResponseData) -> Any? {
             switch self {
@@ -82,11 +82,11 @@ public class ResponseData {
         self.headers = nil
         self.urlParameters = nil
         self.bodyParameters = nil
-        self.responseBody = nil
         self.error = nil
+        self.responseBody = nil
     }
     
-    public init(baseURL: URL, urlPath: String, method: String, statusCode: Int?, headers: [String : String]?, urlParameters: [String : Any]?, bodyParameters: [String : Any]?, responseBody: String?, error: Error?) {
+    public init(baseURL: URL, urlPath: String, method: String, statusCode: Int?, headers: [String : String]?, urlParameters: [String : Any]?, bodyParameters: [String : Any]?, error: Error?, responseBody: String?) {
         self.baseURL = baseURL
         self.urlPath = urlPath
         self.method = method
@@ -94,7 +94,7 @@ public class ResponseData {
         self.headers = headers
         self.urlParameters = urlParameters
         self.bodyParameters = bodyParameters
-        self.responseBody = responseBody
         self.error = error
+        self.responseBody = responseBody
     }
 }
