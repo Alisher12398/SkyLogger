@@ -11,8 +11,8 @@ class LogListView: BaseView {
     
     lazy var logKindCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 16
-        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 24
+        layout.minimumLineSpacing = 24
         layout.scrollDirection = .horizontal
         let cv = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
         cv.showsVerticalScrollIndicator = false
@@ -27,6 +27,7 @@ class LogListView: BaseView {
     
     lazy var listTableView: UITableView = {
         let tv = UITableView.init(frame: .zero, style: .plain)
+        tv.backgroundColor = .clear
         tv.separatorStyle = .none
         return tv
     }()
@@ -47,7 +48,7 @@ class LogListView: BaseView {
 extension LogListView: BaseViewProtocol {
     
     func configure() {
-        backgroundColor = UIColor.lightGray
+        backgroundColor = UIColor.background
         addSubview(logKindCollectionView)
         addSubview(listTableView)
     }

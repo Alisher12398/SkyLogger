@@ -12,7 +12,7 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier: String = "LogKindCollectionViewCell"
     static var height: CGFloat = 51
     static var offset: CGFloat = 16
-    static let labelFont: UIFont = .regular(16)
+    static let labelFont: UIFont = .regular(15)
     
     static func getSize(kind: Log.Kind) -> CGSize {
         return .init(width: (kind.emoji + " " + kind.titleShort).width(font: labelFont), height: height)
@@ -20,7 +20,7 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     
     lazy var label: UILabel = {
         let l = UILabel()
-        l.textColor = .black
+        l.textColor = .backgroundLight
         l.font = LogKindCollectionViewCell.labelFont
         return l
     }()
@@ -35,7 +35,7 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     
     func setData(title: String, isSelected: Bool) {
         label.text = title
-        label.textColor = isSelected ? Customization.shared.tintColor : .black
+        label.textColor = isSelected ? Customization.shared.tintColor : .backgroundLight
         makeConstraints()
     }
     

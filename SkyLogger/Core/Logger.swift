@@ -29,7 +29,6 @@ extension Logger {
     public static func setup(appVersion: String, customization: Customization) {
         Logger.singleton.appVersion = appVersion
         Customization.shared = customization
-        UINavigationBar.appearance().tintColor = customization.secondaryColor
         UIApplication.shared.statusBarUIView?.backgroundColor = UIColor.clear
     }
     
@@ -59,9 +58,24 @@ extension Logger {
         vc.navigationController?.present(activityVC, animated: true, completion: nil)
     }
     
-    public static func show(nc: UINavigationController?) {
+    public static func push(nc: UINavigationController?) {
         let vc = LogListViewController()
         nc?.pushViewController(vc, animated: true)
+    }
+    
+    public static func present(nc: UINavigationController?) {
+        let vc = LogListViewController()
+        nc?.present(generateNavigationController(rootVC: vc), animated: true, completion: nil)
+    }
+    
+    public static func generateNavigationController(rootVC: UIViewController) -> UINavigationController {
+        let nc = UINavigationController(rootViewController: rootVC)
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.backgroundLight]
+        nc.navigationBar.titleTextAttributes = textAttributes
+        nc.navigationBar.tintColor = UIColor.backgroundLight
+        nc.navigationBar.barTintColor = .background
+        nc.navigationBar.isTranslucent = false
+        return nc
     }
     
     static func getLogs() -> [Log] {

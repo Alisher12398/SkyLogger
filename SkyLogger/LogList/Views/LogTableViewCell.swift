@@ -16,9 +16,9 @@ class LogTableViewCell: UITableViewCell {
     
     lazy var cellView: UIView = {
         let v = UIView()
-        v.backgroundColor = .white
+        v.backgroundColor = UIColor.backgroundLight
         v.layer.cornerRadius = 12
-        v.layer.borderColor = UIColor(hex: "#F1F1F4")?.cgColor
+        v.layer.borderColor = UIColor.backgroundLight.cgColor
         v.layer.borderWidth = 0.5
         return v
     }()
@@ -71,7 +71,7 @@ class LogTableViewCell: UITableViewCell {
         let l = UILabel()
         l.font = .regular(8)
         l.textAlignment = .left
-        l.textColor = UIColor(hex: "#AFAFAF")
+        l.textColor = .textSecondary
         return l
     }()
     
@@ -79,17 +79,19 @@ class LogTableViewCell: UITableViewCell {
         let l = UILabel()
         l.font = .regular(8)
         l.textAlignment = .right
-        l.textColor = UIColor(hex: "#AFAFAF")
+        l.textColor = .textSecondary
         return l
     }()
     
-    lazy var detailButton: UIButton = {
-        let b = UIButton()
-        b.setImage(UIImage(named: "outline_arrow_forward_ios_black_24pt")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        b.tintColor = UIColor(hex: "#AFAFAF")
-        return b
-    }()
-
+    //    lazy var detailButton: UIButton = {
+    //        let b = UIButton()
+    //        b.backgroundColor = UIColor.blue.alpha(0.2)
+    //        b.setImage(#imageLiteral(resourceName: "outline_arrow_forward_ios_black_24pt"), for: .normal)
+    //        b.imageView?.contentMode = .scaleAspectFit
+    //        b.tintColor = .textSecondary
+    //        return b
+    //    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -114,9 +116,9 @@ class LogTableViewCell: UITableViewCell {
             default:
                 if let message = log.message {
                     return "Message: " + String(describing: message)
-                } else if let parameter = parameters.first {
+                } else if let parameter = parameters.first, let value = parameter.value {
                     parameters.removeFirst()
-                    return parameter.key + ": " + String(describing: parameter.value)
+                    return parameter.key + ": " + String(describing: value)
                 } else {
                     return nil
                 }
@@ -136,14 +138,14 @@ class LogTableViewCell: UITableViewCell {
                 if let message = log.message {
                     return "Message: " + String(describing: message)
                 } else {
-                    if let parameter = log.parameters?.first, let value = parameter.value {
+                    if let parameter = parameters.first, let value = parameter.value {
                         return parameter.key + ": " + String(describing: value)
                     } else {
                         return nil
                     }
                 }
             default:
-                if let parameter = log.parameters?.first, let value = parameter.value {
+                if let parameter = parameters.first, let value = parameter.value {
                     return parameter.key + ": " + String(describing: value)
                 } else {
                     return nil
@@ -159,6 +161,7 @@ class LogTableViewCell: UITableViewCell {
     }
     
     private func configure() {
+        backgroundColor = .clear
         selectionStyle = .none
         fileLeftLabel.text = "📝"
         infoLeftLabel.text = "ℹ️"
@@ -175,8 +178,8 @@ class LogTableViewCell: UITableViewCell {
             infoRightBottomLabel,
             countNumberLabel,
             fileRightLabel,
-            dateLabel,
-            detailButton
+            dateLabel
+            //            detailButton
         ])
         
         cellView.snp.makeConstraints({
@@ -198,7 +201,7 @@ class LogTableViewCell: UITableViewCell {
             $0.height.equalTo(17)
         })
         
-        fileRightLabel.addLeftVerticalLine()
+        fileRightLabel.addLeftVerticalLine(checkIsEmpty: true)
         fileRightLabel.snp.makeConstraints({
             $0.left.equalTo(fileLeftLabel.snp.right).offset(17)
             $0.right.equalToSuperview().inset(8)
@@ -213,27 +216,27 @@ class LogTableViewCell: UITableViewCell {
             $0.height.equalTo(fileLeftLabel.snp.height)
         })
         
-        infoRightTopLabel.addLeftVerticalLine()
+        infoRightTopLabel.addLeftVerticalLine(checkIsEmpty: true)
         infoRightTopLabel.snp.makeConstraints({
             $0.left.equalTo(fileRightLabel.snp.left)
-            $0.right.equalTo(detailButton.snp.left).inset(16)
+            $0.right.equalToSuperview().offset(-16)
             $0.height.lessThanOrEqualTo(34)
             $0.top.equalTo(fileRightLabel.snp.bottom).offset(10)
         })
-
-        infoRightBottomLabel.addLeftVerticalLine()
+        
+        infoRightBottomLabel.addLeftVerticalLine(checkIsEmpty: true)
         infoRightBottomLabel.snp.makeConstraints({
             $0.left.equalTo(fileRightLabel.snp.left)
-            $0.right.equalTo(dateLabel.snp.left).inset(16)
+            $0.right.equalTo(dateLabel.snp.left).offset(-16)
             $0.height.equalTo(16)
             $0.bottom.equalToSuperview().offset(-8)
         })
         
-        detailButton.snp.makeConstraints({
-            $0.right.equalToSuperview().inset(8)
-            $0.centerY.equalToSuperview()
-            $0.width.equalTo(20)
-        })
+        //        detailButton.snp.makeConstraints({
+        //            $0.right.equalToSuperview().inset(8)
+        //            $0.centerY.equalToSuperview()
+        //            $0.width.equalTo(20)
+        //        })
         
         countNumberLabel.snp.makeConstraints({
             $0.left.equalToSuperview().offset(8)
@@ -245,9 +248,9 @@ class LogTableViewCell: UITableViewCell {
         dateLabel.snp.makeConstraints({
             $0.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(8)
-            $0.width.equalTo(65)
+            $0.width.equalTo(68)
             $0.height.equalTo(9)
         })
     }
-
+    
 }

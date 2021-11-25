@@ -13,15 +13,20 @@ protocol LogListViewControllerProtocol {
 
 class LogListViewController: UIViewController {
     
-    let rootView: LogListView
+    private let rootView: LogListView
     private let presenter: LogListPresenter
     
     private var selectedLogKindIndex: Int = 0 {
         didSet {
+            updateFilteredLogs()
             rootView.listTableView.reloadData()
             rootView.logKindCollectionView.reloadData()
+            UIImpactFeedbackGenerator.init(style: .light).impactOccurred()
+            rootView.logKindCollectionView.scrollToItem(at: .init(row: selectedLogKindIndex, section: 0), at: .left, animated: true)
         }
     }
+    
+    private var filteredLogs: [Log] = Logger.getLogs()
     
     init() {
         self.rootView = LogListView()
@@ -77,9 +82,24 @@ private extension LogListViewController {
     private func configureNavigationBar() {
         navigationItem.title = "SkyLogger"
         navigationController?.isNavigationBarHidden = false
-        let textAttributes = [NSAttributedString.Key.foregroundColor: Customization.shared.secondaryColor]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = ""
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
+    
+    func updateFilteredLogs() {
+        var filteredLogsNew: [Log] {
+            if selectedLogKindIndex == 0 {
+                return Logger.getLogs()
+            } else if let kind = Log.Kind.allCases[safe: selectedLogKindIndex - 1] {
+                return Logger.getLogs().filter({ $0.kind == kind })
+            } else {
+                return []
+            }
+        }
+        self.filteredLogs = filteredLogsNew
+    }
+    
 }
 
 //MARK:- LogListViewControllerProtocol
@@ -109,7 +129,6 @@ extension LogListViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("sdfsdf row", indexPath)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogKindCollectionViewCell.reuseIdentifier, for: indexPath) as! LogKindCollectionViewCell
         if indexPath.row == 0 {
             cell.setData(title: "Все", isSelected: indexPath.row == selectedLogKindIndex)
@@ -129,13 +148,23 @@ extension LogListViewController: UICollectionViewDataSource, UICollectionViewDel
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 24
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 24
+    }
+    
 }
 
 //MARK:- UITableViewDelegate
 extension LogListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard let log = filteredLogs[safe: indexPath.row] else { return }
+        let vc = LogDetailViewController.init(log: log)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
@@ -147,23 +176,11 @@ extension LogListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Logger.getLogs().count
+        return filteredLogs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogTableViewCell.reuseIdentifier, for: indexPath) as! LogTableViewCell
-        
-        let filteredLogs: [Log] = {
-            if selectedLogKindIndex == 0 {
-                return Logger.getLogs()
-            } else {
-                if let kind = Log.Kind.allCases[safe: selectedLogKindIndex - 1] {
-                    return Logger.getLogs().filter({ $0.kind == kind })
-                } else {
-                    return []
-                }
-            }
-        }()
         if let log = filteredLogs[safe: indexPath.row] {
             cell.setData(log: log, number: indexPath.row + 1, allCountNumber: filteredLogs.count)
         }
@@ -189,4 +206,5 @@ extension LogListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
     }
+    
 }
