@@ -3,8 +3,7 @@ use_frameworks!
 
 target 'SkyLogger' do
 
-  pod 'SnapKit'
-  pod 'Hue'
-  pod 'Firebase/Crashlytics'
+  pod 'SnapKit', '~> 5.0.1'
+  pod 'Hue', '~> 5.0.0'
 
 end
