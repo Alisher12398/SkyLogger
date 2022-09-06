@@ -29,7 +29,6 @@ extension Logger {
     public static func setup(appVersion: String, customization: Customization) {
         Logger.singleton.appVersion = appVersion
         Customization.shared = customization
-        UIApplication.shared.statusBarUIView?.backgroundColor = UIColor.clear
     }
     
     public static func setAdditionalParameters(_ parameters: [Log.Parameter]) {

@@ -18,7 +18,6 @@
 		74C0E342274589D500F54583 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E341274589D500F54583 /* String + Extension.swift */; };
 		74C0E34427458E7E00F54583 /* Collection + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E34327458E7E00F54583 /* Collection + Extension.swift */; };
 		74C0E3612745960800F54583 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3602745960800F54583 /* UIView + Extension.swift */; };
-		74C0E3632745983E00F54583 /* UIApplication + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3622745983E00F54583 /* UIApplication + Extension.swift */; };
 		74C0E3652745A19800F54583 /* LogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3642745A19800F54583 /* LogTableViewCell.swift */; };
 		74C0E36F2745A3AF00F54583 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E36E2745A3AF00F54583 /* UIColor + Extension.swift */; };
 		74CB1D342739BFA100EBD2A4 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB1D332739BFA100EBD2A4 /* FileManager.swift */; };
@@ -27,14 +26,14 @@
 		74F50ECC27383B930093E44F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F50ECB27383B930093E44F /* Logger.swift */; };
 		74F50ECE27383BB60093E44F /* UIDevice + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F50ECD27383BB60093E44F /* UIDevice + Extension.swift */; };
 		74F50ED027383BFE0093E44F /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F50ECF27383BFE0093E44F /* Device.swift */; };
-		7D86BCCE37B948E6A025A1E8 /* libPods-SkyLogger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16352AEDEAB8A9F117D191F7 /* libPods-SkyLogger.a */; };
+		A883A7E89D6601B0BF68F464 /* Pods_SkyLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B304CE6F72C40385184C83 /* Pods_SkyLogger.framework */; };
 		C7DB5B8D28C749AB003ADFBE /* LogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8B28C749AB003ADFBE /* LogDetailViewController.swift */; };
 		C7DB5B8E28C749AB003ADFBE /* LogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8C28C749AB003ADFBE /* LogDetailView.swift */; };
 		C7DB5B9028C74DF6003ADFBE /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8F28C74DF6003ADFBE /* UILabel + Extension.swift */; };
+		C7DB5B9428C750E7003ADFBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7DB5B9328C750E7003ADFBE /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		16352AEDEAB8A9F117D191F7 /* libPods-SkyLogger.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SkyLogger.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448EAA7612CC455D2C06801D /* Pods-SkyLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyLogger.debug.xcconfig"; path = "Target Support Files/Pods-SkyLogger/Pods-SkyLogger.debug.xcconfig"; sourceTree = "<group>"; };
 		7458D9D727440F9600140F57 /* LogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListViewController.swift; sourceTree = "<group>"; };
 		7458D9D927440FA400140F57 /* LogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListView.swift; sourceTree = "<group>"; };
@@ -47,7 +46,6 @@
 		74C0E341274589D500F54583 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		74C0E34327458E7E00F54583 /* Collection + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection + Extension.swift"; sourceTree = "<group>"; };
 		74C0E3602745960800F54583 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
-		74C0E3622745983E00F54583 /* UIApplication + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication + Extension.swift"; sourceTree = "<group>"; };
 		74C0E3642745A19800F54583 /* LogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewCell.swift; sourceTree = "<group>"; };
 		74C0E36E2745A3AF00F54583 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		74CB1D332739BFA100EBD2A4 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
@@ -62,6 +60,8 @@
 		C7DB5B8B28C749AB003ADFBE /* LogDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDetailViewController.swift; sourceTree = "<group>"; };
 		C7DB5B8C28C749AB003ADFBE /* LogDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
 		C7DB5B8F28C74DF6003ADFBE /* UILabel + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
+		C7DB5B9328C750E7003ADFBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F1B304CE6F72C40385184C83 /* Pods_SkyLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkyLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D86BCCE37B948E6A025A1E8 /* libPods-SkyLogger.a in Frameworks */,
+				A883A7E89D6601B0BF68F464 /* Pods_SkyLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +150,6 @@
 				74C0E341274589D500F54583 /* String + Extension.swift */,
 				74C0E34327458E7E00F54583 /* Collection + Extension.swift */,
 				74C0E3602745960800F54583 /* UIView + Extension.swift */,
-				74C0E3622745983E00F54583 /* UIApplication + Extension.swift */,
 				74C0E36E2745A3AF00F54583 /* UIColor + Extension.swift */,
 			);
 			path = Extensions;
@@ -159,7 +158,7 @@
 		74C0E3662745A30900F54583 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				16352AEDEAB8A9F117D191F7 /* libPods-SkyLogger.a */,
+				F1B304CE6F72C40385184C83 /* Pods_SkyLogger.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -185,11 +184,12 @@
 		74F50EC0273824520093E44F /* SkyLogger */ = {
 			isa = PBXGroup;
 			children = (
-				C7DB5B8A28C7499B003ADFBE /* LogDetail */,
+				C7DB5B9328C750E7003ADFBE /* GoogleService-Info.plist */,
 				C7DB5B8328C748DB003ADFBE /* Info.plist */,
 				74C0E340274589C400F54583 /* Extensions */,
 				7458D9E2274411EB00140F57 /* Core */,
 				7458D9DF274411D100140F57 /* Models */,
+				C7DB5B8A28C7499B003ADFBE /* LogDetail */,
 				7458D9D627440F6D00140F57 /* LogList */,
 				7458D9DE2744102100140F57 /* Utils */,
 				7458D9DD2744101400140F57 /* Device */,
@@ -229,6 +229,7 @@
 				74F50EBB273824520093E44F /* Frameworks */,
 				74F50EBC273824520093E44F /* Resources */,
 				74729A79274699E500A85B07 /* ShellScript */,
+				C7FC7A9328C751F400C00F15 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -276,6 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7DB5B9428C750E7003ADFBE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +323,23 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then \n    rm -fr Frameworks\nfi\n";
 		};
+		C7FC7A9328C751F400C00F15 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -343,7 +362,6 @@
 				74C0E36F2745A3AF00F54583 /* UIColor + Extension.swift in Sources */,
 				74C0E3612745960800F54583 /* UIView + Extension.swift in Sources */,
 				7458D9DA27440FA400140F57 /* LogListView.swift in Sources */,
-				74C0E3632745983E00F54583 /* UIApplication + Extension.swift in Sources */,
 				7458D9E1274411DB00140F57 /* BaseView.swift in Sources */,
 				7458D9E72744141400140F57 /* LogKindCollectionViewCell.swift in Sources */,
 				74C0E34427458E7E00F54583 /* Collection + Extension.swift in Sources */,
