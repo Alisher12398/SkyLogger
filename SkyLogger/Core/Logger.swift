@@ -13,7 +13,7 @@ public class Logger {
     private static let singleton: Logger = .init()
     private static let divider: String = "\n    | "
     
-    private var logs: [Log] = []
+    private var logs = ThreadSafeArray<Log>.init()
     
     private var appVersion: String = "unknown"
     private var additionalParameters: [Log.Parameter] = []
@@ -36,16 +36,16 @@ extension Logger {
     }
     
     public static func log(_ log: Log, file: String = #file, function: String = #function, line: Int = #line) {
-        Logger.singleton.logs.append(log)
+        Logger.singleton.logs.append(newElement: log)
         Swift.print(StringHandler.convertLogToString(log))
     }
     
     public static func getTextFile() -> URL? {
-        return FileManager.shared.saveToTextFile(logs: Logger.singleton.logs, appVersion: Logger.singleton.appVersion, additionalParameters: Logger.singleton.additionalParameters)
+        return FileManager.shared.saveToTextFile(logs: Logger.singleton.logs.allCases, appVersion: Logger.singleton.appVersion, additionalParameters: Logger.singleton.additionalParameters)
     }
     
     public static func convertLogsToString() -> String {
-        return StringHandler.convertLogsToString(Logger.singleton.logs)
+        return StringHandler.convertLogsToString(Logger.singleton.logs.allCases)
     }
     
     public static func share(vc: UIViewController, tintColor: UIColor) {
@@ -76,7 +76,7 @@ extension Logger {
     }
     
     static func getLogs() -> [Log] {
-        return Logger.singleton.logs
+        return Logger.singleton.logs.allCases
     }
     
 }

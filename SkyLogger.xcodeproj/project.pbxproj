@@ -31,6 +31,7 @@
 		C7DB5B8E28C749AB003ADFBE /* LogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8C28C749AB003ADFBE /* LogDetailView.swift */; };
 		C7DB5B9028C74DF6003ADFBE /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8F28C74DF6003ADFBE /* UILabel + Extension.swift */; };
 		C7FC7A9528C7550F00C00F15 /* UINavigationBar + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC7A9428C7550F00C00F15 /* UINavigationBar + Extension.swift */; };
+		C7FC7A9928C75B9C00C00F15 /* ThreadSafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC7A9828C75B9C00C00F15 /* ThreadSafeArray.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		C7DB5B8C28C749AB003ADFBE /* LogDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
 		C7DB5B8F28C74DF6003ADFBE /* UILabel + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
 		C7FC7A9428C7550F00C00F15 /* UINavigationBar + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar + Extension.swift"; sourceTree = "<group>"; };
+		C7FC7A9828C75B9C00C00F15 /* ThreadSafeArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeArray.swift; sourceTree = "<group>"; };
 		F1B304CE6F72C40385184C83 /* Pods_SkyLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkyLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -121,6 +123,7 @@
 				7458D9E0274411DB00140F57 /* BaseView.swift */,
 				7458D9E32744121D00140F57 /* Customization.swift */,
 				74EE13F527454EF8009030E1 /* ResponseData.swift */,
+				C7FC7A9828C75B9C00C00F15 /* ThreadSafeArray.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				74EE13F627454EF8009030E1 /* ResponseData.swift in Sources */,
 				7458D9D827440F9600140F57 /* LogListViewController.swift in Sources */,
 				74C0E33F2745891B00F54583 /* UIFont + Extension.swift in Sources */,
+				C7FC7A9928C75B9C00C00F15 /* ThreadSafeArray.swift in Sources */,
 				74F50ECE27383BB60093E44F /* UIDevice + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
