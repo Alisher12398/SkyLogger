@@ -82,6 +82,7 @@ private extension LogListViewController {
     private func configureNavigationBar() {
         navigationItem.title = "SkyLogger"
         navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.configure()
         let backBarButtonItem = UIBarButtonItem()
         backBarButtonItem.title = ""
         navigationItem.backBarButtonItem = backBarButtonItem

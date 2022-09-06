@@ -46,6 +46,11 @@ extension LogDetailViewController {
 //MARK:- @objc Methods
 extension LogDetailViewController {
     
+    @objc
+    private func didTapCopyButton(_ sender: UIBarButtonItem) {
+        UIPasteboard.general.string = StringHandler.convertLogToString(log)
+    }
+    
 }
 
 //MARK:- Private Methods
@@ -54,6 +59,10 @@ private extension LogDetailViewController {
     private func configureNavigationBar() {
         navigationItem.title = "SkyLogger"
         navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.configure()
+        
+        let item = UIBarButtonItem(title: "Скопировать", style: .plain, target: self, action: #selector(didTapCopyButton(_:)))
+        navigationController?.navigationItem.rightBarButtonItem = item
     }
     
 }

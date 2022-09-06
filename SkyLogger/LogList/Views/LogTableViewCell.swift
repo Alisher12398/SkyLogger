@@ -69,7 +69,7 @@ class LogTableViewCell: UITableViewCell {
     
     lazy var countNumberLabel: UILabel = {
         let l = UILabel()
-        l.font = .regular(8)
+        l.font = .regular(10)
         l.textAlignment = .left
         l.textColor = .textSecondary
         return l
@@ -77,7 +77,7 @@ class LogTableViewCell: UITableViewCell {
     
     lazy var dateLabel: UILabel = {
         let l = UILabel()
-        l.font = .regular(8)
+        l.font = .regular(10)
         l.textAlignment = .right
         l.textColor = .textSecondary
         return l

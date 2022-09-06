@@ -71,9 +71,7 @@ extension Logger {
         let nc = UINavigationController(rootViewController: rootVC)
         let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.backgroundLight]
         nc.navigationBar.titleTextAttributes = textAttributes
-        nc.navigationBar.tintColor = UIColor.backgroundLight
-        nc.navigationBar.barTintColor = .background
-        nc.navigationBar.isTranslucent = false
+        nc.navigationBar.configure()
         return nc
     }
     

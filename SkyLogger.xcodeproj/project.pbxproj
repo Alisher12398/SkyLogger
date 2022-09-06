@@ -31,6 +31,7 @@
 		C7DB5B8E28C749AB003ADFBE /* LogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8C28C749AB003ADFBE /* LogDetailView.swift */; };
 		C7DB5B9028C74DF6003ADFBE /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8F28C74DF6003ADFBE /* UILabel + Extension.swift */; };
 		C7DB5B9428C750E7003ADFBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7DB5B9328C750E7003ADFBE /* GoogleService-Info.plist */; };
+		C7FC7A9528C7550F00C00F15 /* UINavigationBar + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC7A9428C7550F00C00F15 /* UINavigationBar + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		C7DB5B8C28C749AB003ADFBE /* LogDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
 		C7DB5B8F28C74DF6003ADFBE /* UILabel + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
 		C7DB5B9328C750E7003ADFBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C7FC7A9428C7550F00C00F15 /* UINavigationBar + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar + Extension.swift"; sourceTree = "<group>"; };
 		F1B304CE6F72C40385184C83 /* Pods_SkyLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkyLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -151,6 +153,7 @@
 				74C0E34327458E7E00F54583 /* Collection + Extension.swift */,
 				74C0E3602745960800F54583 /* UIView + Extension.swift */,
 				74C0E36E2745A3AF00F54583 /* UIColor + Extension.swift */,
+				C7FC7A9428C7550F00C00F15 /* UINavigationBar + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				74F22642273983F400A08532 /* Log.swift in Sources */,
 				C7DB5B9028C74DF6003ADFBE /* UILabel + Extension.swift in Sources */,
 				7458D9E42744121D00140F57 /* Customization.swift in Sources */,
+				C7FC7A9528C7550F00C00F15 /* UINavigationBar + Extension.swift in Sources */,
 				74C0E36F2745A3AF00F54583 /* UIColor + Extension.swift in Sources */,
 				74C0E3612745960800F54583 /* UIView + Extension.swift in Sources */,
 				7458D9DA27440FA400140F57 /* LogListView.swift in Sources */,
