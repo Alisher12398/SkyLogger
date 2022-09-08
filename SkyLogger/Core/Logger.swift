@@ -10,6 +10,8 @@ import UIKit
 
 public class Logger {
     
+    public static var isEnabled: Bool = true
+    
     private static let singleton: Logger = .init()
     private static let divider: String = "\n    | "
     
@@ -36,6 +38,10 @@ extension Logger {
     }
     
     public static func log(_ log: Log, file: String = #file, function: String = #function, line: Int = #line) {
+        guard isEnabled else {
+            Swift.print("!! Logger is disabled")
+            return
+        }
         Logger.singleton.logs.append(newElement: log)
         Swift.print(StringHandler.convertLogToString(log))
     }
