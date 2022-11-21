@@ -44,9 +44,9 @@ extension FileManager {
     
     func saveToTextFile(logs: [Log], appVersion: String, additionalParameters: [Log.Parameter]) -> URL? {
         guard let textFileURL = textFileURL else { return nil }
-        let header: String = StringHandler.generateInfoHeaderString(appVersion: appVersion, additionalParameters: additionalParameters)
+        let header: String = SkyStringHandler.generateInfoHeaderString(appVersion: appVersion, additionalParameters: additionalParameters)
         write(header)
-        write(StringHandler.convertLogsToString(logs))
+        write(SkyStringHandler.convertLogsToString(logs))
         return textFileURL
     }
     

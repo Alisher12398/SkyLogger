@@ -43,7 +43,7 @@ extension Logger {
             return
         }
         Logger.singleton.logs.append(newElement: log)
-        Swift.print(StringHandler.convertLogToString(log))
+        Swift.print(SkyStringHandler.convertLogToString(log))
     }
     
     public static func getTextFile() -> URL? {
@@ -51,7 +51,7 @@ extension Logger {
     }
     
     public static func convertLogsToString() -> String {
-        return StringHandler.convertLogsToString(Logger.singleton.logs.allCases)
+        return SkyStringHandler.convertLogsToString(Logger.singleton.logs.allCases)
     }
     
     public static func share(vc: UIViewController, tintColor: UIColor) {

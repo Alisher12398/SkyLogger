@@ -191,7 +191,7 @@ extension Log {
                     return "ℹ️"
                 }
             }()
-            return StringHandler.getTabSpace(repeatCount: 1) + firstSymbol + " " + self.rawValue
+            return SkyStringHandler.getTabSpace(repeatCount: 1) + firstSymbol + " " + self.rawValue
         }
     }
     

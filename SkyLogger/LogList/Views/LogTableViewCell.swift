@@ -103,7 +103,7 @@ class LogTableViewCell: UITableViewCell {
     
     func setData(log: Log, number: Int, allCountNumber: Int) {
         emojiLabel.text = log.kind.emoji
-        fileRightLabel.text = StringHandler.getFileLine(log: log, haveSpace: false)
+        fileRightLabel.text = SkyStringHandler.getFileLine(log: log, haveSpace: false)
         
         var parameters = log.parameters ?? []
         
@@ -155,7 +155,7 @@ class LogTableViewCell: UITableViewCell {
         infoRightBottomLabel.text = infoRightBottomLabelText
         
         countNumberLabel.text = String(number) + "/" + String(allCountNumber)
-        dateLabel.text = StringHandler.getDateString(log.date)
+        dateLabel.text = SkyStringHandler.getDateString(log.date)
         
         makeConstraints()
     }

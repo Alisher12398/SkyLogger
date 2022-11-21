@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SkyLogger
+//import SkyLogger
 
 class ViewController: UIViewController {
 
@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightGray
 
-        Logger.log(.init(kind: .print, message: "Test"))
+//        Logger.log(.init(kind: .print, message: "Test"))
     }
 
 }

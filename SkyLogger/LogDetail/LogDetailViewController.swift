@@ -38,7 +38,7 @@ extension LogDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        rootView.setData(text: StringHandler.convertLogToString(log))
+        rootView.setData(text: SkyStringHandler.convertLogToString(log))
     }
     
 }
@@ -48,7 +48,7 @@ extension LogDetailViewController {
     
     @objc
     private func didTapCopyButton(_ sender: UIBarButtonItem) {
-        UIPasteboard.general.string = StringHandler.convertLogToString(log)
+        UIPasteboard.general.string = SkyStringHandler.convertLogToString(log)
     }
     
 }

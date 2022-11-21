@@ -1,5 +1,5 @@
 //
-//  StringHandler.swift
+//  SkyStringHandler.swift
 //  SkyLogger
 //
 //  Created by Алишер Халыкбаев on 15.11.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct StringHandler {
+public struct SkyStringHandler {
     
     static func generateInfoHeaderString(appVersion: String, additionalParameters: [Log.Parameter]) -> String {
         let date = Date()

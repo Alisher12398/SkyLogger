@@ -13,7 +13,7 @@
 		7458D9E1274411DB00140F57 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E0274411DB00140F57 /* BaseView.swift */; };
 		7458D9E42744121D00140F57 /* Customization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E32744121D00140F57 /* Customization.swift */; };
 		7458D9E72744141400140F57 /* LogKindCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E62744141400140F57 /* LogKindCollectionViewCell.swift */; };
-		7479080B27418EDE0071DE0F /* StringHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479080A27418EDE0071DE0F /* StringHandler.swift */; };
+		7479080B27418EDE0071DE0F /* SkyStringHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479080A27418EDE0071DE0F /* SkyStringHandler.swift */; };
 		74C0E33F2745891B00F54583 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E33E2745891B00F54583 /* UIFont + Extension.swift */; };
 		74C0E342274589D500F54583 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E341274589D500F54583 /* String + Extension.swift */; };
 		74C0E34427458E7E00F54583 /* Collection + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E34327458E7E00F54583 /* Collection + Extension.swift */; };
@@ -47,7 +47,7 @@
 		7458D9E0274411DB00140F57 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		7458D9E32744121D00140F57 /* Customization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customization.swift; sourceTree = "<group>"; };
 		7458D9E62744141400140F57 /* LogKindCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogKindCollectionViewCell.swift; sourceTree = "<group>"; };
-		7479080A27418EDE0071DE0F /* StringHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHandler.swift; sourceTree = "<group>"; };
+		7479080A27418EDE0071DE0F /* SkyStringHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyStringHandler.swift; sourceTree = "<group>"; };
 		74C0E33E2745891B00F54583 /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		74C0E341274589D500F54583 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		74C0E34327458E7E00F54583 /* Collection + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection + Extension.swift"; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				74CB1D332739BFA100EBD2A4 /* FileManager.swift */,
-				7479080A27418EDE0071DE0F /* StringHandler.swift */,
+				7479080A27418EDE0071DE0F /* SkyStringHandler.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -405,7 +405,7 @@
 				C7DB5B8D28C749AB003ADFBE /* LogDetailViewController.swift in Sources */,
 				C7DB5B8E28C749AB003ADFBE /* LogDetailView.swift in Sources */,
 				74C0E3652745A19800F54583 /* LogTableViewCell.swift in Sources */,
-				7479080B27418EDE0071DE0F /* StringHandler.swift in Sources */,
+				7479080B27418EDE0071DE0F /* SkyStringHandler.swift in Sources */,
 				74C0E342274589D500F54583 /* String + Extension.swift in Sources */,
 				74F50ED027383BFE0093E44F /* Device.swift in Sources */,
 				7458D9DC2744100900140F57 /* LogListPresenter.swift in Sources */,
