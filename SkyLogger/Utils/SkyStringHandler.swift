@@ -38,7 +38,7 @@ public struct SkyStringHandler {
         return string
     }
     
-    static func generateLogKindFirstLine(kind: Log.Kind, date: Date) -> String {
+    static public func generateLogKindFirstLine(kind: Log.Kind, date: Date) -> String {
         var result: String = ""
         let kindTitle: String = "\(kind.emoji) \(kind.title)"
         result.append("| SkyLogger: ")
@@ -55,7 +55,7 @@ public struct SkyStringHandler {
         return result
     }
     
-    static func convertLogToString(_ log: Log) -> String {
+    static public func convertLogToString(_ log: Log) -> String {
         var result: String = "\n"
         
         result.append(generateLogKindFirstLine(kind: log.kind, date: log.date))
