@@ -9,7 +9,7 @@ import UIKit
 
 public struct SkyStringHandler {
     
-    static func generateInfoHeaderString(appVersion: String, additionalParameters: [Log.Parameter]) -> String {
+    static public func generateInfoHeaderString(appVersion: String, additionalParameters: [Log.Parameter]) -> String {
         let date = Date()
         let calendar = Calendar.current
         var string: String = """
