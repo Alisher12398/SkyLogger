@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.platform = :ios
   s.ios.deployment_target = '11.0'
   s.name         = "SkyLogger"
-  s.version      = "0.3.6"
+  s.version      = "0.3.67"
   s.summary      = "Logger for iOS Apps using Swift."
   s.requires_arc = true
 
@@ -118,7 +118,7 @@ Pod::Spec.new do |s|
   #
 
   s.framework  = "UIKit"
-  s.dependency 'SnapKit', '~> 5.0.1'
+  s.dependency 'SnapKit', '~> 5.6.0'
   s.dependency 'Hue', '~> 5.0.0'
 
   # spec.library   = "iconv"
