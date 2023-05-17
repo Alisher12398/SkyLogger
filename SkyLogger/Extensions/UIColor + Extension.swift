@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Hue
 
 extension UIColor {
     
