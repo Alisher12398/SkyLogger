@@ -42,63 +42,18 @@ public class Log {
 
 extension Log {
     
-    public enum Kind: CaseIterable, Equatable {
-        
-        public static func == (lhs: Log.Kind, rhs: Log.Kind) -> Bool {
-            switch lhs {
-            case .print:
-                switch rhs {
-                case .print:
-                    return true
-                default:
-                    return false
-                }
-            case .api:
-                switch rhs {
-                case .api:
-                    return true
-                default:
-                    return false
-                }
-            case .system:
-                switch rhs {
-                case .system:
-                    return true
-                default:
-                    return false
-                }
-            case .error:
-                switch rhs {
-                case .error:
-                    return true
-                default:
-                    return false
-                }
-            case .warning:
-                switch rhs {
-                case .warning:
-                    return true
-                default:
-                    return false
-                }
-            case .custom:
-                switch rhs {
-                case .custom:
-                    return true
-                default:
-                    return false
-                }
-            }
-        }
-        
-        public static var allCases: [Log.Kind] = [.print, .api(data: .init()), .system, .error, .warning, .custom(key: "")]
+    public enum Kind {
         
         case print
-        case api(data: ResponseData)
+        case api(data: ResponseData?)
         case system
-        case error
+        case error(Error?)
         case warning
         case custom(key: String, emoji: String = "⚪")
+        
+        var index: Int {
+            return Kind.allCases.firstIndex(of: self) ?? 0
+        }
         
         var emoji: String {
             switch self {
@@ -151,7 +106,6 @@ extension Log {
             }
         }
         
-        
     }
     
     public class Parameter {
@@ -192,6 +146,61 @@ extension Log {
                 }
             }()
             return SkyStringHandler.getTabSpace(repeatCount: 1) + firstSymbol + " " + self.rawValue
+        }
+    }
+    
+}
+
+extension Log.Kind: CaseIterable, Equatable {
+    
+    public static var allCases: [Log.Kind] {
+        return [.print, .api(data: nil), .system, .error(nil), .warning, .custom(key: "")]
+    }
+    
+    public static func == (lhs: Log.Kind, rhs: Log.Kind) -> Bool {
+        switch lhs {
+        case .print:
+            switch rhs {
+            case .print:
+                return true
+            default:
+                return false
+            }
+        case .api:
+            switch rhs {
+            case .api:
+                return true
+            default:
+                return false
+            }
+        case .system:
+            switch rhs {
+            case .system:
+                return true
+            default:
+                return false
+            }
+        case .error:
+            switch rhs {
+            case .error:
+                return true
+            default:
+                return false
+            }
+        case .warning:
+            switch rhs {
+            case .warning:
+                return true
+            default:
+                return false
+            }
+        case .custom:
+            switch rhs {
+            case .custom:
+                return true
+            default:
+                return false
+            }
         }
     }
     

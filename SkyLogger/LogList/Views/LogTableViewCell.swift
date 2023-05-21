@@ -83,15 +83,6 @@ class LogTableViewCell: UITableViewCell {
         return l
     }()
     
-    //    lazy var detailButton: UIButton = {
-    //        let b = UIButton()
-    //        b.backgroundColor = UIColor.blue.alpha(0.2)
-    //        b.setImage(#imageLiteral(resourceName: "outline_arrow_forward_ios_black_24pt"), for: .normal)
-    //        b.imageView?.contentMode = .scaleAspectFit
-    //        b.tintColor = .textSecondary
-    //        return b
-    //    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -107,10 +98,12 @@ class LogTableViewCell: UITableViewCell {
         
         var parameters = log.parameters ?? []
         
+        
         let infoRightTopLabelText: String? = {
             switch log.kind {
             case .api(data: let data):
-                return data.urlPath
+                return data?.urlPath
+
             case .custom(key: let key, emoji: _):
                 return "Key: " + key
             default:
@@ -129,11 +122,12 @@ class LogTableViewCell: UITableViewCell {
         let infoRightBottomLabelText: String? = {
             switch log.kind {
             case .api(data: let data):
-                if let statusCode = data.statusCode {
-                    return String(describing: statusCode)
+                if let statusCode = data?.statusCode {
+                    return String(statusCode)
                 } else {
                     return nil
                 }
+            
             case .custom:
                 if let message = log.message {
                     return "Message: " + String(describing: message)
@@ -179,7 +173,6 @@ class LogTableViewCell: UITableViewCell {
             countNumberLabel,
             fileRightLabel,
             dateLabel
-            //            detailButton
         ])
         
         cellView.snp.makeConstraints({
@@ -232,12 +225,6 @@ class LogTableViewCell: UITableViewCell {
             $0.bottom.equalToSuperview().offset(-8)
         })
         
-        //        detailButton.snp.makeConstraints({
-        //            $0.right.equalToSuperview().inset(8)
-        //            $0.centerY.equalToSuperview()
-        //            $0.width.equalTo(20)
-        //        })
-        
         countNumberLabel.snp.makeConstraints({
             $0.left.equalToSuperview().offset(8)
             $0.right.equalTo(fileLeftLabel.snp.right)
@@ -248,7 +235,6 @@ class LogTableViewCell: UITableViewCell {
         dateLabel.snp.makeConstraints({
             $0.right.equalToSuperview().inset(8)
             $0.bottom.equalToSuperview().inset(8)
-            $0.width.equalTo(68)
             $0.height.equalTo(9)
         })
     }

@@ -319,6 +319,7 @@
 		74F50EC0273824520093E44F /* SkyLogger */ = {
 			isa = PBXGroup;
 			children = (
+				C7147A9C2A19279F00191D64 /* LocalLibraries */,
 				C7DB5B8328C748DB003ADFBE /* Info.plist */,
 				74C0E340274589C400F54583 /* Extensions */,
 				7458D9E2274411EB00140F57 /* Core */,
@@ -327,10 +328,17 @@
 				7458D9D627440F6D00140F57 /* LogList */,
 				7458D9DE2744102100140F57 /* Utils */,
 				7458D9DD2744101400140F57 /* Device */,
-				C7B2054C2A15389200AC837E /* SnapKit */,
-				C7B205BC2A15394B00AC837E /* Hue */,
 			);
 			path = SkyLogger;
+			sourceTree = "<group>";
+		};
+		C7147A9C2A19279F00191D64 /* LocalLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				C7B205BC2A15394B00AC837E /* Hue */,
+				C7B2054C2A15389200AC837E /* SnapKit */,
+			);
+			path = LocalLibraries;
 			sourceTree = "<group>";
 		};
 		C7B2054C2A15389200AC837E /* SnapKit */ = {

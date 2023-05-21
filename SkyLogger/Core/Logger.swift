@@ -39,7 +39,7 @@ extension Logger {
     
     public static func log(_ log: Log, file: String = #file, function: String = #function, line: Int = #line) {
         guard isEnabled else {
-            Swift.print("!! Logger is disabled")
+            Swift.print("!! SkyLogger is disabled")
             return
         }
         Logger.singleton.logs.append(newElement: log)

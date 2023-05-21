@@ -23,6 +23,7 @@ class LogListViewController: UIViewController {
             rootView.logKindCollectionView.reloadData()
             UIImpactFeedbackGenerator.init(style: .light).impactOccurred()
             rootView.logKindCollectionView.scrollToItem(at: .init(row: selectedLogKindIndex, section: 0), at: .left, animated: true)
+            rootView.listTableView.scrollToRow(at: .init(row: 0, section: 0), at: .top, animated: true)
         }
     }
     

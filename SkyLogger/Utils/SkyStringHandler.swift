@@ -81,9 +81,12 @@ public struct SkyStringHandler {
                     
                     switch log.kind {
                     case .api(data: let data):
-                        SkyLogger.ResponseData.Key.allCases.forEach({
-                            dataResult.append(getMessageLine(key: $0.rawValue, value: $0.getValue(data: data)))
-                        })
+                        if let data = data {
+                            SkyLogger.ResponseData.Key.allCases.forEach({
+                                dataResult.append(getMessageLine(key: $0.rawValue, value: $0.getValue(data: data)))
+                            })
+                        }
+                        
                     default:
                         ()
                     }

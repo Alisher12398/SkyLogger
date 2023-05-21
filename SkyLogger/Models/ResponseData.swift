@@ -11,6 +11,15 @@ public class ResponseData {
     
     let baseURL: URL?
     let urlPath: String
+    let method: String
+    let statusCode: Int?
+    let headers: [String: String]?
+    let urlParameters: [String: Any]?
+    let bodyParameters: [String: Any]?
+    let error: Error?
+    let responseBody: String?
+    let showAuthorizationHeader: Bool
+    
     var url: String {
         var result: String = baseURL?.absoluteString ?? "" + urlPath
         if let urlParameters = urlParameters, !urlParameters.isEmpty {
@@ -24,13 +33,6 @@ public class ResponseData {
         }
         return result
     }
-    let method: String
-    let statusCode: Int?
-    let headers: [String: String]?
-    let urlParameters: [String: Any]?
-    let bodyParameters: [String: Any]?
-    let error: Error?
-    let responseBody: String?
     
     enum Key: String, CaseIterable {
         case baseURL
@@ -74,7 +76,7 @@ public class ResponseData {
         }
     }
     
-    public init() {
+    public init(showAuthorizationHeader: Bool = false) {
         self.baseURL = nil
         self.urlPath = ""
         self.method = ""
@@ -84,9 +86,10 @@ public class ResponseData {
         self.bodyParameters = nil
         self.error = nil
         self.responseBody = nil
+        self.showAuthorizationHeader = showAuthorizationHeader
     }
     
-    public init(baseURL: URL, urlPath: String, method: String, statusCode: Int?, headers: [String : String]?, urlParameters: [String : Any]?, bodyParameters: [String : Any]?, error: Error?, responseBody: String?) {
+    public init(baseURL: URL, urlPath: String, method: String, statusCode: Int?, headers: [String : String]?, urlParameters: [String : Any]?, bodyParameters: [String : Any]?, error: Error?, responseBody: String?, showAuthorizationHeader: Bool) {
         self.baseURL = baseURL
         self.urlPath = urlPath
         self.method = method
@@ -96,5 +99,39 @@ public class ResponseData {
         self.bodyParameters = bodyParameters
         self.error = error
         self.responseBody = responseBody
+        self.showAuthorizationHeader = showAuthorizationHeader
     }
+    
+//    public init(state: TargetType, result: Result<MoyaResponse, MoyaError>, showAuthorizationHeader: Bool) {
+//
+//        ResponseData.init(
+//            baseURL: state.baseURL,
+//            urlPath: state.path,
+//            method: state.method.rawValue,
+//            statusCode: statusCode,
+//            headers: headers,
+//            urlParameters: Self.getParameters().url,
+//            bodyParameters: Self.getParameters().body,
+//            error: responseError,
+//            responseBody: responseBody
+//        )
+//    }
+//
+//    private static func getParameters(state: TargetType) -> (url: [String: Any]?, body: [String: Any]?) {
+//        switch state.task {
+//        case .requestParameters(parameters: let parameters, encoding: _):
+//            return (url: parameters, body: nil)
+//        case .requestCompositeData(bodyData: _, urlParameters: let urlParameters):
+//            return (url: urlParameters, body: nil)
+//        case .requestCompositeParameters(bodyParameters: let bodyParameters, bodyEncoding: _, urlParameters: let urlParameters):
+//            return (url: urlParameters, body: bodyParameters)
+//        case .uploadCompositeMultipart(_, urlParameters: let urlParameters):
+//            return (url: urlParameters, body: nil)
+//        case .downloadParameters(parameters: let parameters, encoding: _, destination: _):
+//            return (url: parameters, body: nil)
+//        default:
+//            return (url: nil, body: nil)
+//        }
+//    }
+    
 }
