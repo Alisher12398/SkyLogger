@@ -15,7 +15,7 @@ class LogListView: BaseView {
         layout.minimumLineSpacing = 24
         layout.scrollDirection = .horizontal
         let cv = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
-        cv.showsVerticalScrollIndicator = true
+        cv.showsVerticalScrollIndicator = false
         cv.showsHorizontalScrollIndicator = false
         cv.bounces = true
         cv.alwaysBounceVertical = false
@@ -29,6 +29,12 @@ class LogListView: BaseView {
         let tv = UITableView.init(frame: .zero, style: .plain)
         tv.backgroundColor = .clear
         tv.separatorStyle = .none
+        tv.indicatorStyle = .white
+        tv.showsVerticalScrollIndicator = true
+        tv.showsHorizontalScrollIndicator = false
+        tv.bounces = true
+        tv.alwaysBounceVertical = true
+        tv.alwaysBounceHorizontal = false
         return tv
     }()
     
