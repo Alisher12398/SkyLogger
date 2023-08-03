@@ -160,8 +160,6 @@ private extension LogTableViewCell {
         } else {
             // Fallback on earlier versions
         }
-        //        fileIconImageView.text = "📝"
-        //        messageIconImageView.text = "ℹ️"
     }
     
     private func makeConstraints() {
@@ -170,13 +168,13 @@ private extension LogTableViewCell {
         let isHaveParameters = Self.isLogHaveParameters(log)
         
         let subviews: [UIView] = [cellViewColorView,
-         emojiLabel,
-         fileIconImageView,
-         fileTopLabel,
-         countNumberLabel,
-         fileTopLabel,
-         dateLabel,
-         ]
+                                  emojiLabel,
+                                  fileIconImageView,
+                                  fileTopLabel,
+                                  countNumberLabel,
+                                  fileTopLabel,
+                                  dateLabel,
+        ]
         let optionalSubviews: [UIView] = [
             messageIconImageView,
             messageCenterLabel,
@@ -185,7 +183,7 @@ private extension LogTableViewCell {
         ]
         
         let allSubviews: [UIView] = subviews + optionalSubviews
-
+        
         removeSubview(cellView)
         removeSubviews(allSubviews)
         

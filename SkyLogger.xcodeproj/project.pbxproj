@@ -188,8 +188,6 @@
 		C7FC7ACE28C76C0900C00F15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7FC7AD128C76C0900C00F15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7FC7AD328C76C0900C00F15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C7FC7ADD28C76E5400C00F15 /* Hue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Hue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C7FC7AE028C76E5700C00F15 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,8 +283,6 @@
 		74C0E3662745A30900F54583 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C7FC7AE028C76E5700C00F15 /* SnapKit.framework */,
-				C7FC7ADD28C76E5400C00F15 /* Hue.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

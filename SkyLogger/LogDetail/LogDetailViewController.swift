@@ -52,6 +52,11 @@ extension LogDetailViewController {
     
     @objc
     private func didTapCopyButton(_ sender: UIBarButtonItem) {
+        if #available(iOS 13.0, *) {
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+        } else {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }
         UIPasteboard.general.string = SkyStringHandler.convertLogToString(log)
     }
     
@@ -64,7 +69,7 @@ private extension LogDetailViewController {
         navigationItem.title = "SkyLogger"
         
         let item = UIBarButtonItem(title: "Скопировать", style: .plain, target: self, action: #selector(didTapCopyButton(_:)))
-        navigationController?.navigationItem.rightBarButtonItem = item
+        navigationItem.rightBarButtonItem = item
     }
     
 }

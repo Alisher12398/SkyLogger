@@ -112,7 +112,7 @@ extension Log {
                 return "Error"
             case .warning:
                 return "Warning"
-            case .custom(key: let key):
+            case .custom(key: let key, emoji: _):
                 return "Custom. Key: \(key)"
             }
         }
