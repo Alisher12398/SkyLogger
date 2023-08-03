@@ -43,6 +43,7 @@ public struct SkyStringHandler {
         let kindTitle: String = "\(kind.emoji) \(kind.title)"
         result.append("| SkyLogger: ")
         result.append(kindTitle)
+        result.append(getTabSpace(repeatCount: 1, newLine: false))
         result.append(getDateString(date))
         return result
     }
@@ -117,7 +118,6 @@ public struct SkyStringHandler {
     static func getDateString(_ date: Date) -> String {
         let calendar = Calendar.current
         var result: String = ""
-        result.append(getTabSpace(repeatCount: 1, newLine: false))
         result.append("[")
         result.append(calendar.component(.day, from: date))
         result.append(".")

@@ -24,7 +24,7 @@ class BaseView: UIView {
     }
     
     private func configure() {
-        backgroundColor = Customization.shared.backgroundColor
+        backgroundColor = .skyBackground
     }
     
 }

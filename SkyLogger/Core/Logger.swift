@@ -25,7 +25,7 @@ public class Logger {
     }
 }
 
-//MARK:- Public Methods
+//MARK: - Public Methods
 extension Logger {
     
     public static func setup(appVersion: String, customization: Customization) {
@@ -70,15 +70,7 @@ extension Logger {
     
     public static func present(nc: UINavigationController?) {
         let vc = LogListViewController()
-        nc?.present(generateNavigationController(rootVC: vc), animated: true, completion: nil)
-    }
-    
-    public static func generateNavigationController(rootVC: UIViewController) -> UINavigationController {
-        let nc = UINavigationController(rootViewController: rootVC)
-        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.backgroundLight]
-        nc.navigationBar.titleTextAttributes = textAttributes
-        nc.navigationBar.configure()
-        return nc
+        nc?.present(SkyNavigationViewController(rootViewController: vc), animated: true, completion: nil)
     }
     
     static func getLogs() -> [Log] {
@@ -88,7 +80,7 @@ extension Logger {
 }
 
 
-//MARK:- Private Methods
+//MARK: - Private Methods
 private extension Logger {
     
 }

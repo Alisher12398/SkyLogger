@@ -6,7 +6,7 @@
 //  Copyright © 2021 Alisher Khalykbayev. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class Log {
     
@@ -18,18 +18,28 @@ public class Log {
     let line: String
     let date: Date
     
-    public init(kind: Log.Kind, message: Any? = nil, parameters: Log.Parameter..., file: String = #file, function: String = #function, _ line: Int = #line) {
-        self.kind = kind
-        self.message = message
-        self.parameters = parameters
-        self.file = file
-        self.function = function
-        self.line = String(line)
-        self.date = Date()
+    public convenience init(kind: Log.Kind, message: Any? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: message, parameters: nil, file: file, function: function, line: line)
     }
     
-    public init(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter]? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.kind = kind
+    public convenience init(kind: Log.Kind, parameters: Log.Parameter..., file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: nil, parameters: parameters, file: file, function: function, line: line)
+    }
+    
+    public convenience init(kind: Log.Kind, parameters: [Log.Parameter], file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: nil, parameters: parameters, file: file, function: function, line: line)
+    }
+    
+    public convenience init(kind: Log.Kind, message: Any?, parameters: Log.Parameter..., file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: message, parameters: parameters, file: file, function: function, line: line)
+    }
+    
+    public convenience init(kind: Log.Kind, message: Any?, parameters: [Log.Parameter], file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: message, parameters: parameters, file: file, function: function, line: line)
+    }
+    
+    private init(logKind: Log.Kind, message: Any?, parameters: [Log.Parameter]?, file: String, function: String, line: Int) {
+        self.kind = logKind
         self.message = message
         self.parameters = parameters
         self.file = file
@@ -40,6 +50,7 @@ public class Log {
     
 }
 
+//MARK: - Log.Kind
 extension Log {
     
     public enum Kind {
@@ -69,6 +80,23 @@ extension Log {
                 return "🟡"
             case .custom(key: _, emoji: let emoji):
                 return emoji
+            }
+        }
+        
+        var color: UIColor {
+            switch self {
+            case .print:
+                return .skyTextWhite
+            case .api:
+                return .skyGreen
+            case .system:
+                return .skyBlue
+            case .error:
+                return .skyRed
+            case .warning:
+                return .skyYellow
+            case .custom(key: _, emoji: let emoji):
+                return .skyLightGray
             }
         }
         
@@ -120,7 +148,7 @@ extension Log {
     
 }
 
-//MARK:- Enums And Classes
+//MARK: - Enums And Classes
 extension Log {
     
     enum LineKind: CaseIterable {

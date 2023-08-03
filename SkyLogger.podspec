@@ -118,8 +118,6 @@ Pod::Spec.new do |s|
   #
 
   s.framework  = "UIKit"
-  s.dependency 'SnapKit', '~> 5.6.0'
-  s.dependency 'Hue', '~> 5.0.0'
 
   # spec.library   = "iconv"
   # spec.libraries = "iconv", "xml2"

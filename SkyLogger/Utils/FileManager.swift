@@ -30,7 +30,7 @@ struct FileManager {
     
 }
 
-//MARK:- Public Functions
+//MARK: - Public Functions
 extension FileManager {
     
     func removeTextFile() {
@@ -62,7 +62,7 @@ extension FileManager {
     
 }
 
-//MARK:- Private Functions
+//MARK: - Private Functions
 extension FileManager: TextOutputStream {
     
     private func setup() {
@@ -83,7 +83,7 @@ extension FileManager: TextOutputStream {
     
 }
 
-//MARK:- Data extension
+//MARK: - Data extension
 fileprivate extension Data {
     
     func append(fileURL: URL) throws {

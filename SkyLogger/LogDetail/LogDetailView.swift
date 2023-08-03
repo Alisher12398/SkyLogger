@@ -17,7 +17,8 @@ class LogDetailView: BaseView {
         tv.alwaysBounceHorizontal = false
         tv.font = .regular(16)
         tv.isEditable = false
-        tv.textColor = .backgroundLight
+        tv.textColor = .skyTextWhite
+        tv.clipsToBounds = true
         return tv
     }()
     
@@ -33,11 +34,11 @@ class LogDetailView: BaseView {
     
 }
 
-//MARK:- BaseViewProtocol
+//MARK: - BaseViewProtocol
 extension LogDetailView: BaseViewProtocol {
     
     func configure() {
-        backgroundColor = .background
+        backgroundColor = .skyBackground
     }
     
     func makeConstraints() {
@@ -51,7 +52,7 @@ extension LogDetailView: BaseViewProtocol {
     
 }
 
-//MARK:- Public Methods
+//MARK: - Public Methods
 extension LogDetailView {
     
     func setData(text: String) {
@@ -60,7 +61,7 @@ extension LogDetailView {
     
 }
 
-//MARK:- Private Methods
+//MARK: - Private Methods
 private extension LogDetailView {
     
 }

@@ -20,7 +20,7 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     
     lazy var label: UILabel = {
         let l = UILabel()
-        l.textColor = .backgroundLight
+        l.textColor = .skyTextWhite
         l.font = LogKindCollectionViewCell.labelFont
         return l
     }()
@@ -35,7 +35,7 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     
     func setData(title: String, isSelected: Bool) {
         label.text = title
-        label.textColor = isSelected ? Customization.shared.tintColor : .backgroundLight
+        label.textColor = isSelected ? Customization.shared.tintColor : .skyTextWhite
         makeConstraints()
     }
     

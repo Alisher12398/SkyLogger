@@ -26,9 +26,13 @@ class LogDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("LogDetailViewController deinit")
+    }
+    
 }
 
-//MARK:- View Lifecycle
+//MARK: - View Lifecycle
 extension LogDetailViewController {
     
     override func loadView() {
@@ -43,7 +47,7 @@ extension LogDetailViewController {
     
 }
 
-//MARK:- @objc Methods
+//MARK: - @objc Methods
 extension LogDetailViewController {
     
     @objc
@@ -53,13 +57,11 @@ extension LogDetailViewController {
     
 }
 
-//MARK:- Private Methods
+//MARK: - Private Methods
 private extension LogDetailViewController {
     
     private func configureNavigationBar() {
         navigationItem.title = "SkyLogger"
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.configure()
         
         let item = UIBarButtonItem(title: "Скопировать", style: .plain, target: self, action: #selector(didTapCopyButton(_:)))
         navigationController?.navigationItem.rightBarButtonItem = item
@@ -67,7 +69,7 @@ private extension LogDetailViewController {
     
 }
 
-//MARK:- LogDetailViewControllerProtocol
+//MARK: - LogDetailViewControllerProtocol
 extension LogDetailViewController: LogDetailViewControllerProtocol {
     
 }

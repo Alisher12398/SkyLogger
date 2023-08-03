@@ -15,7 +15,7 @@ class LogListView: BaseView {
         layout.minimumLineSpacing = 24
         layout.scrollDirection = .horizontal
         let cv = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
-        cv.showsVerticalScrollIndicator = false
+        cv.showsVerticalScrollIndicator = true
         cv.showsHorizontalScrollIndicator = false
         cv.bounces = true
         cv.alwaysBounceVertical = false
@@ -44,11 +44,11 @@ class LogListView: BaseView {
     
 }
 
-//MARK:- BaseViewProtocol
+//MARK: - BaseViewProtocol
 extension LogListView: BaseViewProtocol {
     
     func configure() {
-        backgroundColor = UIColor.background
+        backgroundColor = UIColor.skyBackground
         addSubview(logKindCollectionView)
         addSubview(listTableView)
     }
@@ -69,12 +69,12 @@ extension LogListView: BaseViewProtocol {
     
 }
 
-//MARK:- Public Methods
+//MARK: - Public Methods
 extension LogListView {
     
 }
 
-//MARK:- Private Methods
+//MARK: - Private Methods
 private extension LogListView {
     
 }

@@ -10,13 +10,15 @@ import UIKit
 extension UINavigationBar {
     
     func configure() {
-        tintColor = UIColor.backgroundLight
+        tintColor = UIColor.skyTextWhite
         setBackgroundImage(UIImage(), for: .default)
         shadowImage = UIImage()
         isTranslucent = false
-        barTintColor = UIColor.background
-        backgroundColor = UIColor.background
-        superview?.backgroundColor = UIColor.background
+        barTintColor = UIColor.skyBackground
+        backgroundColor = UIColor.skyBackground
+        superview?.backgroundColor = UIColor.skyBackground
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.skyTextWhite]
+        titleTextAttributes = textAttributes
     }
     
 }

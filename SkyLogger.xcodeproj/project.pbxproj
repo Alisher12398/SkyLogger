@@ -102,13 +102,14 @@
 		C7B205BB2A1538B200AC837E /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B205712A1538B200AC837E /* ConstraintPriority.swift */; };
 		C7B205C12A1539AC00AC837E /* UIColor+Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */; };
 		C7B205C22A1539AC00AC837E /* UIColor+Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */; };
+		C7B2EABF2A7C1DC40061E7CB /* SkyNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B2EABE2A7C1DC40061E7CB /* SkyNavigationViewController.swift */; };
 		C7DB5B8D28C749AB003ADFBE /* LogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8B28C749AB003ADFBE /* LogDetailViewController.swift */; };
 		C7DB5B8E28C749AB003ADFBE /* LogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8C28C749AB003ADFBE /* LogDetailView.swift */; };
 		C7DB5B9028C74DF6003ADFBE /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB5B8F28C74DF6003ADFBE /* UILabel + Extension.swift */; };
 		C7FC7A9528C7550F00C00F15 /* UINavigationBar + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC7A9428C7550F00C00F15 /* UINavigationBar + Extension.swift */; };
 		C7FC7A9928C75B9C00C00F15 /* ThreadSafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC7A9828C75B9C00C00F15 /* ThreadSafeArray.swift */; };
 		C7FC7AC628C76C0900C00F15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC7AC528C76C0900C00F15 /* AppDelegate.swift */; };
-		C7FC7ACA28C76C0900C00F15 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC7AC928C76C0900C00F15 /* ViewController.swift */; };
+		C7FC7ACA28C76C0900C00F15 /* TeeeeeeeeeeestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC7AC928C76C0900C00F15 /* TeeeeeeeeeeestViewController.swift */; };
 		C7FC7ACD28C76C0900C00F15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FC7ACB28C76C0900C00F15 /* Main.storyboard */; };
 		C7FC7ACF28C76C0900C00F15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7FC7ACE28C76C0900C00F15 /* Assets.xcassets */; };
 		C7FC7AD228C76C0900C00F15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FC7AD028C76C0900C00F15 /* LaunchScreen.storyboard */; };
@@ -173,6 +174,7 @@
 		C7B205702A1538B200AC837E /* ConstraintRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintRelation.swift; sourceTree = "<group>"; };
 		C7B205712A1538B200AC837E /* ConstraintPriority.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintPriority.swift; sourceTree = "<group>"; };
 		C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hue.swift"; sourceTree = "<group>"; };
+		C7B2EABE2A7C1DC40061E7CB /* SkyNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyNavigationViewController.swift; sourceTree = "<group>"; };
 		C7DB5B8328C748DB003ADFBE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7DB5B8B28C749AB003ADFBE /* LogDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDetailViewController.swift; sourceTree = "<group>"; };
 		C7DB5B8C28C749AB003ADFBE /* LogDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
@@ -181,7 +183,7 @@
 		C7FC7A9828C75B9C00C00F15 /* ThreadSafeArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeArray.swift; sourceTree = "<group>"; };
 		C7FC7AC328C76C0900C00F15 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FC7AC528C76C0900C00F15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C7FC7AC928C76C0900C00F15 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7FC7AC928C76C0900C00F15 /* TeeeeeeeeeeestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeeeeeeeeeeestViewController.swift; sourceTree = "<group>"; };
 		C7FC7ACC28C76C0900C00F15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7FC7ACE28C76C0900C00F15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7FC7AD128C76C0900C00F15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -208,13 +210,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4996094CC4A88832CBF3BE65 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		7458D9D627440F6D00140F57 /* LogList */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,7 +298,6 @@
 				C7FC7AC428C76C0900C00F15 /* Example */,
 				74F50EBF273824520093E44F /* Products */,
 				74C0E3662745A30900F54583 /* Frameworks */,
-				4996094CC4A88832CBF3BE65 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -328,6 +322,7 @@
 				7458D9D627440F6D00140F57 /* LogList */,
 				7458D9DE2744102100140F57 /* Utils */,
 				7458D9DD2744101400140F57 /* Device */,
+				C7B2EABD2A7C1DA40061E7CB /* Views */,
 			);
 			path = SkyLogger;
 			sourceTree = "<group>";
@@ -393,6 +388,14 @@
 			path = Hue;
 			sourceTree = "<group>";
 		};
+		C7B2EABD2A7C1DA40061E7CB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C7B2EABE2A7C1DC40061E7CB /* SkyNavigationViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C7DB5B8A28C7499B003ADFBE /* LogDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,7 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				C7FC7AC528C76C0900C00F15 /* AppDelegate.swift */,
-				C7FC7AC928C76C0900C00F15 /* ViewController.swift */,
+				C7FC7AC928C76C0900C00F15 /* TeeeeeeeeeeestViewController.swift */,
 				C7FC7ACB28C76C0900C00F15 /* Main.storyboard */,
 				C7FC7ACE28C76C0900C00F15 /* Assets.xcassets */,
 				C7FC7AD028C76C0900C00F15 /* LaunchScreen.storyboard */,
@@ -567,6 +570,7 @@
 				C7B2057A2A1538B200AC837E /* ConstraintRelatableTarget.swift in Sources */,
 				C7B205B22A1538B200AC837E /* ConstraintOffsetTarget.swift in Sources */,
 				C7B205A82A1538B200AC837E /* ConstraintLayoutGuideDSL.swift in Sources */,
+				C7B2EABF2A7C1DC40061E7CB /* SkyNavigationViewController.swift in Sources */,
 				C7FC7A9528C7550F00C00F15 /* UINavigationBar + Extension.swift in Sources */,
 				74C0E36F2745A3AF00F54583 /* UIColor + Extension.swift in Sources */,
 				74C0E3612745960800F54583 /* UIView + Extension.swift in Sources */,
@@ -603,7 +607,7 @@
 				C7B205B72A1538B200AC837E /* ConstraintLayoutGuide+Extensions.swift in Sources */,
 				C7B205A92A1538B200AC837E /* ConstraintLayoutGuideDSL.swift in Sources */,
 				C7B205772A1538B200AC837E /* ConstraintDirectionalInsetTarget.swift in Sources */,
-				C7FC7ACA28C76C0900C00F15 /* ViewController.swift in Sources */,
+				C7FC7ACA28C76C0900C00F15 /* TeeeeeeeeeeestViewController.swift in Sources */,
 				C7B205992A1538B200AC837E /* UILayoutSupport+Extensions.swift in Sources */,
 				C7B205932A1538B200AC837E /* ConstraintMaker.swift in Sources */,
 				C7B205A32A1538B200AC837E /* ConstraintMakerPrioritizable.swift in Sources */,

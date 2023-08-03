@@ -10,16 +10,26 @@ import UIKit
 class LogTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "LogTableViewCell"
-    static var height: CGFloat = cellViewHeight + offset
-    static var cellViewHeight: CGFloat = 120
-    static var offset: CGFloat = 16
+    static var height: CGFloat = cellViewHeight + cellOffset
+    static var cellViewHeight: CGFloat = yInset + labelMaxHeight + yOffset + labelMaxHeight + yOffset + labelMaxHeight + yInset
+    static var cellOffset: CGFloat = 16
+    
+    private static let labelMaxHeight: CGFloat = 34
+    private static let yInset: CGFloat = 8
+    private static let yOffset: CGFloat = 10
+    private static let iconSize: CGFloat = 18
     
     lazy var cellView: UIView = {
         let v = UIView()
-        v.backgroundColor = UIColor.backgroundLight
+        v.backgroundColor = UIColor.skyBackgroundLight
         v.layer.cornerRadius = 12
-        v.layer.borderColor = UIColor.backgroundLight.cgColor
-        v.layer.borderWidth = 0.5
+        return v
+    }()
+    
+    lazy var cellViewColorView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor.blue
+        v.layer.cornerRadius = 12
         return v
     }()
     
@@ -30,40 +40,41 @@ class LogTableViewCell: UITableViewCell {
         return l
     }()
     
-    lazy var fileLeftLabel: UILabel = {
+    lazy var fileIconLabel: UILabel = {
         let l = UILabel()
         l.font = .regular(12)
         l.textAlignment = .left
         return l
     }()
     
-    lazy var infoLeftLabel: UILabel = {
+    lazy var infoIconLabel: UILabel = {
         let l = UILabel()
         l.font = .regular(12)
         l.textAlignment = .left
         return l
     }()
     
-    lazy var fileRightLabel: UILabel = {
+    lazy var fileLabel: UILabel = {
         let l = UILabel()
-        l.font = .regular(14)
+        l.font = .regular(12)
         l.textAlignment = .left
         l.numberOfLines = 2
         return l
     }()
     
-    lazy var infoRightTopLabel: UILabel = {
+    lazy var infoCenterLabel: UILabel = {
         let l = UILabel()
-        l.font = .regular(14)
+        l.font = .regular(12)
         l.textAlignment = .left
         l.numberOfLines = 2
         return l
     }()
     
-    lazy var infoRightBottomLabel: UILabel = {
+    lazy var infoBottomLabel: UILabel = {
         let l = UILabel()
-        l.font = .regular(14)
+        l.font = .regular(12)
         l.textAlignment = .left
+        l.numberOfLines = 2
         return l
     }()
     
@@ -71,7 +82,7 @@ class LogTableViewCell: UITableViewCell {
         let l = UILabel()
         l.font = .regular(10)
         l.textAlignment = .left
-        l.textColor = .textSecondary
+        l.textColor = .skyTextSecondary
         return l
     }()
     
@@ -79,7 +90,7 @@ class LogTableViewCell: UITableViewCell {
         let l = UILabel()
         l.font = .regular(10)
         l.textAlignment = .right
-        l.textColor = .textSecondary
+        l.textColor = .skyTextTertiary
         return l
     }()
     
@@ -93,17 +104,124 @@ class LogTableViewCell: UITableViewCell {
     }
     
     func setData(log: Log, number: Int, allCountNumber: Int) {
+        cellViewColorView.backgroundColor = log.kind.color.alpha(0.15)
         emojiLabel.text = log.kind.emoji
-        fileRightLabel.text = SkyStringHandler.getFileLine(log: log, haveSpace: false)
+        fileLabel.text = SkyStringHandler.getFileLine(log: log, haveSpace: false)
+        infoCenterLabel.text = getInfoRightTopLabelText(log: log)
+        infoBottomLabel.text = getInfoRightBottomLabelText(log: log)
+        countNumberLabel.text = String(number) + "/" + String(allCountNumber)
+        dateLabel.text = SkyStringHandler.getDateString(log.date)
         
-        var parameters = log.parameters ?? []
+        makeConstraints()
+    }
+    
+}
+
+//MARK: - UI
+private extension LogTableViewCell {
+    
+    private func configure() {
+        backgroundColor = .clear
+        selectionStyle = .none
+        fileIconLabel.text = "📝"
+        infoIconLabel.text = "ℹ️"
+    }
+    
+    private func makeConstraints() {
+        reAddSubview(cellView)
+        cellView.reAddSubviews([
+            cellViewColorView,
+            emojiLabel,
+            fileIconLabel,
+            infoIconLabel,
+            fileLabel,
+            infoCenterLabel,
+            infoBottomLabel,
+            countNumberLabel,
+            fileLabel,
+            dateLabel
+        ])
         
+        cellView.snp.makeConstraints({
+            $0.left.right.equalToSuperview().inset(16)
+            $0.centerY.equalToSuperview()
+            $0.height.equalTo(LogTableViewCell.cellViewHeight)
+        })
         
-        let infoRightTopLabelText: String? = {
+        cellViewColorView.snp.makeConstraints({
+            $0.left.right.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+        })
+        
+        emojiLabel.snp.makeConstraints({
+            $0.left.equalToSuperview().offset(8)
+            $0.centerY.equalToSuperview()
+            $0.width.height.equalTo(Self.iconSize)
+        })
+        
+        fileIconLabel.snp.makeConstraints({
+            $0.left.equalTo(emojiLabel.snp.right).offset(10)
+            $0.centerY.equalTo(fileLabel.snp.centerY)
+            $0.width.equalTo(Self.iconSize)
+            $0.height.equalTo(Self.iconSize)
+        })
+        
+        fileLabel.addLeftVerticalLine(checkIsEmpty: true)
+        fileLabel.snp.makeConstraints({
+            $0.left.equalTo(fileIconLabel.snp.right).offset(17)
+            $0.right.equalToSuperview().inset(8)
+            $0.height.lessThanOrEqualTo(Self.labelMaxHeight)
+            $0.top.equalToSuperview().offset(Self.yInset)
+        })
+        
+        infoIconLabel.snp.makeConstraints({
+            $0.left.equalTo(fileIconLabel.snp.left)
+            $0.centerY.equalTo(infoCenterLabel.snp.centerY)
+            $0.width.equalTo(Self.iconSize)
+            $0.height.equalTo(Self.iconSize)
+        })
+        
+        infoCenterLabel.addLeftVerticalLine(checkIsEmpty: true)
+        infoCenterLabel.snp.makeConstraints({
+            $0.left.equalTo(fileLabel.snp.left)
+            $0.right.equalToSuperview().offset(-16)
+            $0.height.lessThanOrEqualTo(Self.labelMaxHeight)
+            $0.centerY.equalToSuperview()
+        })
+        
+        dateLabel.snp.makeConstraints({
+            $0.right.equalToSuperview().offset(-8)
+            $0.bottom.equalToSuperview().offset(-Self.yInset)
+            $0.width.equalTo(dateLabel.calculateMaxWidth())
+        })
+        
+        infoBottomLabel.addLeftVerticalLine(checkIsEmpty: true)
+        infoBottomLabel.snp.makeConstraints({
+            $0.left.equalTo(fileLabel.snp.left)
+            $0.right.equalTo(dateLabel.snp.left).offset(-10)
+            $0.height.equalTo(Self.labelMaxHeight)
+            $0.bottom.equalToSuperview().offset(-Self.yInset)
+        })
+        
+        countNumberLabel.snp.makeConstraints({
+            $0.left.equalToSuperview().offset(8)
+            $0.right.equalTo(fileIconLabel.snp.right).offset(-4)
+            $0.bottom.equalToSuperview().offset(-Self.yInset)
+        })
+    }
+    
+}
+
+//MARK: - Private Functions
+private extension LogTableViewCell {
+    
+    private func getInfoRightTopLabelText(log: Log) -> String? {
+        var parameters: [Log.Parameter] = log.parameters ?? []
+        let result: String? = {
             switch log.kind {
             case .api(data: let data):
                 return data?.urlPath
-
+                
             case .custom(key: let key, emoji: _):
                 return "Key: " + key
             default:
@@ -117,9 +235,12 @@ class LogTableViewCell: UITableViewCell {
                 }
             }
         }()
-        infoRightTopLabel.text = infoRightTopLabelText
-        
-        let infoRightBottomLabelText: String? = {
+        return result
+    }
+    
+    private func getInfoRightBottomLabelText(log: Log) -> String? {
+        let parameters: [Log.Parameter] = log.parameters ?? []
+        let result: String? = {
             switch log.kind {
             case .api(data: let data):
                 if let statusCode = data?.statusCode {
@@ -127,7 +248,7 @@ class LogTableViewCell: UITableViewCell {
                 } else {
                     return nil
                 }
-            
+                
             case .custom:
                 if let message = log.message {
                     return "Message: " + String(describing: message)
@@ -146,97 +267,7 @@ class LogTableViewCell: UITableViewCell {
                 }
             }
         }()
-        infoRightBottomLabel.text = infoRightBottomLabelText
-        
-        countNumberLabel.text = String(number) + "/" + String(allCountNumber)
-        dateLabel.text = SkyStringHandler.getDateString(log.date)
-        
-        makeConstraints()
-    }
-    
-    private func configure() {
-        backgroundColor = .clear
-        selectionStyle = .none
-        fileLeftLabel.text = "📝"
-        infoLeftLabel.text = "ℹ️"
-    }
-    
-    private func makeConstraints() {
-        reAddSubview(cellView)
-        cellView.reAddSubviews([
-            emojiLabel,
-            fileLeftLabel,
-            infoLeftLabel,
-            fileRightLabel,
-            infoRightTopLabel,
-            infoRightBottomLabel,
-            countNumberLabel,
-            fileRightLabel,
-            dateLabel
-        ])
-        
-        cellView.snp.makeConstraints({
-            $0.left.right.equalToSuperview().inset(16)
-            $0.centerY.equalToSuperview()
-            $0.height.equalTo(LogTableViewCell.cellViewHeight)
-        })
-        
-        emojiLabel.snp.makeConstraints({
-            $0.left.equalToSuperview().offset(8)
-            $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(18)
-        })
-        
-        fileLeftLabel.snp.makeConstraints({
-            $0.left.equalTo(emojiLabel.snp.right).offset(10)
-            $0.centerY.equalTo(fileRightLabel.snp.centerY)
-            $0.width.equalTo(17)
-            $0.height.equalTo(17)
-        })
-        
-        fileRightLabel.addLeftVerticalLine(checkIsEmpty: true)
-        fileRightLabel.snp.makeConstraints({
-            $0.left.equalTo(fileLeftLabel.snp.right).offset(17)
-            $0.right.equalToSuperview().inset(8)
-            $0.height.lessThanOrEqualTo(34)
-            $0.top.equalToSuperview().offset(8)
-        })
-        
-        infoLeftLabel.snp.makeConstraints({
-            $0.left.equalTo(fileLeftLabel.snp.left)
-            $0.centerY.equalTo(infoRightTopLabel.snp.centerY)
-            $0.width.equalTo(fileLeftLabel.snp.width)
-            $0.height.equalTo(fileLeftLabel.snp.height)
-        })
-        
-        infoRightTopLabel.addLeftVerticalLine(checkIsEmpty: true)
-        infoRightTopLabel.snp.makeConstraints({
-            $0.left.equalTo(fileRightLabel.snp.left)
-            $0.right.equalToSuperview().offset(-16)
-            $0.height.lessThanOrEqualTo(34)
-            $0.top.equalTo(fileRightLabel.snp.bottom).offset(10)
-        })
-        
-        infoRightBottomLabel.addLeftVerticalLine(checkIsEmpty: true)
-        infoRightBottomLabel.snp.makeConstraints({
-            $0.left.equalTo(fileRightLabel.snp.left)
-            $0.right.equalTo(dateLabel.snp.left).offset(-16)
-            $0.height.equalTo(16)
-            $0.bottom.equalToSuperview().offset(-8)
-        })
-        
-        countNumberLabel.snp.makeConstraints({
-            $0.left.equalToSuperview().offset(8)
-            $0.right.equalTo(fileLeftLabel.snp.right)
-            $0.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(9)
-        })
-        
-        dateLabel.snp.makeConstraints({
-            $0.right.equalToSuperview().inset(8)
-            $0.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(9)
-        })
+        return result
     }
     
 }

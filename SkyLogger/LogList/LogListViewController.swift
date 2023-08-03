@@ -23,7 +23,9 @@ class LogListViewController: UIViewController {
             rootView.logKindCollectionView.reloadData()
             UIImpactFeedbackGenerator.init(style: .light).impactOccurred()
             rootView.logKindCollectionView.scrollToItem(at: .init(row: selectedLogKindIndex, section: 0), at: .left, animated: true)
-            rootView.listTableView.scrollToRow(at: .init(row: 0, section: 0), at: .top, animated: true)
+            if rootView.listTableView.numberOfSections > 0, rootView.listTableView.numberOfRows(inSection: 0) > 0 {
+                rootView.listTableView.scrollToRow(at: .init(row: 0, section: 0), at: .top, animated: true)
+            }
         }
     }
     
@@ -42,7 +44,7 @@ class LogListViewController: UIViewController {
     
 }
 
-//MARK:- View Lifecycle
+//MARK: - View Lifecycle
 extension LogListViewController {
     
     override func loadView() {
@@ -62,12 +64,12 @@ extension LogListViewController {
     
 }
 
-//MARK:- @objc Methods
+//MARK: - @objc Methods
 extension LogListViewController {
     
 }
 
-//MARK:- Private Methods
+//MARK: - Private Methods
 private extension LogListViewController {
     
     private func configure() {
@@ -104,12 +106,12 @@ private extension LogListViewController {
     
 }
 
-//MARK:- LogListViewControllerProtocol
+//MARK: - LogListViewControllerProtocol
 extension LogListViewController: LogListViewControllerProtocol {
     
 }
 
-//MARK:- UICollectionViewDelegate
+//MARK: - UICollectionViewDelegate
 extension LogListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -118,7 +120,7 @@ extension LogListViewController: UICollectionViewDelegate {
     
 }
 
-//MARK:- UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource
 extension LogListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     
@@ -160,7 +162,7 @@ extension LogListViewController: UICollectionViewDataSource, UICollectionViewDel
     
 }
 
-//MARK:- UITableViewDelegate
+//MARK: - UITableViewDelegate
 extension LogListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -170,7 +172,7 @@ extension LogListViewController: UITableViewDelegate {
     }
     
 }
-//MARK:- UITableViewDataSource
+//MARK: - UITableViewDataSource
 extension LogListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
