@@ -9,14 +9,12 @@ import UIKit
 
 public class Customization {
     
-    static var shared: Customization = .init(tintColor: .skyYellow, secondaryColor: .black)
+    static var shared: Customization = .init(tintColor: .skyYellow)
 
     let tintColor: UIColor
-    let secondaryColor: UIColor
     
-    public init(tintColor: UIColor, secondaryColor: UIColor) {
+    public init(tintColor: UIColor) {
         self.tintColor = tintColor
-        self.secondaryColor = secondaryColor
     }
     
 }

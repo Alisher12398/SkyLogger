@@ -35,4 +35,16 @@ extension UIView {
         })
     }
     
+    func removeSubview(_ view: UIView) {
+        view.snp.removeConstraints()
+        view.removeFromSuperview()
+    }
+    
+    func removeSubviews(_ views: [UIView]) {
+        views.forEach({
+            $0.snp.removeConstraints()
+            $0.removeFromSuperview()
+        })
+    }
+    
 }

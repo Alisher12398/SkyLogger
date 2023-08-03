@@ -23,7 +23,13 @@ class TeeeeeeeeeeestViewController: UIViewController {
         ]))
         Logger.log(.init(kind: .api(data: nil), message: "Test2"))
         
+        Logger.log(.init(kind: .system, message: "Test2"))
+        
         Logger.log(.init(kind: .warning, message: "Test2"))
+        
+        Logger.log(.init(kind: .warning, message: nil))
+        
+        Logger.log(.init(kind: .custom(key: "Test key"), message: "Test2"))
         
         Logger.log(.init(kind: .error(nil), message: "Test2"))
         Logger.present(nc: navigationController)

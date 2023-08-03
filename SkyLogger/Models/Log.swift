@@ -18,7 +18,7 @@ public class Log {
     let line: String
     let date: Date
     
-    public convenience init(kind: Log.Kind, message: Any? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    public convenience init(kind: Log.Kind, message: Any?, file: String = #file, function: String = #function, line: Int = #line) {
         self.init(logKind: kind, message: message, parameters: nil, file: file, function: function, line: line)
     }
     
@@ -47,7 +47,7 @@ public class Log {
         self.line = String(line)
         self.date = Date()
     }
-    
+
 }
 
 //MARK: - Log.Kind
@@ -60,7 +60,7 @@ extension Log {
         case system
         case error(Error?)
         case warning
-        case custom(key: String, emoji: String = "⚪")
+        case custom(key: String, emoji: String = "🟣")
         
         var index: Int {
             return Kind.allCases.firstIndex(of: self) ?? 0
@@ -95,8 +95,8 @@ extension Log {
                 return .skyRed
             case .warning:
                 return .skyYellow
-            case .custom(key: _, emoji: let emoji):
-                return .skyLightGray
+            case .custom:
+                return .purple
             }
         }
         

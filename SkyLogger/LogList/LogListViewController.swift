@@ -30,6 +30,7 @@ class LogListViewController: UIViewController {
     }
     
     private var filteredLogs: [Log] = Logger.getLogs()
+    private var allLogs: [Log] = Logger.getLogs()
     
     init() {
         self.rootView = LogListView()
@@ -192,7 +193,11 @@ extension LogListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return LogTableViewCell.height
+        if let log = filteredLogs[safe: indexPath.row] {
+            return LogTableViewCell.getCellViewHeight(log: log) + LogTableViewCell.cellOffset
+        } else {
+            return .zero
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
