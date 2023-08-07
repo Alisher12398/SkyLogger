@@ -24,6 +24,7 @@ class LogListViewController: UIViewController {
             UIImpactFeedbackGenerator.init(style: .light).impactOccurred()
             rootView.logKindCollectionView.scrollToItem(at: .init(row: selectedLogKindIndex, section: 0), at: .left, animated: true)
             if rootView.listTableView.numberOfSections > 0, rootView.listTableView.numberOfRows(inSection: 0) > 0 {
+                rootView.listTableView.layoutIfNeeded()
                 rootView.listTableView.scrollToRow(at: .init(row: 0, section: 0), at: .top, animated: true)
             }
         }
@@ -60,7 +61,6 @@ extension LogListViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        rootView.logKindCollectionView.reloadData()
     }
     
 }
@@ -193,9 +193,7 @@ extension LogListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if Customization.shared.tableViewAutomaticDimension {
-            return UITableView.automaticDimension
-        } else if let log = filteredLogs[safe: indexPath.row] {
+        if let log = filteredLogs[safe: indexPath.row] {
             return LogTableViewCell.calculateCellViewHeight(log: log) + LogTableViewCell.cellOffset
         } else {
             return .zero
