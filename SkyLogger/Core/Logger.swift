@@ -54,19 +54,18 @@ extension Logger {
         return SkyStringHandler.convertLogsToString(Logger.singleton.logs.allCases)
     }
     
-    public static func share(vc: UIViewController, tintColor: UIColor) {
+    public static func share(vc: UIViewController) {
         guard let url = getTextFile() else { return }
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         activityVC.modalPresentationStyle = .popover
-        activityVC.view.tintColor = tintColor
         activityVC.popoverPresentationController?.sourceView = vc.view
         vc.navigationController?.present(activityVC, animated: true, completion: nil)
     }
     
-    public static func push(nc: UINavigationController?) {
-        let vc = LogListViewController()
-        nc?.pushViewController(vc, animated: true)
-    }
+    //    public static func push(nc: UINavigationController?) {
+    //        let vc = LogListViewController()
+    //        nc?.pushViewController(vc, animated: true)
+    //    }
     
     public static func present(nc: UINavigationController?) {
         let vc = LogListViewController()

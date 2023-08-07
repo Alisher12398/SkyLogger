@@ -10,7 +10,7 @@ import UIKit
 class LogTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "LogTableViewCell"
-    static func getCellViewHeight(log: Log) -> CGFloat {
+    static func calculateCellViewHeight(log: Log) -> CGFloat {
         var result: CGFloat = 0
         result += yInset
         result += multilineLabelMaxHeight
@@ -35,6 +35,8 @@ class LogTableViewCell: UITableViewCell {
     private static let yOffset: CGFloat = 8
     private static let iconSize: CGFloat = 16
     private static let bottomLabelHeight: CGFloat = 12
+    
+    private let tableViewAutomaticDimension = Customization.shared.tableViewAutomaticDimension
     
     private var log: Log? = nil
     
@@ -95,7 +97,7 @@ class LogTableViewCell: UITableViewCell {
         let l = UILabel()
         l.font = .regular(12)
         l.textAlignment = .left
-        l.numberOfLines = 1
+        l.numberOfLines = tableViewAutomaticDimension ? 2 : 1
         return l
     }()
     
@@ -103,7 +105,7 @@ class LogTableViewCell: UITableViewCell {
         let l = UILabel()
         l.font = .regular(12)
         l.textAlignment = .left
-        l.numberOfLines = 1
+        l.numberOfLines = tableViewAutomaticDimension ? 2 : 1
         return l
     }()
     
@@ -213,7 +215,9 @@ private extension LogTableViewCell {
         cellView.snp.makeConstraints({
             $0.left.right.equalToSuperview().inset(16)
             $0.centerY.equalToSuperview()
-            $0.height.equalTo(LogTableViewCell.getCellViewHeight(log: log))
+            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-Self.cellOffset)
+//            $0.height.equalTo(LogTableViewCell.getCellViewHeight(log: log))
         })
         
         cellViewColorView.snp.makeConstraints({
@@ -238,8 +242,12 @@ private extension LogTableViewCell {
         fileTopLabel.snp.makeConstraints({
             $0.left.equalTo(fileIconImageView.snp.right).offset(12)
             $0.right.equalToSuperview().inset(8)
-            $0.height.lessThanOrEqualTo(Self.multilineLabelMaxHeight)
             $0.top.equalToSuperview().offset(Self.yInset)
+            if tableViewAutomaticDimension {
+                $0.height.lessThanOrEqualTo(Self.multilineLabelMaxHeight)
+            } else {
+                $0.height.equalTo(Self.multilineLabelMaxHeight)
+            }
         })
         
         if isHaveMessage {
@@ -254,15 +262,29 @@ private extension LogTableViewCell {
             messageCenterLabel.snp.makeConstraints({
                 $0.left.equalTo(fileTopLabel.snp.left)
                 $0.right.equalToSuperview().offset(-16)
-                $0.height.lessThanOrEqualTo(Self.singlelineLabelMaxHeight)
                 $0.top.equalTo(fileTopLabel.snp.bottom).offset(Self.yOffset)
+                if tableViewAutomaticDimension {
+                    $0.height.lessThanOrEqualTo(Self.multilineLabelMaxHeight)
+                } else {
+                    $0.height.equalTo(Self.singlelineLabelMaxHeight)
+                }
             })
         }
         
         dateLabel.snp.makeConstraints({
             $0.right.equalToSuperview().offset(-8)
+            let topView: UIView = {
+                if isHaveParameters {
+                    return parametersBottomLabel
+                } else if isHaveMessage {
+                    return messageCenterLabel
+                } else {
+                    return fileTopLabel
+                }
+            }()
+            $0.top.equalTo(topView.snp.bottom).offset(Self.yOffset)
             $0.bottom.equalToSuperview().offset(-Self.yInset)
-            $0.width.equalTo(dateLabel.calculateMaxWidth())
+            $0.left.equalTo(self.snp.centerX)
             $0.height.equalTo(Self.bottomLabelHeight)
         })
         
@@ -278,14 +300,18 @@ private extension LogTableViewCell {
             parametersBottomLabel.snp.makeConstraints({
                 $0.left.equalTo(fileTopLabel.snp.left)
                 $0.right.equalToSuperview().offset(-8)
-                $0.height.equalTo(Self.singlelineLabelMaxHeight)
                 $0.top.equalTo(isHaveMessage ? messageCenterLabel.snp.bottom : fileTopLabel.snp.bottom).offset(Self.yOffset)
+                if tableViewAutomaticDimension {
+                    $0.height.lessThanOrEqualTo(Self.multilineLabelMaxHeight)
+                } else {
+                    $0.height.equalTo(Self.singlelineLabelMaxHeight)
+                }
             })
         }
         
         countNumberLabel.snp.makeConstraints({
             $0.left.equalToSuperview().offset(8)
-            $0.right.equalTo(fileIconImageView.snp.right).offset(-4)
+            $0.right.equalTo(self.snp.centerX)
             $0.bottom.equalToSuperview().offset(-Self.yInset)
             $0.height.equalTo(Self.bottomLabelHeight)
         })

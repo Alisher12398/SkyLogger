@@ -35,7 +35,7 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     
     func setData(title: String, isSelected: Bool) {
         label.text = title
-        label.textColor = isSelected ? Customization.shared.tintColor : .skyTextWhite
+        label.textColor = isSelected ? .skyYellow : .skyTextWhite
         makeConstraints()
     }
     

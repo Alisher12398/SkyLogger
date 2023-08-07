@@ -35,6 +35,7 @@ class LogListView: BaseView {
         tv.bounces = true
         tv.alwaysBounceVertical = true
         tv.alwaysBounceHorizontal = false
+        tv.estimatedRowHeight = 105
         return tv
     }()
     

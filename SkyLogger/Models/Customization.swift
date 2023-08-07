@@ -9,12 +9,21 @@ import UIKit
 
 public class Customization {
     
-    static var shared: Customization = .init(tintColor: .skyYellow)
-
-    let tintColor: UIColor
+    static var shared: Customization = .init(tableViewAutomaticDimension: false)
     
-    public init(tintColor: UIColor) {
-        self.tintColor = tintColor
+    /// При `true` ячейка лога  в списке более подробная и вычисляется автоматически. Улучшает список визуально. По дефолту `true`
+    ///
+    let tableViewAutomaticDimension: Bool
+    
+    /**
+     Создание кастомизации для SkyLogger.
+     
+     - Parameters:
+     - tableViewAutomaticDimension: При `true` ячейка лога  в списке более подробная и вычисляется автоматически. Улучшает список визуально. По дефолту `true`
+     */
+    
+    public init(tableViewAutomaticDimension: Bool = true) {
+        self.tableViewAutomaticDimension = tableViewAutomaticDimension
     }
     
 }

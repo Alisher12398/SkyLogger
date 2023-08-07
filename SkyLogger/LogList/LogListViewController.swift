@@ -60,7 +60,7 @@ extension LogListViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        rootView.logKindCollectionView.reloadData()
+//        rootView.logKindCollectionView.reloadData()
     }
     
 }
@@ -193,8 +193,10 @@ extension LogListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let log = filteredLogs[safe: indexPath.row] {
-            return LogTableViewCell.getCellViewHeight(log: log) + LogTableViewCell.cellOffset
+        if Customization.shared.tableViewAutomaticDimension {
+            return UITableView.automaticDimension
+        } else if let log = filteredLogs[safe: indexPath.row] {
+            return LogTableViewCell.calculateCellViewHeight(log: log) + LogTableViewCell.cellOffset
         } else {
             return .zero
         }
