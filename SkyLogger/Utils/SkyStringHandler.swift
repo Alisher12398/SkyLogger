@@ -38,45 +38,45 @@ public struct SkyStringHandler {
         return string
     }
     
-    static public func generateLogKindFirstLine(kind: Log.Kind, date: Date) -> String {
+    static public func generateLogKindFirstLine(kind: Log.Kind, date: Date, showDivider: Bool) -> String {
         var result: String = ""
         let kindTitle: String = "\(kind.emoji) \(kind.title)"
         result.append("| SkyLogger: ")
         result.append(kindTitle)
-        result.append(getTabSpace(repeatCount: 1, newLine: false))
+        result.append(getTabSpace(repeatCount: 1, newLine: false, showDivider: showDivider))
         result.append(getDateString(date))
         return result
     }
     
-    static func convertLogsToString(_ logs: [Log]) -> String {
+    static func convertLogsToString(_ logs: [Log], showDivider: Bool) -> String {
         var result: String = ""
         logs.forEach({
-            result.append(convertLogToString($0))
+            result.append(convertLogToString($0, showDivider: showDivider))
         })
         return result
     }
     
-    static public func convertLogToString(_ log: Log) -> String {
+    static public func convertLogToString(_ log: Log, showDivider: Bool) -> String {
         var result: String = "\n"
         
-        result.append(generateLogKindFirstLine(kind: log.kind, date: log.date))
+        result.append(generateLogKindFirstLine(kind: log.kind, date: log.date, showDivider: showDivider))
         
         Log.LineKind.allCases.forEach({ item in
             result.append(item.formattedRawValue)
             let data: String = {
                 switch item {
                 case .file:
-                    return getFileLine(log: log, haveSpace: true)
+                    return getFileLine(log: log, haveSpace: true, showDivider: showDivider)
                     
                 case .message:
                     var dataResult: String = ""
                     if let message = log.message {
-                        dataResult.append(getMessageLine(key: "Message", value: message))
+                        dataResult.append(getMessageLine(key: "Message", value: message, showDivider: showDivider))
                     }
                     
                     if let parameters = log.parameters {
                         for value in parameters {
-                            dataResult.append(getMessageLine(key: value.key, value: value.value))
+                            dataResult.append(getMessageLine(key: value.key, value: value.value, showDivider: showDivider))
                         }
                     }
                     
@@ -84,7 +84,7 @@ public struct SkyStringHandler {
                     case .api(data: let data):
                         if let data = data {
                             SkyLogger.ResponseData.Key.allCases.forEach({
-                                dataResult.append(getMessageLine(key: $0.rawValue, value: $0.getValue(data: data)))
+                                dataResult.append(getMessageLine(key: $0.rawValue, value: $0.getValue(data: data), showDivider: showDivider))
                             })
                         }
                         
@@ -101,15 +101,15 @@ public struct SkyStringHandler {
         return result
     }
     
-    static func getTabSpace(repeatCount: Int, newLine: Bool = true) -> String {
-        return (newLine ? "\n|" : "") + String(repeating: "    ", count: repeatCount)
+    static func getTabSpace(repeatCount: Int, newLine: Bool = true, showDivider: Bool) -> String {
+        return (newLine ? (showDivider ? "\n|" : "\n") : "") + String(repeating: "    ", count: repeatCount)
     }
     
-    static func getFileLine(log: Log, haveSpace: Bool) -> String {
+    static func getFileLine(log: Log, haveSpace: Bool, showDivider: Bool) -> String {
         let fileFiltered: String = String(log.file.split(separator: "/").last ?? "")
         let path: String = "\(fileFiltered); \(log.function): \(log.line)"
         if haveSpace {
-            return getTabSpace(repeatCount: 2) + "  " + path
+            return getTabSpace(repeatCount: 2, showDivider: showDivider) + "  " + path
         } else {
             return path
         }
@@ -130,8 +130,8 @@ public struct SkyStringHandler {
         return result
     }
     
-    private static func getMessageLine(key: String, value: Any?) -> String {
-        let tabSpace = getTabSpace(repeatCount: 2) + "  "
+    private static func getMessageLine(key: String, value: Any?, showDivider: Bool) -> String {
+        let tabSpace = getTabSpace(repeatCount: 2, showDivider: showDivider) + "  "
         return tabSpace + "\(key): \(value ?? "nil")"
     }
 }

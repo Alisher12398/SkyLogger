@@ -15,12 +15,12 @@ class TeeeeeeeeeeestViewController: UIViewController {
         view.backgroundColor = UIColor.lightGray
         for _ in 0...10 {
             Logger.log(.init(kind: .print, message: "Test"))
-            Logger.log(.init(kind: .print, message: "ViewController ViewController ViewController ViewController ViewController ViewController ViewController ViewController ViewController", parameters: [
-                .init(key: "ViewController Key", value: "ViewController Value"),
-                .init(key: "ViewController Key 1", value: "ViewController Value"),
-                .init(key: "ViewController Key 2", value: "ViewController Value"),
-                .init(key: "ViewController Key 3", value: "ViewController Value"),
-                .init(key: "ViewController Key 4", value: "ViewController Value"),
+            Logger.log(.init(kind: .print, message: "Message 1 Message 2 Message 3 Message 4 Message 5 Message 6 Message 7", parameters: [
+                .init(key: "Key", value: "Value"),
+                .init(key: "Key 1", value: "Value"),
+                .init(key: "Key 2", value: "Value"),
+                .init(key: "Key 3", value: "Value"),
+                .init(key: "Key 4", value: "Value"),
             ]))
             Logger.log(.init(kind: .api(data: nil), message: "Test2"))
             

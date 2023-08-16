@@ -42,7 +42,7 @@ extension LogDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        rootView.setData(text: SkyStringHandler.convertLogToString(log))
+        rootView.setData(text: SkyStringHandler.convertLogToString(log, showDivider: false))
     }
     
 }
@@ -57,7 +57,7 @@ extension LogDetailViewController {
         } else {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
         }
-        UIPasteboard.general.string = SkyStringHandler.convertLogToString(log)
+        UIPasteboard.general.string = SkyStringHandler.convertLogToString(log, showDivider: false)
     }
     
 }

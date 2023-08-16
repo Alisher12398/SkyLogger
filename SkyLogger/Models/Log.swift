@@ -173,7 +173,7 @@ extension Log {
                     return "ℹ️"
                 }
             }()
-            return SkyStringHandler.getTabSpace(repeatCount: 1) + firstSymbol + " " + self.rawValue
+            return SkyStringHandler.getTabSpace(repeatCount: 1, showDivider: true) + firstSymbol + " " + self.rawValue
         }
     }
     

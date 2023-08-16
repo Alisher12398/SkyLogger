@@ -46,7 +46,7 @@ extension FileManager {
         guard let textFileURL = textFileURL else { return nil }
         let header: String = SkyStringHandler.generateInfoHeaderString(appVersion: appVersion, additionalParameters: additionalParameters)
         write(header)
-        write(SkyStringHandler.convertLogsToString(logs))
+        write(SkyStringHandler.convertLogsToString(logs, showDivider: true))
         return textFileURL
     }
     

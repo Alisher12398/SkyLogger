@@ -13,7 +13,6 @@ public class Logger {
     public static var isEnabled: Bool = true
     
     private static let singleton: Logger = .init()
-    private static let divider: String = "\n    | "
     
     private var logs = ThreadSafeArray<Log>.init()
     
@@ -43,7 +42,7 @@ extension Logger {
             return
         }
         Logger.singleton.logs.append(newElement: log)
-        Swift.print(SkyStringHandler.convertLogToString(log))
+        Swift.print(SkyStringHandler.convertLogToString(log, showDivider: true))
     }
     
     public static func getTextFile() -> URL? {
@@ -51,7 +50,7 @@ extension Logger {
     }
     
     public static func convertLogsToString() -> String {
-        return SkyStringHandler.convertLogsToString(Logger.singleton.logs.allCases)
+        return SkyStringHandler.convertLogsToString(Logger.singleton.logs.allCases, showDivider: true)
     }
     
     public static func share(vc: UIViewController) {
