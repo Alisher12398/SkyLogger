@@ -1,5 +1,5 @@
 //
-//  LogTableViewCell.swift
+//  LogTableViewCellabel.swift
 //  SkyLogger
 //
 //  Created by Алишер Халыкбаев on 18.11.2021.
@@ -17,11 +17,11 @@ class LogTableViewCell: UITableViewCell {
         result += yOffset
         result += bottomLabelHeight
         result += yInset
-        if Self.isLogHaveMessage(log) {
+        if Self.isCellHaveInfoCenterLabel(log) {
             result += yOffset
             result += singlelineLabelMaxHeight
         }
-        if Self.isLogHaveParameters(log) {
+        if Self.isCellHaveInfoBottomLabel(log) {
             result += yOffset
             result += singlelineLabelMaxHeight
         }
@@ -36,27 +36,29 @@ class LogTableViewCell: UITableViewCell {
     private static let iconSize: CGFloat = 16
     private static let bottomLabelHeight: CGFloat = 12
     
-    private var log: Log? = nil
+    //    private var log: Log? = nil
     
     lazy var cellView: UIView = {
-        let v = UIView()
-        v.backgroundColor = UIColor.skyBackgroundLight
-        v.layer.cornerRadius = 12
-        return v
+        let view = UIView()
+        view.backgroundColor = UIColor.skyBackgroundLight
+        view.layer.cornerRadius = 12
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     lazy var cellViewColorView: UIView = {
-        let v = UIView()
-        v.backgroundColor = UIColor.clear
-        v.layer.cornerRadius = 12
-        return v
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        view.layer.cornerRadius = 12
+        return view
     }()
     
     lazy var emojiLabel: UILabel = {
-        let l = UILabel()
-        l.font = .regular(10)
-        l.textAlignment = .center
-        return l
+        let label = UILabel()
+        label.font = .regular(10)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     lazy var fileIconImageView: UIImageView = {
@@ -64,68 +66,77 @@ class LogTableViewCell: UITableViewCell {
         imaveView.layer.masksToBounds = true
         imaveView.tintColor = .gray
         imaveView.contentMode = .scaleAspectFit
+        imaveView.translatesAutoresizingMaskIntoConstraints = false
         return imaveView
     }()
     
-    lazy var messageIconImageView: UIImageView = {
+    lazy var infoCenterIconImageView: UIImageView = {
         let imaveView = UIImageView()
         imaveView.layer.masksToBounds = true
         imaveView.tintColor = .gray
         imaveView.contentMode = .scaleAspectFit
+        imaveView.translatesAutoresizingMaskIntoConstraints = false
         return imaveView
     }()
     
-    lazy var parametersIconImageView: UIImageView = {
+    lazy var infoBottomIconImageView: UIImageView = {
         let imaveView = UIImageView()
         imaveView.layer.masksToBounds = true
         imaveView.tintColor = .gray
         imaveView.contentMode = .scaleAspectFit
+        imaveView.translatesAutoresizingMaskIntoConstraints = false
         return imaveView
     }()
     
     lazy var fileTopLabel: UILabel = {
-        let l = UILabel()
-        l.font = .regular(12)
-        l.textAlignment = .left
-        l.numberOfLines = 2
-        return l
+        let label = UILabel()
+        label.font = .regular(12)
+        label.textAlignment = .left
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    lazy var messageCenterLabel: UILabel = {
-        let l = UILabel()
-        l.font = .regular(12)
-        l.textAlignment = .left
-        l.numberOfLines = 1
-        return l
+    lazy var infoCenterLabel: UILabel = {
+        let label = UILabel()
+        label.font = .regular(12)
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    lazy var parametersBottomLabel: UILabel = {
-        let l = UILabel()
-        l.font = .regular(12)
-        l.textAlignment = .left
-        l.numberOfLines = 1
-        return l
+    lazy var infoBottomLabel: UILabel = {
+        let label = UILabel()
+        label.font = .regular(12)
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     lazy var countNumberLabel: UILabel = {
-        let l = UILabel()
-        l.font = .regular(10)
-        l.textAlignment = .left
-        l.textColor = .skyTextSecondary
-        return l
+        let label = UILabel()
+        label.font = .regular(10)
+        label.textAlignment = .left
+        label.textColor = .skyTextSecondary
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     lazy var dateLabel: UILabel = {
-        let l = UILabel()
-        l.font = .regular(10)
-        l.textAlignment = .right
-        l.textColor = .skyTextTertiary
-        return l
+        let label = UILabel()
+        label.font = .regular(10)
+        label.textAlignment = .right
+        label.textColor = .skyTextTertiary
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        makeConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -133,16 +144,15 @@ class LogTableViewCell: UITableViewCell {
     }
     
     func setData(log: Log, number: Int, allCountNumber: Int) {
-        self.log = log
         cellViewColorView.backgroundColor = log.kind.color.alpha(0.15)
         emojiLabel.text = log.kind.emoji
         fileTopLabel.text = Self.getFileLabelText(log: log)
-        messageCenterLabel.text = Self.getMessageLabelText(log: log)
-        parametersBottomLabel.text = Self.getParametersLabelText(log: log)
+        infoCenterLabel.text = Self.getInfoCenterLabelText(log: log)
+        infoBottomLabel.text = Self.getInfoBottomLabelText(log: log)
         countNumberLabel.text = String(number) + "/" + String(allCountNumber)
         dateLabel.text = SkyStringHandler.getDateString(log.date)
         
-        makeConstraints()
+        updateConstraints(log: log)
     }
     
 }
@@ -155,18 +165,14 @@ private extension LogTableViewCell {
         selectionStyle = .none
         if #available(iOS 13.0, *) {
             fileIconImageView.image = UIImage(systemName: "swift", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
-            messageIconImageView.image = UIImage(systemName: "text.bubble", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
-            parametersIconImageView.image = UIImage(systemName: "info.circle", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+            infoCenterIconImageView.image = UIImage(systemName: "text.bubble", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+            infoBottomIconImageView.image = UIImage(systemName: "info.circle", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
         } else {
             // Fallback on earlier versions
         }
     }
     
     private func makeConstraints() {
-        guard let log = log else { return }
-        let isHaveMessage = Self.isLogHaveMessage(log)
-        let isHaveParameters = Self.isLogHaveParameters(log)
-        
         let subviews: [UIView] = [cellViewColorView,
                                   emojiLabel,
                                   fileIconImageView,
@@ -174,131 +180,97 @@ private extension LogTableViewCell {
                                   countNumberLabel,
                                   fileTopLabel,
                                   dateLabel,
+                                  infoCenterIconImageView,
+                                  infoCenterLabel,
+                                  infoBottomIconImageView,
+                                  infoBottomLabel
         ]
-        let optionalSubviews: [UIView] = [
-            messageIconImageView,
-            messageCenterLabel,
-            parametersIconImageView,
-            parametersBottomLabel
+        addSubview(cellView)
+        subviews.forEach({
+            cellView.addSubview($0)
+        })
+        
+        let mainConstraints: [NSLayoutConstraint] = [
+            cellView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
+            cellView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            cellView.topAnchor.constraint(equalTo: self.topAnchor),
+            cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Self.cellOffset),
+            
+            cellViewColorView.leftAnchor.constraint(equalTo: cellView.leftAnchor),
+            cellViewColorView.rightAnchor.constraint(equalTo: cellView.rightAnchor),
+            cellViewColorView.topAnchor.constraint(equalTo: cellView.topAnchor),
+            cellViewColorView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor),
+            
+            emojiLabel.leftAnchor.constraint(equalTo: cellView.leftAnchor, constant: 8),
+            emojiLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: Self.yOffset),
+            emojiLabel.widthAnchor.constraint(equalToConstant: 14),
+            emojiLabel.heightAnchor.constraint(equalToConstant: 12),
         ]
         
-        let allSubviews: [UIView] = subviews + optionalSubviews
-        
-        removeSubview(cellView)
-        removeSubviews(allSubviews)
-        
-        reAddSubview(cellView)
-        cellView.reAddSubviews([
-            cellViewColorView,
-            emojiLabel,
-            fileIconImageView,
-            fileTopLabel,
-            countNumberLabel,
-            fileTopLabel,
-            dateLabel
-        ])
-        if isHaveMessage {
-            cellView.reAddSubviews([
-                messageIconImageView,
-                messageCenterLabel
-            ])
-        }
-        if isHaveParameters {
-            cellView.reAddSubviews([
-                parametersIconImageView,
-                parametersBottomLabel
-            ])
-        }
-        
-        cellView.snp.makeConstraints({
-            $0.left.right.equalToSuperview().inset(16)
-            $0.top.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(-Self.cellOffset)
-        })
-        
-        cellViewColorView.snp.makeConstraints({
-            $0.left.right.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
-        })
-        
-        emojiLabel.snp.makeConstraints({
-            $0.left.equalToSuperview().offset(8)
-            $0.top.equalToSuperview().offset(Self.yOffset)
-            $0.width.height.equalTo(emojiLabel.calculateMaxWidth())
-        })
-        
-        fileIconImageView.snp.makeConstraints({
-            $0.left.equalTo(emojiLabel.snp.right).offset(8)
-            $0.centerY.equalTo(fileTopLabel.snp.centerY)
-            $0.width.equalTo(Self.iconSize)
-            $0.height.equalTo(Self.iconSize)
-        })
-        
-        fileTopLabel.addLeftVerticalLine(checkIsEmpty: true)
-        fileTopLabel.snp.makeConstraints({
-            $0.left.equalTo(fileIconImageView.snp.right).offset(12)
-            $0.right.equalToSuperview().inset(8)
-            $0.top.equalToSuperview().offset(Self.yInset)
-            $0.height.equalTo(Self.multilineLabelMaxHeight)
-        })
-        
-        if isHaveMessage {
-            messageIconImageView.snp.makeConstraints({
-                $0.left.equalTo(fileIconImageView.snp.left)
-                $0.centerY.equalTo(messageCenterLabel.snp.centerY)
-                $0.width.equalTo(Self.iconSize)
-                $0.height.equalTo(Self.iconSize)
-            })
+        let fileTopLabelConstraints: [NSLayoutConstraint] = [
+            fileIconImageView.leftAnchor.constraint(equalTo: emojiLabel.rightAnchor, constant: 8),
+            fileIconImageView.centerYAnchor.constraint(equalTo: fileTopLabel.centerYAnchor),
+            fileIconImageView.widthAnchor.constraint(equalToConstant: Self.iconSize),
+            fileIconImageView.heightAnchor.constraint(equalToConstant: Self.iconSize),
             
-            messageCenterLabel.addLeftVerticalLine(checkIsEmpty: true)
-            messageCenterLabel.snp.makeConstraints({
-                $0.left.equalTo(fileTopLabel.snp.left)
-                $0.right.equalToSuperview().offset(-16)
-                $0.top.equalTo(fileTopLabel.snp.bottom).offset(Self.yOffset)
-                $0.height.equalTo(Self.singlelineLabelMaxHeight)
-            })
-        }
+            fileTopLabel.leftAnchor.constraint(equalTo: fileIconImageView.rightAnchor, constant: 12),
+            fileTopLabel.rightAnchor.constraint(equalTo: cellView.rightAnchor, constant: -8),
+            fileTopLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: Self.yInset),
+            fileTopLabel.heightAnchor.constraint(equalToConstant: Self.multilineLabelMaxHeight),
+        ]
         
-        dateLabel.snp.makeConstraints({
-            $0.right.equalToSuperview().offset(-8)
-            let topView: UIView = {
-                if isHaveParameters {
-                    return parametersBottomLabel
-                } else if isHaveMessage {
-                    return messageCenterLabel
-                } else {
-                    return fileTopLabel
-                }
-            }()
-            $0.top.equalTo(topView.snp.bottom).offset(Self.yOffset)
-            $0.bottom.equalToSuperview().offset(-Self.yInset)
-            $0.left.equalTo(self.snp.centerX)
-            $0.height.equalTo(Self.bottomLabelHeight)
-        })
-        
-        if isHaveParameters {
-            parametersIconImageView.snp.makeConstraints({
-                $0.left.equalTo(fileIconImageView.snp.left)
-                $0.centerY.equalTo(parametersBottomLabel.snp.centerY)
-                $0.width.equalTo(Self.iconSize)
-                $0.height.equalTo(Self.iconSize)
-            })
+        let infoCenterLabelConstraints: [NSLayoutConstraint] = [
+            infoCenterIconImageView.leftAnchor.constraint(equalTo: fileIconImageView.leftAnchor),
+            infoCenterIconImageView.centerYAnchor.constraint(equalTo: infoCenterLabel.centerYAnchor),
+            infoCenterIconImageView.widthAnchor.constraint(equalToConstant: Self.iconSize),
+            infoCenterIconImageView.heightAnchor.constraint(equalToConstant: Self.iconSize),
             
-            parametersBottomLabel.addLeftVerticalLine(checkIsEmpty: true)
-            parametersBottomLabel.snp.makeConstraints({
-                $0.left.equalTo(fileTopLabel.snp.left)
-                $0.right.equalToSuperview().offset(-8)
-                $0.top.equalTo(isHaveMessage ? messageCenterLabel.snp.bottom : fileTopLabel.snp.bottom).offset(Self.yOffset)
-                $0.height.equalTo(Self.singlelineLabelMaxHeight)
-            })
-        }
+            infoCenterLabel.leftAnchor.constraint(equalTo: fileTopLabel.leftAnchor),
+            infoCenterLabel.rightAnchor.constraint(equalTo: cellView.rightAnchor, constant: -16),
+            infoCenterLabel.topAnchor.constraint(equalTo: fileTopLabel.bottomAnchor, constant: Self.yOffset),
+            infoCenterLabel.heightAnchor.constraint(equalToConstant: Self.singlelineLabelMaxHeight)
+        ]
         
-        countNumberLabel.snp.makeConstraints({
-            $0.left.equalToSuperview().offset(8)
-            $0.right.equalTo(self.snp.centerX)
-            $0.bottom.equalToSuperview().offset(-Self.yInset)
-            $0.height.equalTo(Self.bottomLabelHeight)
-        })
+        let infoBottomLabelConstraints: [NSLayoutConstraint] = [
+            infoBottomIconImageView.leftAnchor.constraint(equalTo: fileIconImageView.leftAnchor),
+            infoBottomIconImageView.centerYAnchor.constraint(equalTo: infoBottomLabel.centerYAnchor),
+            infoBottomIconImageView.widthAnchor.constraint(equalToConstant: Self.iconSize),
+            infoBottomIconImageView.heightAnchor.constraint(equalToConstant: Self.iconSize),
+            
+            infoBottomLabel.leftAnchor.constraint(equalTo: fileTopLabel.leftAnchor),
+            infoBottomLabel.rightAnchor.constraint(equalTo: cellView.rightAnchor, constant: -8),
+            infoBottomLabel.topAnchor.constraint(equalTo: infoCenterLabel.bottomAnchor, constant: Self.yOffset),
+            infoBottomLabel.heightAnchor.constraint(equalToConstant: Self.singlelineLabelMaxHeight)
+        ]
+        
+        let bottomLabelsContraints: [NSLayoutConstraint] = [
+            dateLabel.leftAnchor.constraint(equalTo: cellView.centerXAnchor),
+            dateLabel.rightAnchor.constraint(equalTo: cellView.rightAnchor, constant: -8),
+            dateLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -Self.yOffset),
+            dateLabel.heightAnchor.constraint(equalToConstant: Self.bottomLabelHeight),
+            
+            countNumberLabel.leftAnchor.constraint(equalTo: cellView.leftAnchor, constant: 8),
+            countNumberLabel.rightAnchor.constraint(equalTo: cellView.centerXAnchor),
+            countNumberLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -Self.yOffset),
+            countNumberLabel.heightAnchor.constraint(equalToConstant: Self.bottomLabelHeight),
+        ]
+        
+        let constraints: [NSLayoutConstraint] = mainConstraints + fileTopLabelConstraints + infoCenterLabelConstraints + infoBottomLabelConstraints + bottomLabelsContraints
+        
+        NSLayoutConstraint.activate(constraints)
+        fileTopLabel.addLeftVerticalLine(checkIsEmpty: false)
+        infoCenterLabel.addLeftVerticalLine(checkIsEmpty: false)
+        infoBottomLabel.addLeftVerticalLine(checkIsEmpty: false)
+    }
+    
+    private func updateConstraints(log: Log) {
+        let isCellHaveInfoCenterLabel = Self.isCellHaveInfoCenterLabel(log)
+        infoCenterLabel.isHidden = !isCellHaveInfoCenterLabel
+        infoCenterIconImageView.isHidden = !isCellHaveInfoCenterLabel
+        
+        let isCellHaveInfoBottomLabel = Self.isCellHaveInfoBottomLabel(log)
+        infoBottomLabel.isHidden = !isCellHaveInfoBottomLabel
+        infoBottomIconImageView.isHidden = !isCellHaveInfoBottomLabel
     }
     
 }
@@ -306,12 +278,27 @@ private extension LogTableViewCell {
 //MARK: - Private Functions
 private extension LogTableViewCell {
     
+    private static func isCellHaveInfoCenterLabel(_ log: Log) -> Bool {
+        return isLogHaveMessage(log) || isLogHaveParameters(log)
+    }
+    
+    private static func isCellHaveInfoBottomLabel(_ log: Log) -> Bool {
+        return isLogHaveMessage(log) && isLogHaveParameters(log)
+    }
+    
+    
     private static func isLogHaveMessage(_ log: Log) -> Bool {
-        return getMessageLabelText(log: log) != nil
+        guard let message = getLogMessageText(log: log), !message.isEmpty else {
+            return false
+        }
+        return true
     }
     
     private static func isLogHaveParameters(_ log: Log) -> Bool {
-        return getParametersLabelText(log: log) != nil
+        guard let parameters = getLogParametersText(log: log), !parameters.isEmpty else {
+            return false
+        }
+        return true
     }
     
     private static func getFileLabelText(log: Log) -> String? {
@@ -324,7 +311,21 @@ private extension LogTableViewCell {
         }
     }
     
-    private static func getMessageLabelText(log: Log) -> String? {
+    private static func getInfoCenterLabelText(log: Log) -> String? {
+        if let message = getLogMessageText(log: log) {
+            return message
+        } else if let parameters = getLogParametersText(log: log) {
+            return parameters
+        } else {
+            return nil
+        }
+    }
+    
+    private static func getInfoBottomLabelText(log: Log) -> String? {
+        return getLogParametersText(log: log)
+    }
+    
+    private static func getLogMessageText(log: Log) -> String? {
         switch log.kind {
         case .api(data: let data):
             return data?.urlPath
@@ -337,7 +338,7 @@ private extension LogTableViewCell {
         }
     }
     
-    private static func getParametersLabelText(log: Log) -> String? {
+    private static func getLogParametersText(log: Log) -> String? {
         let parameters: [Log.Parameter] = log.parameters ?? []
         switch log.kind {
         case .api(data: let data):
@@ -349,10 +350,10 @@ private extension LogTableViewCell {
         default:
             guard !parameters.isEmpty else { return nil }
             var result: String = ""
-            if let parameter = parameters.first, let string = getParameterString(parameter) {
+            if let parameter = parameters.first, let string = getSubstringForLogParameter(parameter) {
                 result += string
             }
-            if let parameter = parameters[safe: 1], let string = getParameterString(parameter) {
+            if let parameter = parameters[safe: 1], let string = getSubstringForLogParameter(parameter) {
                 result += ", "
                 result += string
             }
@@ -360,7 +361,7 @@ private extension LogTableViewCell {
         }
     }
     
-    private static func getParameterString(_ parameter: Log.Parameter) -> String? {
+    private static func getSubstringForLogParameter(_ parameter: Log.Parameter) -> String? {
         if let value = parameter.value {
             return "\"\(parameter.key)\"" + ": " + String(describing: value)
         } else {
