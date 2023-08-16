@@ -13,7 +13,7 @@ class TeeeeeeeeeeestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightGray
-        for i in 0...10 {
+        for _ in 0...10 {
             Logger.log(.init(kind: .print, message: "Test"))
             Logger.log(.init(kind: .print, message: "ViewController ViewController ViewController ViewController ViewController ViewController ViewController ViewController ViewController", parameters: [
                 .init(key: "ViewController Key", value: "ViewController Value"),
@@ -33,6 +33,8 @@ class TeeeeeeeeeeestViewController: UIViewController {
             Logger.log(.init(kind: .custom(key: "Test key"), message: "Test2"))
             
             Logger.log(.init(kind: .error(nil), message: "Test2"))
+            
+            Logger.log(.init(kind: .custom(key: "emojiii", emoji: "✈️"), message: "Test"))
         }
         
         Logger.present(nc: navigationController)

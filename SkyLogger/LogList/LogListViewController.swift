@@ -145,7 +145,7 @@ extension LogListViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row == 0 {
-            return .init(width: "All".width(font: LogKindCollectionViewCell.labelFont), height: LogKindCollectionViewCell.height)
+            return .init(width: "All".width(font: LogKindCollectionViewCell.labelFont) + 4, height: LogKindCollectionViewCell.height)
         } else if let kind = Log.Kind.allCases[safe: indexPath.row - 1] {
             return LogKindCollectionViewCell.getSize(kind: kind)
         } else {
