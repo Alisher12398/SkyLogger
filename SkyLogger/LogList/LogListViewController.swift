@@ -136,7 +136,7 @@ extension LogListViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogKindCollectionViewCell.reuseIdentifier, for: indexPath) as! LogKindCollectionViewCell
         if indexPath.row == 0 {
-            cell.setData(title: "Все", isSelected: indexPath.row == selectedLogKindIndex)
+            cell.setData(title: "All", isSelected: indexPath.row == selectedLogKindIndex)
         } else if let kind = Log.Kind.allCases[safe: indexPath.row - 1] {
             cell.setData(title: kind.emoji + " " + kind.titleShort, isSelected: indexPath.row == selectedLogKindIndex)
         }
@@ -145,7 +145,7 @@ extension LogListViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row == 0 {
-            return .init(width: "Все".width(font: LogKindCollectionViewCell.labelFont), height: LogKindCollectionViewCell.height)
+            return .init(width: "All".width(font: LogKindCollectionViewCell.labelFont), height: LogKindCollectionViewCell.height)
         } else if let kind = Log.Kind.allCases[safe: indexPath.row - 1] {
             return LogKindCollectionViewCell.getSize(kind: kind)
         } else {

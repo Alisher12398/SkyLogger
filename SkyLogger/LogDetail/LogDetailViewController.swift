@@ -68,7 +68,7 @@ private extension LogDetailViewController {
     private func configureNavigationBar() {
         navigationItem.title = "SkyLogger"
         
-        let item = UIBarButtonItem(title: "Скопировать", style: .plain, target: self, action: #selector(didTapCopyButton(_:)))
+        let item = UIBarButtonItem(title: "Copy", style: .plain, target: self, action: #selector(didTapCopyButton(_:)))
         navigationItem.rightBarButtonItem = item
     }
     
