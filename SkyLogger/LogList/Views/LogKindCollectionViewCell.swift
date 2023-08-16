@@ -15,13 +15,14 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     static let labelFont: UIFont = .regular(15)
     
     static func getSize(kind: Log.Kind) -> CGSize {
-        return .init(width: (kind.emoji + " " + kind.titleShort).width(font: labelFont), height: height)
+        return .init(width: (kind.emoji + " " + kind.titleShort).width(font: labelFont) + 4, height: height)
     }
     
     lazy var label: UILabel = {
         let l = UILabel()
         l.textColor = .skyTextWhite
         l.font = LogKindCollectionViewCell.labelFont
+        l.translatesAutoresizingMaskIntoConstraints = false
         return l
     }()
     
@@ -34,9 +35,9 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     }
     
     func setData(title: String, isSelected: Bool) {
+        makeConstraints()
         label.text = title
         label.textColor = isSelected ? .skyYellow : .skyTextWhite
-        makeConstraints()
     }
     
     private func configure() {
@@ -44,15 +45,13 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     }
     
     private func makeConstraints() {
-        label.snp.removeConstraints()
-        label.removeFromSuperview()
-        
-        addSubview(label)
-        
-        label.snp.makeConstraints({
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
-        })
+        reAddSubview(label)
+        NSLayoutConstraint.activate([
+            label.leftAnchor.constraint(equalTo: self.leftAnchor),
+            label.rightAnchor.constraint(equalTo: self.rightAnchor),
+            label.topAnchor.constraint(equalTo: self.topAnchor),
+            label.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
     }
     
 }
