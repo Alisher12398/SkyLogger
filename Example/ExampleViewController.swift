@@ -9,7 +9,7 @@ import UIKit
 import SkyLogger
 
 class ExampleViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightGray
@@ -22,23 +22,23 @@ class ExampleViewController: UIViewController {
                 .init(key: "Key 3", value: "Value"),
                 .init(key: "Key 4", value: "Value"),
             ]))
-            Logger.log(.init(kind: .api(data: nil), message: "Test2"))
+            Logger.log(.init(kind: .api(data: nil), message: "Test API"))
             
-            Logger.log(.init(kind: .system, message: "Test2"))
+            Logger.log(.init(kind: .system, message: "Test system"))
             
-            Logger.log(.init(kind: .warning, message: "Test2"))
+            Logger.log(.init(kind: .warning, message: "Test warning"))
             
             Logger.log(.init(kind: .warning, message: nil))
             
-            Logger.log(.init(kind: .custom(key: "Test key"), message: "Test2"))
+            Logger.log(.init(kind: .custom(key: "Test key"), message: "Test customKey"))
             
-            Logger.log(.init(kind: .error(nil), message: "Test2"))
+            Logger.log(.init(kind: .error(nil), message: "Test error"))
             
-            Logger.log(.init(kind: .custom(key: "emojiii", emoji: "✈️"), message: "Test"))
+            Logger.log(.init(kind: .custom(key: "emojiii", emoji: "✈️"), message: "Test customKey emoji"))
         }
         
         Logger.present(nc: navigationController)
     }
-
+    
 }
 
