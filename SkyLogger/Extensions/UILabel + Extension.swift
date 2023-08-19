@@ -15,13 +15,14 @@ extension UILabel {
         }
         let view = UIView()
         view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
         self.reAddSubview(view)
-        view.snp.makeConstraints({
-            $0.right.equalTo(self.snp.left).offset(-5)
-            $0.top.equalToSuperview().offset(2)
-            $0.bottom.equalToSuperview().offset(-2)
-            $0.width.equalTo(1.2)
-        })
+        NSLayoutConstraint.activate([
+            view.rightAnchor.constraint(equalTo: self.leftAnchor, constant: -5),
+            view.topAnchor.constraint(equalTo: self.topAnchor, constant: 2),
+            view.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2),
+            view.widthAnchor.constraint(equalToConstant: 1.2)
+        ])
     }
     
     //    func calculateMaxWidth() -> CGFloat {

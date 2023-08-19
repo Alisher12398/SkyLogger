@@ -22,6 +22,7 @@ class LogListView: BaseView {
         cv.alwaysBounceHorizontal = true
         cv.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
         cv.backgroundColor = .clear
+        cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
     
@@ -36,6 +37,7 @@ class LogListView: BaseView {
         tv.alwaysBounceVertical = true
         tv.alwaysBounceHorizontal = false
         tv.estimatedRowHeight = 105
+        tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
     
@@ -61,17 +63,17 @@ extension LogListView: BaseViewProtocol {
     }
     
     func makeConstraints() {
-        logKindCollectionView.snp.makeConstraints({
-            $0.left.right.equalToSuperview()
-            $0.top.equalTo(safeArea.top)
-            $0.height.equalTo(LogKindCollectionViewCell.height)
-        })
-        
-        listTableView.snp.makeConstraints({
-            $0.top.equalTo(logKindCollectionView.snp.bottom)
-            $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
-        })
+        NSLayoutConstraint.activate([
+            logKindCollectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            logKindCollectionView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            logKindCollectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            logKindCollectionView.heightAnchor.constraint(equalToConstant: LogKindCollectionViewCell.height),
+            
+            listTableView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            listTableView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            listTableView.topAnchor.constraint(equalTo: logKindCollectionView.bottomAnchor),
+            listTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
     }
     
 }

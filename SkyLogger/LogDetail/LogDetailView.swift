@@ -19,6 +19,7 @@ class LogDetailView: BaseView {
         tv.isEditable = false
         tv.textColor = .skyTextWhite
         tv.clipsToBounds = true
+        tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
     
@@ -43,11 +44,12 @@ extension LogDetailView: BaseViewProtocol {
     
     func makeConstraints() {
         addSubview(textView)
-        textView.snp.makeConstraints({
-            $0.top.equalTo(safeArea.top)
-            $0.bottom.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(16)
-        })
+        NSLayoutConstraint.activate([
+            textView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
+            textView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            textView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            textView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16)
+        ])
     }
     
 }
