@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ExampleViewController.swift
 //  Example
 //
 //  Created by Алишер Халыкбаев on 06.09.2022.
@@ -8,7 +8,7 @@
 import UIKit
 import SkyLogger
 
-class TeeeeeeeeeeestViewController: UIViewController {
+class ExampleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
