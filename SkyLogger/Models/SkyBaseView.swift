@@ -1,5 +1,5 @@
 //
-//  BaseView.swift
+//  SkyBaseView.swift
 //  SkyLogger
 //
 //  Created by Алишер Халыкбаев on 16.11.2021.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol BaseViewProtocol {
+protocol SkyBaseViewProtocol {
     func configure()
     func makeConstraints()
 }
 
-class BaseView: UIView {
+class SkyBaseView: UIView {
     
     init() {
         super.init(frame: .zero)

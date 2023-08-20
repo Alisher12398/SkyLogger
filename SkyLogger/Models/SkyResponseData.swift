@@ -1,5 +1,5 @@
 //
-//  ResponseData.swift
+//  SkyResponseData.swift
 //  SkyLogger
 //
 //  Created by Алишер Халыкбаев on 17.11.2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class ResponseData {
+public class SkyResponseData {
     
     let baseURL: URL?
     let urlPath: String
@@ -46,7 +46,7 @@ public class ResponseData {
         case error
         case responseBody
         
-        func getValue(data: ResponseData) -> Any? {
+        func getValue(data: SkyResponseData) -> Any? {
             switch self {
             case .baseURL:
                 return data.baseURL

@@ -32,7 +32,7 @@ class ExampleViewController: UIViewController {
             
             Logger.log(.init(kind: .custom(key: "Test key"), message: "Test customKey"))
             
-            Logger.log(.init(kind: .error(nil), message: "Test error"))
+//            Logger.log(.init(kind: .error(nil), message: "Test error"))
             
             Logger.log(.init(kind: .custom(key: "emojiii", emoji: "✈️"), message: "Test customKey emoji"))
         }

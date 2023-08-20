@@ -90,6 +90,7 @@ private extension LogListViewController {
         let backBarButtonItem = UIBarButtonItem()
         backBarButtonItem.title = ""
         navigationItem.backBarButtonItem = backBarButtonItem
+        navigationItem.rightBarButtonItem = SkyBarButtonItem(kind: .shareLogList, vc: self)
     }
     
     func updateFilteredLogs() {

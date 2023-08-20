@@ -1,5 +1,5 @@
 //
-//  Device.swift
+//  SkyDevice.swift
 //  OurMenu
 //
 //  Created by Alisher Khalykbayev on 07.11.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Device {
+struct SkyDevice {
     
     enum AllModels {
         case simulator
@@ -47,16 +47,10 @@ struct Device {
         case _13_mini
         case _13_pro
         case _13_pro_max
-    }
-    
-    enum ModelsByScreenSize {
-        case iPhone_5
-        case iPhone_6
-        case iPhone_Plus
-        case iPhone_XR
-        case iPhone_X
-        case iPhone_Max
-        case unknown
+        case _14
+        case _14_plus
+        case _14_pro
+        case _14_pro_max
     }
     
     enum ScreenSize {

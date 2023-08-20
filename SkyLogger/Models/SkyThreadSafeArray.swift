@@ -1,5 +1,5 @@
 //
-//  ThreadSafeArray.swift
+//  SkyThreadSafeArray.swift
 //  SkyLogger
 //
 //  Created by Алишер Халыкбаев on 06.09.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ThreadSafeArray<Element> {
+class SkyThreadSafeArray<Element> {
     
     private var array = [Element]()
     private let queue = DispatchQueue(label: "skylogger.thread.safe.array.label", attributes: .concurrent)

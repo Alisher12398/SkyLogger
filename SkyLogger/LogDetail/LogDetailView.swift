@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LogDetailView: BaseView {
+class LogDetailView: SkyBaseView {
     
     lazy var textView: UITextView = {
         let tv = UITextView()
@@ -35,8 +35,8 @@ class LogDetailView: BaseView {
     
 }
 
-//MARK: - BaseViewProtocol
-extension LogDetailView: BaseViewProtocol {
+//MARK: - SkyBaseViewProtocol
+extension LogDetailView: SkyBaseViewProtocol {
     
     func configure() {
         backgroundColor = .skyBackground

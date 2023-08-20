@@ -56,7 +56,7 @@ extension Log {
     public enum Kind {
         
         case print
-        case api(data: ResponseData?)
+        case api(data: SkyResponseData?)
         case system
         case error(Error?)
         case warning

@@ -1,5 +1,5 @@
 //
-//  FileManager.swift
+//  SkyFileManager.swift
 //  SkyLogger
 //
 //  Created by Алишер Халыкбаев on 09.11.2021.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-struct FileManager {
+struct SkyFileManager {
     
-    static let shared = FileManager()
+    static let shared = SkyFileManager()
     
     init() {
         setup()
@@ -20,7 +20,7 @@ struct FileManager {
     private var textFileURL: URL? {
         get {
             guard let path = Foundation.FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-                Logger.print(".documentDirectory from Foundation.FileManager is nil")
+                Logger.print(".documentDirectory from Foundation.SkyFileManager is nil")
                 return nil
             }
             let fileURL = path.appendingPathComponent(textFileName)
@@ -31,7 +31,7 @@ struct FileManager {
 }
 
 //MARK: - Public Functions
-extension FileManager {
+extension SkyFileManager {
     
     func removeTextFile() {
         guard let textFileURL = textFileURL else { return }
@@ -63,7 +63,7 @@ extension FileManager {
 }
 
 //MARK: - Private Functions
-extension FileManager: TextOutputStream {
+extension SkyFileManager: TextOutputStream {
     
     private func setup() {
         removeTextFile()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LogListView: BaseView {
+class LogListView: SkyBaseView {
     
     lazy var logKindCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -53,8 +53,8 @@ class LogListView: BaseView {
     
 }
 
-//MARK: - BaseViewProtocol
-extension LogListView: BaseViewProtocol {
+//MARK: - SkyBaseViewProtocol
+extension LogListView: SkyBaseViewProtocol {
     
     func configure() {
         backgroundColor = UIColor.skyBackground
