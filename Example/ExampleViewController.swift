@@ -38,7 +38,7 @@ class ExampleViewController: UIViewController {
             Logger.log(.init(kind: .custom(key: "emojiii", emoji: "✈️"), message: "Test customKey emoji"))
         }
         
-        Logger.present(nc: navigationController)
+        Logger.presentLogList(navigationController: navigationController)
     }
     
 }

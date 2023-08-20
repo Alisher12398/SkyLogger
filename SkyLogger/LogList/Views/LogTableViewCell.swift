@@ -50,6 +50,7 @@ class LogTableViewCell: UITableViewCell {
         let view = UIView()
         view.backgroundColor = UIColor.clear
         view.layer.cornerRadius = 12
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     

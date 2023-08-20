@@ -68,7 +68,7 @@ class SkyBarButtonItem: UIBarButtonItem {
         }
         switch kind {
         case .copy(log: let log):
-            UIPasteboard.general.string = SkyStringHandler.generateInfoHeaderString(additionalParameters: []) + SkyStringHandler.convertLogToString(log, showDivider: false)
+            UIPasteboard.general.string = SkyStringHandler.generateInfoHeaderString() + SkyStringHandler.convertLogToString(log, showDivider: false)
         default:
             return
         }
@@ -79,9 +79,11 @@ class SkyBarButtonItem: UIBarButtonItem {
     private func didTapShareButton(_ sender: UIBarButtonItem) {
         switch kind {
         case .shareLogList:
-            Logger.shareLogs(vc: self.vc)
+            ()
+//            Logger.shareLogs(vc: self.vc)
         case .shareLog(let log):
-            Logger.shareLog(log: log, vc: self.vc)
+            ()
+//            Logger.shareLog(log: log, vc: self.vc)
         case .copy:
             return
         }

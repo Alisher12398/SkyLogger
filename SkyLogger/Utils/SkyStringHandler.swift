@@ -9,7 +9,7 @@ import UIKit
 
 public struct SkyStringHandler {
     
-    static public func generateInfoHeaderString(additionalParameters: [Log.Parameter]) -> String {
+    static public func generateInfoHeaderString(additionalInfoParameters: [Log.Parameter] = []) -> String {
         let date = Date()
         let calendar = Calendar.current
         var string: String = """
@@ -28,9 +28,9 @@ public struct SkyStringHandler {
             Time Zone: \(TimeZone.current.abbreviation() ?? "null")
         
         """
-        if !additionalParameters.isEmpty {
+        if !additionalInfoParameters.isEmpty {
             string.append("Additional parameters:")
-            additionalParameters.forEach({
+            additionalInfoParameters.forEach({
                 string.append("\n\($0.key): \($0.value ?? "")")
             })
         }

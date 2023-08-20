@@ -27,7 +27,7 @@ class LogDetailViewController: UIViewController {
     }
     
     deinit {
-        print("LogDetailViewController deinit")
+        Logger.print(message: "LogDetailViewController deinit")
     }
     
 }

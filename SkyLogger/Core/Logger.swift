@@ -17,13 +17,9 @@ public class Logger {
     private var logs = SkyThreadSafeArray<Log>.init()
     
     var appVersion: String = "unknown"
-    private var additionalParameters: [Log.Parameter] = []
+    private var additionalInfoParameters: [Log.Parameter] = []
     
     private static let loggerPrintName: String = "SkyLogger"
-    
-    static func print(_ text: String, file: String = #file, _ function: String = #function, _ line: Int = #line) {
-        Swift.print("SkyLogger Print. File: \(file); Function: \(function); Line: \(line); text: \(text)")
-    }
 }
 
 //MARK: - Public Methods
@@ -34,13 +30,13 @@ extension Logger {
         SkyCustomization.shared = customization
     }
     
-    public static func setAdditionalParameters(_ parameters: [Log.Parameter]) {
-        Logger.singleton.additionalParameters = parameters
+    public static func setAdditionalInfo(_ parameters: [Log.Parameter]) {
+        Logger.singleton.additionalInfoParameters = parameters
     }
     
     public static func log(_ log: Log, file: String = #file, function: String = #function, line: Int = #line) {
         guard isEnabled else {
-            Self.print("log is not written because the logger is disabled")
+            Self.print(message: "log is not written because the Logger is disabled")
             return
         }
         Logger.singleton.logs.append(newElement: log)
@@ -48,7 +44,7 @@ extension Logger {
     }
     
     public static func getTextFile() -> URL? {
-        let result: URL? = SkyFileManager.shared.saveToTextFile(logs: Logger.singleton.logs.allCases, additionalParameters: Logger.singleton.additionalParameters)
+        let result: URL? = SkyFileManager.shared.saveToTextFile(logs: Logger.singleton.logs.allCases, additionalInfoParameters: Logger.singleton.additionalInfoParameters)
         if let result = result {
             return result
         } else {
@@ -61,36 +57,79 @@ extension Logger {
         return SkyStringHandler.convertLogsToString(Logger.singleton.logs.allCases, showDivider: true)
     }
     
-    public static func shareLogs(vc: UIViewController?) {
-        guard let file = getTextFile(), let vc = vc ?? tryGetCurrentViewController() else {
+    /**
+     Presents a list of logs. The present come in the passed UINavigationController.
+     
+     - Parameters:
+            - Log.
+            - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     */
+    public static func presentLogList(navigationController: UINavigationController?) {
+        guard let navigationController = navigationController else {
+            Self.print(error: "can't present Logger: passed UINavigationController is nil")
             return
         }
-        let activityVC = makeShareViewController(activityItems: [file])
-        vc.present(activityVC, animated: true, completion: nil)
-    }
-    
-    public static func present(nc: UINavigationController?) {
         let vc = LogListViewController()
-        nc?.present(SkyNavigationViewController(rootViewController: vc), animated: true, completion: nil)
+        navigationController.present(SkyNavigationViewController(rootViewController: vc), animated: true, completion: nil)
     }
     
-    public static func shareLog(log: Log, vc: UIViewController?) {
-        guard let vc = vc ?? tryGetCurrentViewController() else { return }
-        let result: String = SkyStringHandler.generateInfoHeaderString(additionalParameters: []) + SkyStringHandler.convertLogToString(log, showDivider: false)
-        let activityVC = makeShareViewController(activityItems: [result])
+    /**
+     Presents a modal popover `UIActivityViewController` to `Share` action that contains list of all logs. The present come in the passed UIViewController or in that is found automatically.
+     
+     - Parameters:
+            - Log.
+            - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     */
+    public static func shareLogs(presentingViewController: UIViewController? = nil) {
+        guard let file = getTextFile(), let vc = presentingViewController ?? tryGetCurrentViewController() else {
+            return
+        }
+        let activityVC = UIActivityViewController(activityItems: [file], applicationActivities: nil)
+        activityVC.configure(viewController: vc)
         vc.present(activityVC, animated: true, completion: nil)
     }
     
-    public static func getLogShareVC(log: Log) -> UIActivityViewController {
-        let activityVC = makeShareViewController(activityItems: [SkyStringHandler.convertLogToString(log, showDivider: false)])
+    /**
+     Presents a modal popover `UIActivityViewController` to `Share` action that contains the log. The present come in the passed UIViewController or in that is found automatically.
+     
+     - Parameters:
+            - Log.
+            - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     */
+    public static func shareLog(log: Log, presentingViewController: UIViewController? = nil) {
+        guard let vc = presentingViewController ?? tryGetCurrentViewController() else { return }
+        let data: String = SkyStringHandler.generateInfoHeaderString() + SkyStringHandler.convertLogToString(log, showDivider: false)
+        let activityVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+        activityVC.configure(viewController: vc)
+        vc.present(activityVC, animated: true, completion: nil)
+    }
+    
+    /**
+     Creates a modal popover `UIActivityViewController` to `Share` action that contains the log.
+     
+     - Parameters:
+            - Log.
+     
+     - Returns: popover `UIActivityViewController`.
+     */
+    public static func getLogShareViewController(log: Log) -> UIActivityViewController {
+        let data: String = SkyStringHandler.convertLogToString(log, showDivider: false)
+        let activityVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+        activityVC.configure(viewController: nil)
         return activityVC
     }
     
-    public static func getLogsShareVC() -> UIActivityViewController? {
+    /**
+     Creates a modal popover `UIActivityViewController` to `Share` action that contains list of all logs.
+     
+     - Returns: popover `UIActivityViewController` with list of all the logs.
+     */
+    public static func getLogListShareViewController() -> UIActivityViewController? {
         guard let file = getTextFile() else {
             return nil
         }
-        let activityVC = makeShareViewController(activityItems: [file])
+        let activityVC = UIActivityViewController(activityItems: [file], applicationActivities: nil)
+        activityVC.configure(viewController: nil)
         return activityVC
     }
     
@@ -116,12 +155,6 @@ extension Logger {
 
 //MARK: - Private Methods
 private extension Logger {
-    
-    private static func makeShareViewController(activityItems: [Any]) -> UIActivityViewController {
-        let activityVC = UIActivityViewController(activityItems: [activityItems], applicationActivities: nil)
-        activityVC.modalPresentationStyle = .popover
-        return activityVC
-    }
     
     private static func tryGetCurrentViewController() -> UIViewController? {
         let currentWindow = UIApplication.shared.windows.first
@@ -152,6 +185,17 @@ private extension Logger {
                 Self.print(error: error)
                 return nil
             }
+        }
+    }
+    
+}
+
+fileprivate extension UIActivityViewController {
+    
+    func configure(viewController: UIViewController?) {
+        self.modalPresentationStyle = .popover
+        if let popoverController = self.popoverPresentationController, let viewController = viewController {
+            popoverController.sourceView = viewController.view
         }
     }
     

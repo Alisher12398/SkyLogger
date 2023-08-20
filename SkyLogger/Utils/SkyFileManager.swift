@@ -20,7 +20,7 @@ struct SkyFileManager {
     private var textFileURL: URL? {
         get {
             guard let path = Foundation.FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-                Logger.print(".documentDirectory from Foundation.SkyFileManager is nil")
+                Logger.print(message: ".documentDirectory from Foundation.FileManager is nil")
                 return nil
             }
             let fileURL = path.appendingPathComponent(textFileName)
@@ -38,13 +38,13 @@ extension SkyFileManager {
         do {
             try Foundation.FileManager.default.removeItem(at: textFileURL)
         } catch {
-            Logger.print("Remove catch. Error: \(error)")
+            Logger.print(error: "can't remove text file from FileManager. Error: \(error); localizedDescription: \(error.localizedDescription)")
         }
     }
     
-    func saveToTextFile(logs: [Log], additionalParameters: [Log.Parameter]) -> URL? {
+    func saveToTextFile(logs: [Log], additionalInfoParameters: [Log.Parameter]) -> URL? {
         guard let textFileURL = textFileURL else { return nil }
-        let header: String = SkyStringHandler.generateInfoHeaderString(additionalParameters: additionalParameters)
+        let header: String = SkyStringHandler.generateInfoHeaderString(additionalInfoParameters: additionalInfoParameters)
         write(header)
         write(SkyStringHandler.convertLogsToString(logs, showDivider: true))
         return textFileURL
@@ -77,7 +77,7 @@ extension SkyFileManager: TextOutputStream {
             }
         }
         catch {
-            Logger.print("Write catch. Error: \(error)")
+            Logger.print(error: "can't write text file. Error: \(error); localizedDescription: \(error.localizedDescription)")
         }
     }
     
