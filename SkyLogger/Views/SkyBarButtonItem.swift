@@ -68,7 +68,7 @@ class SkyBarButtonItem: UIBarButtonItem {
         }
         switch kind {
         case .copy(log: let log):
-            UIPasteboard.general.string = SkyStringHandler.generateInfoHeaderString() + SkyStringHandler.convertLogToString(log, showDivider: false)
+            UIPasteboard.general.string = SkyStringHandler.convertLogToString(log, showDivider: false)
         default:
             return
         }
