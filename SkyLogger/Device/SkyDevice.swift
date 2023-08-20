@@ -6,19 +6,41 @@
 //  Copyright © 2021 Alisher Khalykbayev. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct SkyDevice {
     
     enum AllModels {
+
         case simulator
         case unknown
         case iPhone(kind: iPhone)
         case iPad_OLD
         case iPad_NEW
+        
+        var rawValue: String {
+            switch self {
+            case .simulator:
+                let model = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"]
+                if let model = model, model.contains("iPhone") || model.contains("iPad") {
+                    let modelName = UIDevice.current.mapToDevice(identifier: model)
+                    return "simulator. Device: (\(modelName.rawValue)); id: \(model)"
+                } else {
+                    return "simulator"
+                }
+            case .unknown:
+                return "unknown"
+            case .iPhone(kind: let kind):
+                return "iPhone" + kind.rawValue
+            case .iPad_OLD:
+                return "iPad"
+            case .iPad_NEW:
+                return "iPad"
+            }
+        }
     }
     
-    enum iPhone {
+    enum iPhone: String {
         case _5
         case _5C
         case _5S

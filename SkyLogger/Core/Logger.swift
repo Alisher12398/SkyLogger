@@ -12,11 +12,11 @@ public class Logger {
     
     public static var isEnabled: Bool = true
     
-    private static let singleton: Logger = .init()
+    static let singleton: Logger = .init()
     
     private var logs = SkyThreadSafeArray<Log>.init()
     
-    private var appVersion: String = "unknown"
+    var appVersion: String = "unknown"
     private var additionalParameters: [Log.Parameter] = []
     
     private static let loggerPrintName: String = "SkyLogger"
@@ -48,7 +48,7 @@ extension Logger {
     }
     
     public static func getTextFile() -> URL? {
-        let result: URL? = SkyFileManager.shared.saveToTextFile(logs: Logger.singleton.logs.allCases, appVersion: Logger.singleton.appVersion, additionalParameters: Logger.singleton.additionalParameters)
+        let result: URL? = SkyFileManager.shared.saveToTextFile(logs: Logger.singleton.logs.allCases, additionalParameters: Logger.singleton.additionalParameters)
         if let result = result {
             return result
         } else {
@@ -76,7 +76,8 @@ extension Logger {
     
     public static func shareLog(log: Log, vc: UIViewController?) {
         guard let vc = vc ?? tryGetCurrentViewController() else { return }
-        let activityVC = makeShareViewController(activityItems: [SkyStringHandler.convertLogToString(log, showDivider: false)])
+        let result: String = SkyStringHandler.generateInfoHeaderString(additionalParameters: []) + SkyStringHandler.convertLogToString(log, showDivider: false)
+        let activityVC = makeShareViewController(activityItems: [result])
         vc.present(activityVC, animated: true, completion: nil)
     }
     

@@ -13,6 +13,7 @@ class ExampleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightGray
+        Logger.setup(appVersion: "1.0", customization: .init())
         for _ in 0...10 {
             Logger.log(.init(kind: .print, message: "Test"))
             Logger.log(.init(kind: .print, message: "Message 1 Message 2 Message 3 Message 4 Message 5 Message 6 Message 7", parameters: [

@@ -9,18 +9,18 @@ import UIKit
 
 public struct SkyStringHandler {
     
-    static public func generateInfoHeaderString(appVersion: String, additionalParameters: [Log.Parameter]) -> String {
+    static public func generateInfoHeaderString(additionalParameters: [Log.Parameter]) -> String {
         let date = Date()
         let calendar = Calendar.current
         var string: String = """
         SkyLogger by Alisher Khalykbayev
         
-        Date: \(calendar.component(.day, from: date)).\(calendar.component(.month, from: date))
+        Date (dd.mm.yyyy): \(calendar.component(.day, from: date)).\(calendar.component(.month, from: date)).\(calendar.component(.year, from: date))
         
-        App Version: \(appVersion)
+        App Version: \(Logger.singleton.appVersion)
         
         Device
-            Name: \(UIDevice.current.getModelFromAll())
+            Name: \(UIDevice.current.getModelFromAll().rawValue)
             Identifier: \(UIDevice.current.identifier)
             iOS Version: \(UIDevice.current.systemVersion)
             System Name: \(UIDevice.current.systemName)
