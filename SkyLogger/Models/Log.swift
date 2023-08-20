@@ -153,13 +153,13 @@ extension Log {
     
     enum LineKind: CaseIterable {
         case file
-        case message
+        case info
         
         private var rawValue: String {
             switch self {
             case .file:
                 return "File"
-            case .message:
+            case .info:
                 return "Info"
             }
         }
@@ -168,9 +168,13 @@ extension Log {
             let firstSymbol: String = {
                 switch self {
                 case .file:
-                    return "📝"
-                case .message:
-                    return "ℹ️"
+                    return "📄" // 📄 iOS 14 􀫊
+                case .info:
+                    if #available(iOS 13, *) {
+                        return "􀅴"
+                    } else {
+                        return "ℹ️"
+                    }
                 }
             }()
             return SkyStringHandler.getTabSpace(repeatCount: 1, showDivider: true) + firstSymbol + " " + self.rawValue

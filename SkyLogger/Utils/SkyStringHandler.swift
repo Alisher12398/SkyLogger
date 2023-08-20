@@ -68,7 +68,7 @@ public struct SkyStringHandler {
                 case .file:
                     return getFileLine(log: log, haveSpace: true, showDivider: showDivider)
                     
-                case .message:
+                case .info:
                     var dataResult: String = ""
                     if let message = log.message {
                         dataResult.append(getMessageLine(key: "Message", value: message, showDivider: showDivider))
