@@ -41,41 +41,14 @@ extension LogDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        configureNavigationBar()
+        configureNavigationBar()
         rootView.setData(text: SkyStringHandler.convertLogToString(log, showDivider: false))
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configureNavigationBar()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationItem.rightBarButtonItems = []
-    }
-    
-    
     
 }
 
 //MARK: - @objc Methods
 extension LogDetailViewController {
-    
-//    @objc
-//    private func didTapCopyButton(_ sender: UIBarButtonItem) {
-//        if #available(iOS 13.0, *) {
-//            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-//        } else {
-//            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-//        }
-//        UIPasteboard.general.string = SkyStringHandler.convertLogToString(log, showDivider: false)
-//    }
-//
-//    @objc
-//    private func didTapShareButton(_ sender: UIBarButtonItem) {
-//        Logger.shareLog(log: log, vc: self)
-//    }
     
 }
 
@@ -84,9 +57,6 @@ private extension LogDetailViewController {
     
     private func configureNavigationBar() {
         navigationItem.title = "SkyLogger"
-        
-//        let copy = UIBarButtonItem(title: "Copy", style: .plain, target: self, action: #selector(didTapCopyButton(_:)))
-//        let share = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(didTapShareButton(_:)))
         navigationItem.rightBarButtonItems = [SkyBarButtonItem(kind: .shareLog(log: log), vc: self), SkyBarButtonItem(kind: .copy(log: log), vc: self)]
     }
     

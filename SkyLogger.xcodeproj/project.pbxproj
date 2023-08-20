@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7458D9D827440F9600140F57 /* LogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D727440F9600140F57 /* LogListViewController.swift */; };
 		7458D9DA27440FA400140F57 /* LogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D927440FA400140F57 /* LogListView.swift */; };
-		7458D9DC2744100900140F57 /* LogListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9DB2744100900140F57 /* LogListPresenter.swift */; };
 		7458D9E1274411DB00140F57 /* SkyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E0274411DB00140F57 /* SkyBaseView.swift */; };
 		7458D9E42744121D00140F57 /* SkyCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E32744121D00140F57 /* SkyCustomization.swift */; };
 		7458D9E72744141400140F57 /* LogKindCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E62744141400140F57 /* LogKindCollectionViewCell.swift */; };
@@ -38,7 +37,6 @@
 /* Begin PBXFileReference section */
 		7458D9D727440F9600140F57 /* LogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListViewController.swift; sourceTree = "<group>"; };
 		7458D9D927440FA400140F57 /* LogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListView.swift; sourceTree = "<group>"; };
-		7458D9DB2744100900140F57 /* LogListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListPresenter.swift; sourceTree = "<group>"; };
 		7458D9E0274411DB00140F57 /* SkyBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyBaseView.swift; sourceTree = "<group>"; };
 		7458D9E32744121D00140F57 /* SkyCustomization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyCustomization.swift; sourceTree = "<group>"; };
 		7458D9E62744141400140F57 /* LogKindCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogKindCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 			children = (
 				7458D9E5274413FF00140F57 /* Views */,
 				7458D9D727440F9600140F57 /* LogListViewController.swift */,
-				7458D9DB2744100900140F57 /* LogListPresenter.swift */,
 				7458D9D927440FA400140F57 /* LogListView.swift */,
 			);
 			path = LogList;
@@ -358,7 +355,6 @@
 				C7B205C12A1539AC00AC837E /* UIColor+Hue.swift in Sources */,
 				74F50ED027383BFE0093E44F /* SkyDevice.swift in Sources */,
 				C7266A882A910F9200C63533 /* SkyBarButtonItem.swift in Sources */,
-				7458D9DC2744100900140F57 /* LogListPresenter.swift in Sources */,
 				74F50ECC27383B930093E44F /* Logger.swift in Sources */,
 				74F22642273983F400A08532 /* Log.swift in Sources */,
 				7458D9E42744121D00140F57 /* SkyCustomization.swift in Sources */,

@@ -7,14 +7,9 @@
 
 import UIKit
 
-protocol LogListViewControllerProtocol {
-    
-}
-
 class LogListViewController: UIViewController {
     
     private let rootView: LogListView
-    private let presenter: LogListPresenter
     
     private var selectedLogKindIndex: Int = 0 {
         didSet {
@@ -35,9 +30,7 @@ class LogListViewController: UIViewController {
     
     init() {
         self.rootView = LogListView()
-        self.presenter = LogListPresenter()
         super.init(nibName: nil, bundle: nil)
-        presenter.viewController = self
     }
     
     required init?(coder: NSCoder) {
@@ -109,11 +102,6 @@ private extension LogListViewController {
         }
         self.filteredLogs = filteredLogsNew
     }
-    
-}
-
-//MARK: - LogListViewControllerProtocol
-extension LogListViewController: LogListViewControllerProtocol {
     
 }
 

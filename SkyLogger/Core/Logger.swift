@@ -80,7 +80,7 @@ extension Logger {
             - Log.
             - UIViewController that will present UIActivityViewController. When nill it's found automatically.
      */
-    public static func shareLogs(presentingViewController: UIViewController? = nil) {
+    public static func shareLogList(presentingViewController: UIViewController? = nil) {
         guard let file = getTextFile(), let vc = presentingViewController ?? tryGetCurrentViewController() else {
             return
         }

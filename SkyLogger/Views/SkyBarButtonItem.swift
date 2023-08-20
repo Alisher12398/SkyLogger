@@ -35,7 +35,7 @@ class SkyBarButtonItem: UIBarButtonItem {
     }
     
     private let kind: Kind
-    private let vc: UIViewController?
+    private weak var vc: UIViewController?
     
     init(kind: Kind, vc: UIViewController?) {
         self.kind = kind
@@ -80,10 +80,9 @@ class SkyBarButtonItem: UIBarButtonItem {
         switch kind {
         case .shareLogList:
             ()
-//            Logger.shareLogs(vc: self.vc)
+            Logger.shareLogList(presentingViewController: self.vc)
         case .shareLog(let log):
-            ()
-//            Logger.shareLog(log: log, vc: self.vc)
+            Logger.shareLog(log: log, presentingViewController: self.vc)
         case .copy:
             return
         }
