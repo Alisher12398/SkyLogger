@@ -19,7 +19,7 @@ public class Logger {
     var appVersion: String = "unknown"
     private var additionalInfoParameters: [Log.Parameter] = []
     
-    private static let loggerPrintName: String = "SkyLogger"
+    private static let loggerPrintName: String = "SkyLogger. "
 }
 
 //MARK: - Public Methods
@@ -151,11 +151,11 @@ extension Logger {
     }
     
     static func print(message: String) {
-        Swift.print(loggerPrintName + "message: " + message)
+        Swift.print(loggerPrintName + "Message: " + message)
     }
     
     static func print(error: String) {
-        Swift.print(loggerPrintName + "error: " + error)
+        Swift.print(loggerPrintName + "Error: " + error)
     }
     
 }

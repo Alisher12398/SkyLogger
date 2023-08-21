@@ -38,7 +38,7 @@ class LogListViewController: UIViewController {
     }
     
     deinit {
-        Logger.print(message: "LogListViewController deinit")
+        Logger.print(message: "deinit Logger")
     }
     
 }
