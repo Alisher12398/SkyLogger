@@ -48,21 +48,21 @@ public struct SkyStringHandler {
         return result
     }
     
-    static func convertLogsToString(_ logs: [Log], showDivider: Bool) -> String {
+    static func convertLogsToString(_ logs: [Log], showDivider: Bool, destination: SkyStringHandler.LogDetailDestination) -> String {
         var result: String = ""
         logs.forEach({
-            result.append(convertLogToString($0, showDivider: showDivider))
+            result.append(convertLogToString($0, showDivider: showDivider, destination: destination))
         })
         return result
     }
     
-    static public func convertLogToString(_ log: Log, showDivider: Bool) -> String {
+    static public func convertLogToString(_ log: Log, showDivider: Bool, destination: SkyStringHandler.LogDetailDestination) -> String {
         var result: String = "\n"
         
         result.append(generateLogKindFirstLine(kind: log.kind, date: log.date, showDivider: showDivider))
         
         Log.LineKind.allCases.forEach({ item in
-            result.append(item.formattedRawValue)
+            result.append(item.getFormattedTitle(destination: destination))
             let data: String = {
                 switch item {
                 case .file:
@@ -134,6 +134,16 @@ public struct SkyStringHandler {
         let tabSpace = getTabSpace(repeatCount: 2, showDivider: showDivider) + "  "
         return tabSpace + "\(key): \(value ?? "nil")"
     }
+}
+
+extension SkyStringHandler {
+    
+    public enum LogDetailDestination {
+        case device
+        case xcode
+        case share
+    }
+    
 }
 
 fileprivate extension Calendar {

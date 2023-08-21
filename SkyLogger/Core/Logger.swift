@@ -30,19 +30,31 @@ extension Logger {
         SkyCustomization.shared = customization
     }
     
+    /**
+     Add additional info about device, system, etc.
+     
+     - Parameters:
+     - [Log.Parameter]. Array of additional parameters
+     */
     public static func setAdditionalInfo(_ parameters: [Log.Parameter]) {
         Logger.singleton.additionalInfoParameters = parameters
     }
     
+    /**
+     Write a log.
+     */
     public static func log(_ log: Log, file: String = #file, function: String = #function, line: Int = #line) {
         guard isEnabled else {
             Self.print(message: "log is not written because the Logger is disabled")
             return
         }
         Logger.singleton.logs.append(newElement: log)
-        Swift.print(SkyStringHandler.convertLogToString(log, showDivider: true))
+        Swift.print(SkyStringHandler.convertLogToString(log, showDivider: true, destination: .xcode))
     }
     
+    /**
+     Returns the URL for .txt file with logs.
+     */
     public static func getTextFile() -> URL? {
         let result: URL? = SkyFileManager.shared.saveToTextFile(logs: Logger.singleton.logs.allCases, additionalInfoParameters: Logger.singleton.additionalInfoParameters)
         if let result = result {
@@ -53,16 +65,12 @@ extension Logger {
         }
     }
     
-    public static func convertLogsToString() -> String {
-        return SkyStringHandler.convertLogsToString(Logger.singleton.logs.allCases, showDivider: true)
-    }
-    
     /**
      Presents a list of logs. The present come in the passed UINavigationController.
      
      - Parameters:
-            - Log.
-            - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     - Log.
+     - UIViewController that will present UIActivityViewController. When nill it's found automatically.
      */
     public static func presentLogList(navigationController: UINavigationController?) {
         guard let navigationController = navigationController else {
@@ -77,8 +85,8 @@ extension Logger {
      Presents a modal popover `UIActivityViewController` to `Share` action that contains list of all logs. The present come in the passed UIViewController or in that is found automatically.
      
      - Parameters:
-            - Log.
-            - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     - Log.
+     - UIViewController that will present UIActivityViewController. When nill it's found automatically.
      */
     public static func shareLogList(presentingViewController: UIViewController? = nil) {
         guard let file = getTextFile(), let vc = presentingViewController ?? tryGetCurrentViewController() else {
@@ -93,12 +101,12 @@ extension Logger {
      Presents a modal popover `UIActivityViewController` to `Share` action that contains the log. The present come in the passed UIViewController or in that is found automatically.
      
      - Parameters:
-            - Log.
-            - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     - Log.
+     - UIViewController that will present UIActivityViewController. When nill it's found automatically.
      */
     public static func shareLog(log: Log, presentingViewController: UIViewController? = nil) {
         guard let vc = presentingViewController ?? tryGetCurrentViewController() else { return }
-        let data: String = SkyStringHandler.generateInfoHeaderString() + SkyStringHandler.convertLogToString(log, showDivider: false)
+        let data: String = SkyStringHandler.generateInfoHeaderString() + SkyStringHandler.convertLogToString(log, showDivider: false, destination: .share)
         let activityVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
         activityVC.configure(viewController: vc)
         vc.present(activityVC, animated: true, completion: nil)
@@ -108,12 +116,12 @@ extension Logger {
      Creates a modal popover `UIActivityViewController` to `Share` action that contains the log.
      
      - Parameters:
-            - Log.
+     - Log.
      
      - Returns: popover `UIActivityViewController`.
      */
     public static func getLogShareViewController(log: Log) -> UIActivityViewController {
-        let data: String = SkyStringHandler.convertLogToString(log, showDivider: false)
+        let data: String = SkyStringHandler.convertLogToString(log, showDivider: false, destination: .share)
         let activityVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
         activityVC.configure(viewController: nil)
         return activityVC

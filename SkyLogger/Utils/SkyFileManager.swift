@@ -46,7 +46,7 @@ extension SkyFileManager {
         guard let textFileURL = textFileURL else { return nil }
         let header: String = SkyStringHandler.generateInfoHeaderString(additionalInfoParameters: additionalInfoParameters)
         write(header)
-        write(SkyStringHandler.convertLogsToString(logs, showDivider: true))
+        write(SkyStringHandler.convertLogsToString(logs, showDivider: true, destination: .share))
         return textFileURL
     }
     

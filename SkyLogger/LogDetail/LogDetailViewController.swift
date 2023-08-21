@@ -42,7 +42,7 @@ extension LogDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        rootView.setData(text: SkyStringHandler.convertLogToString(log, showDivider: false))
+        rootView.setData(text: SkyStringHandler.convertLogToString(log, showDivider: false, destination: .device))
     }
     
 }

@@ -47,7 +47,7 @@ public class Log {
         self.line = String(line)
         self.date = Date()
     }
-
+    
 }
 
 //MARK: - Log.Kind
@@ -155,7 +155,7 @@ extension Log {
         case file
         case info
         
-        private var rawValue: String {
+        private var title: String {
             switch self {
             case .file:
                 return "File"
@@ -164,21 +164,50 @@ extension Log {
             }
         }
         
-        var formattedRawValue: String {
-            let firstSymbol: String = {
-                switch self {
-                case .file:
-                    return "📄" // 📄 iOS 14 􀫊
-                case .info:
-                    if #available(iOS 13, *) {
-                        return "􀅴"
-                    } else {
-                        return "ℹ️"
-                    }
-                }
-            }()
-            return SkyStringHandler.getTabSpace(repeatCount: 1, showDivider: true) + firstSymbol + " " + self.rawValue
+        var iconForXcode: String {
+            switch self {
+            case .file:
+                return "􀫊"
+            case .info:
+                return "􀅴"
+            }
         }
+        
+        @available(iOS 13.0, *)
+        var iconForDevice: UIImage? {
+            switch self {
+            case .file:
+                return UIImage(systemName: "swift", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+            case .info:
+                return UIImage(systemName: "info.circle", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+            }
+        }
+        
+        var iconForShare: String {
+            switch self {
+            case .file:
+                return "📄"
+            case .info:
+                return "ℹ️"
+            }
+        }
+        
+        func getFormattedTitle(destination: SkyStringHandler.LogDetailDestination) -> String {
+            var result: String = ""
+            result.append(SkyStringHandler.getTabSpace(repeatCount: 1, showDivider: true))
+            switch destination {
+            case .device:
+                result.append(iconForShare)
+            case .xcode:
+                result.append(iconForXcode)
+            case .share:
+                result.append(iconForShare)
+            }
+            result.append(" ")
+            result.append(self.title)
+            return result
+        }
+        
     }
     
 }
