@@ -15,7 +15,7 @@ class LogDetailView: SkyBaseView {
         tv.bounces = true
         tv.alwaysBounceVertical = true
         tv.alwaysBounceHorizontal = false
-        tv.font = .regular(16)
+        tv.font = .regular(14)
         tv.isEditable = false
         tv.textColor = .skyTextWhite
         tv.clipsToBounds = true
