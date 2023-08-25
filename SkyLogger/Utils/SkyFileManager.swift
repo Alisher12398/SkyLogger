@@ -15,18 +15,16 @@ struct SkyFileManager {
         setup()
     }
     
-    private let textFileName = "sky_logger.txt"
+//    private let textFileName = "sky_logger.txt"
     
-    private var textFileURL: URL? {
-        get {
+    private let textFileURL: URL? = {
             guard let path = Foundation.FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
                 Logger.print(message: ".documentDirectory from Foundation.FileManager is nil")
                 return nil
             }
-            let fileURL = path.appendingPathComponent(textFileName)
+            let fileURL = path.appendingPathComponent("sky_logger.txt")
             return fileURL
-        }
-    }
+    }()
     
 }
 
@@ -38,15 +36,16 @@ extension SkyFileManager {
         do {
             try Foundation.FileManager.default.removeItem(at: textFileURL)
         } catch {
-            Logger.print(error: "can't remove text file from FileManager. Error: \(error); localizedDescription: \(error.localizedDescription)")
+//            Logger.print(error: "can't remove text file from FileManager. Error: \(error); localizedDescription: \(error.localizedDescription)")
         }
     }
     
     func saveToTextFile(logs: [Log], additionalInfoParameters: [Log.Parameter]) -> URL? {
         guard let textFileURL = textFileURL else { return nil }
+        removeTextFile()
         let header: String = SkyStringHandler.generateInfoHeaderString(additionalInfoParameters: additionalInfoParameters)
-        write(header)
-        write(SkyStringHandler.convertLogsToString(logs, showDivider: true, destination: .share))
+        let logs = SkyStringHandler.convertLogsToString(logs, showDivider: true, destination: .share)
+        write(header + logs)
         return textFileURL
     }
     
@@ -73,7 +72,7 @@ extension SkyFileManager: TextOutputStream {
         guard let textFileURL = textFileURL else { return }
         do {
             if let data = string.data(using: String.Encoding.utf8) {
-                try data.append(fileURL: textFileURL)
+                try data.appendToFile(fileURL: textFileURL)
             }
         }
         catch {
@@ -86,7 +85,7 @@ extension SkyFileManager: TextOutputStream {
 //MARK: - Data extension
 fileprivate extension Data {
     
-    func append(fileURL: URL) throws {
+    func appendToFile(fileURL: URL) throws {
         if let fileHandle = FileHandle(forWritingAtPath: fileURL.path) {
             defer {
                 fileHandle.closeFile()
