@@ -62,6 +62,14 @@ class LogTableViewCell: UITableViewCell {
         return label
     }()
     
+    lazy var additionalEmojiLabel: UILabel = {
+        let label = UILabel()
+        label.font = .regular(10)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     lazy var fileIconImageView: UIImageView = {
         let imaveView = UIImageView()
         imaveView.layer.masksToBounds = true
@@ -147,7 +155,13 @@ class LogTableViewCell: UITableViewCell {
     
     func setData(log: Log, number: Int, allCountNumber: Int) {
         cellViewColorView.backgroundColor = log.kind.color.alpha(0.15)
-        emojiLabel.text = log.customKey?.emojiString ?? log.kind.emoji
+        if let customKey = log.customKey {
+            emojiLabel.text = customKey.emojiString
+            additionalEmojiLabel.text = log.kind.emoji
+        } else {
+            emojiLabel.text = log.kind.emoji
+            additionalEmojiLabel.text = nil
+        }
         fileTopLabel.text = Self.getFileLabelText(log: log)
         infoCenterLabel.text = Self.getInfoCenterLabelText(log: log)
         infoBottomLabel.text = Self.getInfoBottomLabelText(log: log)
@@ -177,6 +191,7 @@ private extension LogTableViewCell {
     private func makeConstraints() {
         let subviews: [UIView] = [cellViewColorView,
                                   emojiLabel,
+                                  additionalEmojiLabel,
                                   fileIconImageView,
                                   fileTopLabel,
                                   countNumberLabel,
@@ -207,6 +222,11 @@ private extension LogTableViewCell {
             emojiLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: Self.yOffset),
             emojiLabel.widthAnchor.constraint(equalToConstant: 14),
             emojiLabel.heightAnchor.constraint(equalToConstant: 12),
+            
+            additionalEmojiLabel.leftAnchor.constraint(equalTo: cellView.leftAnchor, constant: 8),
+            additionalEmojiLabel.topAnchor.constraint(equalTo: emojiLabel.bottomAnchor, constant: Self.yOffset),
+            additionalEmojiLabel.widthAnchor.constraint(equalToConstant: 14),
+            additionalEmojiLabel.heightAnchor.constraint(equalToConstant: 12),
         ]
         
         let fileTopLabelConstraints: [NSLayoutConstraint] = [
