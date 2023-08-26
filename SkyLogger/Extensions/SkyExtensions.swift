@@ -7,6 +7,23 @@
 
 import UIKit
 
+//MARK: - SkyLogger Call
+public extension UIViewController {
+    
+    func log(_ log: Log) {
+        Logger.log(log)
+    }
+    
+}
+
+public extension UIView {
+    
+    func log(_ log: Log) {
+        Logger.log(log)
+    }
+    
+}
+
 //MARK: - UINavigationBar
 extension UINavigationBar {
     

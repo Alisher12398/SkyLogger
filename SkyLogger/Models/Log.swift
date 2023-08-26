@@ -11,6 +11,7 @@ import UIKit
 public class Log {
     
     let kind: Kind
+    let customKey: CustomKey?
     let message: Any?
     let parameters: [Parameter]?
     let file: String
@@ -18,30 +19,35 @@ public class Log {
     let line: String
     let date: Date
     
-    public convenience init(kind: Log.Kind, message: Any?, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: message, parameters: nil, file: file, function: function, line: line)
+    public convenience init(kind: Log.Kind, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: nil, parameters: nil, customKey: nil, file: file, function: function, line: line)
     }
     
-    public convenience init(kind: Log.Kind, parameters: Log.Parameter..., file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: nil, parameters: parameters, file: file, function: function, line: line)
+    public convenience init(kind: Log.Kind, message: Any?, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: message, parameters: nil, customKey: nil, file: file, function: function, line: line)
     }
     
-    public convenience init(kind: Log.Kind, parameters: [Log.Parameter], file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: nil, parameters: parameters, file: file, function: function, line: line)
+    public convenience init(kind: Log.Kind, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: nil, parameters: [parameters], customKey: nil, file: file, function: function, line: line)
     }
     
-    public convenience init(kind: Log.Kind, message: Any?, parameters: Log.Parameter..., file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: message, parameters: parameters, file: file, function: function, line: line)
+    public convenience init(kind: Log.Kind, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: nil, parameters: parameters, customKey: nil, file: file, function: function, line: line)
     }
     
-    public convenience init(kind: Log.Kind, message: Any?, parameters: [Log.Parameter], file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: message, parameters: parameters, file: file, function: function, line: line)
+    public convenience init(kind: Log.Kind, message: Any?, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: message, parameters: [parameters], customKey: nil, file: file, function: function, line: line)
     }
     
-    private init(logKind: Log.Kind, message: Any?, parameters: [Log.Parameter]?, file: String, function: String, line: Int) {
+    public convenience init(kind: Log.Kind, message: Any?, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(logKind: kind, message: message, parameters: parameters, customKey: nil, file: file, function: function, line: line)
+    }
+    
+    private init(logKind: Log.Kind, message: Any?, parameters: [Log.Parameter]?, customKey: CustomKey?, file: String, function: String, line: Int) {
         self.kind = logKind
         self.message = message
         self.parameters = parameters
+        self.customKey = customKey
         self.file = file
         self.function = function
         self.line = String(line)
@@ -143,6 +149,20 @@ extension Log {
         public init(key: String, value: Any?) {
             self.key = key
             self.value = value
+        }
+    }
+    
+}
+
+extension Log {
+    
+    public class CustomKey {
+        let title: String
+        let emoji: Character?
+        
+        init(title: String, emoji: Character? = nil) {
+            self.title = title
+            self.emoji = emoji
         }
     }
     

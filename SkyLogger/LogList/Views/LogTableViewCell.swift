@@ -304,7 +304,7 @@ private extension LogTableViewCell {
     }
     
     private static func getFileLabelText(log: Log) -> String? {
-        let fileName = SkyStringHandler.getFileLine(log: log, haveSpace: false, showDivider: false)
+        let fileName = SkyStringHandler.getLogFileLine(log: log, haveSpace: false, showDivider: false)
         switch log.kind {
         case .custom(key: let key, emoji: _):
             return "Key: " + key + ".    " + fileName

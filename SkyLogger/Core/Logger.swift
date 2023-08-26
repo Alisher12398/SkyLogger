@@ -8,6 +8,10 @@
 
 import UIKit
 
+public func log(_ log: Log) {
+    Logger.log(log)
+}
+
 public class Logger {
     
     public static var isEnabled: Bool = true

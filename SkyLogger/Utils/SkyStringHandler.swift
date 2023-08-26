@@ -66,33 +66,9 @@ public struct SkyStringHandler {
             let data: String = {
                 switch item {
                 case .file:
-                    return getFileLine(log: log, haveSpace: true, showDivider: showDivider)
-                    
+                    return getLogFileLine(log: log, haveSpace: true, showDivider: showDivider)
                 case .info:
-                    var dataResult: String = ""
-                    if let message = log.message {
-                        dataResult.append(getMessageLine(key: "Message", value: message, showDivider: showDivider))
-                    }
-                    
-                    if let parameters = log.parameters {
-                        for value in parameters {
-                            dataResult.append(getMessageLine(key: value.key, value: value.value, showDivider: showDivider))
-                        }
-                    }
-                    
-                    switch log.kind {
-                    case .api(data: let data):
-                        if let data = data {
-                            SkyLogger.SkyResponseData.Key.allCases.forEach({
-                                dataResult.append(getMessageLine(key: $0.rawValue, value: $0.getValue(data: data), showDivider: showDivider))
-                            })
-                        }
-                        
-                    default:
-                        ()
-                    }
-                    
-                    return dataResult
+                    return getLogInfoLine(log: log, showDivider: showDivider)
                 }
             }()
             result.append(data)
@@ -105,7 +81,7 @@ public struct SkyStringHandler {
         return (newLine ? (showDivider ? "\n|" : "\n") : "") + String(repeating: "    ", count: repeatCount)
     }
     
-    static func getFileLine(log: Log, haveSpace: Bool, showDivider: Bool) -> String {
+    static func getLogFileLine(log: Log, haveSpace: Bool, showDivider: Bool) -> String {
         let fileFiltered: String = String(log.file.split(separator: "/").last ?? "")
         let path: String = "\(fileFiltered); \(log.function): \(log.line)"
         if haveSpace {
@@ -113,6 +89,33 @@ public struct SkyStringHandler {
         } else {
             return path
         }
+    }
+    
+    static private func getLogInfoLine(log: Log, showDivider: Bool) -> String {
+        var dataResult: String = ""
+        if let message = log.message {
+            dataResult.append(getMessageLine(key: "Message", value: message, showDivider: showDivider))
+        }
+        
+        if let parameters = log.parameters {
+            for value in parameters {
+                dataResult.append(getMessageLine(key: value.key, value: value.value, showDivider: showDivider))
+            }
+        }
+        
+        switch log.kind {
+        case .api(data: let data):
+            if let data = data {
+                SkyLogger.SkyResponseData.Key.allCases.forEach({
+                    dataResult.append(getMessageLine(key: $0.rawValue, value: $0.getValue(data: data), showDivider: showDivider))
+                })
+            }
+            
+        default:
+            ()
+        }
+        
+        return dataResult
     }
     
     static func getDateString(_ date: Date) -> String {
