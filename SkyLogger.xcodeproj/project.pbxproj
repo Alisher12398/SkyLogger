@@ -21,6 +21,7 @@
 		74F50ED027383BFE0093E44F /* SkyDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F50ECF27383BFE0093E44F /* SkyDevice.swift */; };
 		C7266A882A910F9200C63533 /* SkyBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7266A872A910F9200C63533 /* SkyBarButtonItem.swift */; };
 		C7266A8A2A9131CC00C63533 /* SkyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7266A892A9131CC00C63533 /* SkyExtensions.swift */; };
+		C782FF4A2A9A833500EB9078 /* SkyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782FF492A9A833500EB9078 /* SkyConstants.swift */; };
 		C7B205C12A1539AC00AC837E /* UIColor+Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */; };
 		C7B205C22A1539AC00AC837E /* UIColor+Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */; };
 		C7B2EABF2A7C1DC40061E7CB /* SkyNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B2EABE2A7C1DC40061E7CB /* SkyNavigationViewController.swift */; };
@@ -50,6 +51,7 @@
 		74F50ECF27383BFE0093E44F /* SkyDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyDevice.swift; sourceTree = "<group>"; };
 		C7266A872A910F9200C63533 /* SkyBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyBarButtonItem.swift; sourceTree = "<group>"; };
 		C7266A892A9131CC00C63533 /* SkyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyExtensions.swift; sourceTree = "<group>"; };
+		C782FF492A9A833500EB9078 /* SkyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyConstants.swift; sourceTree = "<group>"; };
 		C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hue.swift"; sourceTree = "<group>"; };
 		C7B2EABE2A7C1DC40061E7CB /* SkyNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyNavigationViewController.swift; sourceTree = "<group>"; };
 		C7DB5B8328C748DB003ADFBE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				7458D9DE2744102100140F57 /* Utils */,
 				7458D9DD2744101400140F57 /* Device */,
 				C7B2EABD2A7C1DA40061E7CB /* Views */,
+				C782FF492A9A833500EB9078 /* SkyConstants.swift */,
 			);
 			path = SkyLogger;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				C7DB5B8E28C749AB003ADFBE /* LogDetailView.swift in Sources */,
 				74C0E3652745A19800F54583 /* LogTableViewCell.swift in Sources */,
 				7479080B27418EDE0071DE0F /* SkyStringHandler.swift in Sources */,
+				C782FF4A2A9A833500EB9078 /* SkyConstants.swift in Sources */,
 				C7B205C12A1539AC00AC837E /* UIColor+Hue.swift in Sources */,
 				74F50ED027383BFE0093E44F /* SkyDevice.swift in Sources */,
 				C7266A882A910F9200C63533 /* SkyBarButtonItem.swift in Sources */,

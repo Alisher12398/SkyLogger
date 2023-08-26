@@ -13,7 +13,7 @@ class ExampleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightGray
-        Logger.setup(appVersion: "1.0", customization: .init())
+        Logger.setup(appVersion: "2.0", customization: .init())
         for _ in 0...10 {
             Logger.log(.init(kind: .print, message: "Test"))
             Logger.log(.init(kind: .print, message: "Message 1 Message 2 Message 3 Message 4 Message 5 Message 6 Message 7", parameters: [
@@ -32,8 +32,6 @@ class ExampleViewController: UIViewController {
             Logger.log(.init(kind: .warning, message: nil))
             
             Logger.log(.init(kind: .print, message: "Test print customKey 1", customKey: .init(title: "CustomKey1")))
-            
-//            Logger.log(.init(kind: .error(nil), message: "Test error"))
             
             log(.init(kind: .warning, message: "Test print customKey 2", customKey: .init(title: "CustomKey2", emoji: "✈️")))
         }

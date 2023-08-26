@@ -7,10 +7,16 @@
 
 import UIKit
 
+/**
+ Class for future Logger customization.
+ */
 public class SkyCustomization {
     
     static var shared: SkyCustomization = .init()
     
+    /**
+     Class for future Logger customization.
+     */
     public init() {
         
     }

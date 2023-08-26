@@ -29,7 +29,7 @@ public class Logger {
 //MARK: - Public Methods
 extension Logger {
     
-    public static func setup(appVersion: String, customization: SkyCustomization) {
+    public static func setup(appVersion: String, customization: SkyCustomization = .init()) {
         Logger.singleton.appVersion = appVersion
         SkyCustomization.shared = customization
     }

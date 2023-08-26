@@ -38,6 +38,15 @@ class LogListView: SkyBaseView {
         tv.alwaysBounceHorizontal = false
         tv.estimatedRowHeight = 105
         tv.translatesAutoresizingMaskIntoConstraints = false
+        
+        let label = UILabel(frame: .init(x: 0, y: 0, width: 0, height: 22))
+        label.font = .regular(14)
+        label.text = "SkyLogger v\(SkyConstants.version) | App v\(Logger.singleton.appVersion)"
+        label.textColor = .skyTextWhite
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        
+        tv.tableFooterView = label
         return tv
     }()
     
