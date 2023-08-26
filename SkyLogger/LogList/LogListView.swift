@@ -20,7 +20,7 @@ class LogListView: SkyBaseView {
         cv.bounces = true
         cv.alwaysBounceVertical = false
         cv.alwaysBounceHorizontal = true
-        cv.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        cv.contentInset = .init(top: 0, left: 16, bottom: 0, right: 8)
         cv.backgroundColor = .clear
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv

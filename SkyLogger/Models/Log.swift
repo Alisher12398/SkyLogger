@@ -71,7 +71,7 @@ extension Log {
             return Kind.allCases.firstIndex(of: self) ?? 0
         }
         
-        var emoji: String {
+        var emoji: Character {
             switch self {
             case .print:
                 return "⚪"
@@ -84,6 +84,10 @@ extension Log {
             case .warning:
                 return "🟡"
             }
+        }
+        
+        var emojiString: String {
+            return String(emoji)
         }
         
         var color: UIColor {
@@ -102,21 +106,6 @@ extension Log {
         }
         
         var title: String {
-            switch self {
-            case .print:
-                return "Print"
-            case .api:
-                return "Api Response"
-            case .system:
-                return "System"
-            case .error:
-                return "Error"
-            case .warning:
-                return "Warning"
-            }
-        }
-        
-        var titleShort: String {
             switch self {
             case .print:
                 return "Print"
@@ -232,6 +221,13 @@ extension Log.Kind: CaseIterable, Equatable {
     
     public static var allCases: [Log.Kind] {
         return [.print, .api(data: nil), .system, .error(nil), .warning]
+    }
+    
+    static var allCasesForCollectionView: [(title: String, emoji: Character?)] {
+        var result: [(title: String, emoji: Character?)] = allCases.map({ (title: $0.title, emoji: $0.emoji) })
+        result.append((title: "Custom", emoji: "🟣"))
+        result.insert((title: "All", emoji: nil), at: 0)
+        return result
     }
     
     public static func == (lhs: Log.Kind, rhs: Log.Kind) -> Bool {

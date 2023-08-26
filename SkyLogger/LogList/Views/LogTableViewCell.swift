@@ -157,9 +157,9 @@ class LogTableViewCell: UITableViewCell {
         cellViewColorView.backgroundColor = log.kind.color.alpha(0.15)
         if let customKey = log.customKey {
             emojiLabel.text = customKey.emojiString
-            additionalEmojiLabel.text = log.kind.emoji
+            additionalEmojiLabel.text = log.kind.emojiString
         } else {
-            emojiLabel.text = log.kind.emoji
+            emojiLabel.text = log.kind.emojiString
             additionalEmojiLabel.text = nil
         }
         fileTopLabel.text = Self.getFileLabelText(log: log)

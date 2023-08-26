@@ -14,8 +14,13 @@ class LogKindCollectionViewCell: UICollectionViewCell {
     static var offset: CGFloat = 16
     static let labelFont: UIFont = .regular(15)
     
-    static func getSize(kind: Log.Kind) -> CGSize {
-        return .init(width: (kind.emoji + " " + kind.titleShort).width(font: labelFont) + 4, height: height)
+    static func getSize(title kindTitle: String, emoji: Character?) -> CGSize {
+        var title: String = ""
+        if let emoji = emoji {
+            title += String(emoji) + " "
+        }
+        title += kindTitle
+        return .init(width: title.width(font: labelFont) + 4, height: height)
     }
     
     lazy var label: UILabel = {
@@ -34,8 +39,13 @@ class LogKindCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(title: String, isSelected: Bool) {
+    func setData(title kindTitle: String, emoji: Character?, isSelected: Bool) {
         makeConstraints()
+        var title: String = ""
+        if let emoji = emoji {
+            title += String(emoji) + " "
+        }
+        title += kindTitle
         label.text = title
         label.textColor = isSelected ? .skyYellow : .skyTextWhite
     }

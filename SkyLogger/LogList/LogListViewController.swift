@@ -13,6 +13,7 @@ class LogListViewController: UIViewController {
     
     private var selectedLogKindIndex: Int = 0 {
         didSet {
+            guard oldValue != selectedLogKindIndex else { return }
             updateFilteredLogs()
             rootView.listTableView.reloadData()
             rootView.logKindCollectionView.reloadData()
@@ -92,12 +93,17 @@ private extension LogListViewController {
     
     func updateFilteredLogs() {
         var filteredLogsNew: [Log] {
-            if selectedLogKindIndex == 0 {
+            switch selectedLogKindIndex {
+            case 0:
                 return Logger.getLogs()
-            } else if let kind = Log.Kind.allCases[safe: selectedLogKindIndex - 1] {
-                return Logger.getLogs().filter({ $0.kind == kind })
-            } else {
-                return []
+            case Log.Kind.allCasesForCollectionView.count - 1:
+                return Logger.getLogs().filter({ $0.customKey != nil })
+            default:
+                if let kind = Log.Kind.allCases[safe: selectedLogKindIndex - 1] {
+                    return Logger.getLogs().filter({ $0.kind == kind })
+                } else {
+                    return []
+                }
             }
         }
         self.filteredLogs = filteredLogsNew
@@ -105,45 +111,35 @@ private extension LogListViewController {
     
 }
 
-//MARK: - UICollectionViewDelegate
-extension LogListViewController: UICollectionViewDelegate {
+//MARK: - UICollectionView Protocols
+extension LogListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedLogKindIndex = indexPath.row
     }
-    
-}
-
-//MARK: - UICollectionViewDataSource
-extension LogListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
-{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Log.Kind.allCases.count + 1
+        return Log.Kind.allCasesForCollectionView.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LogKindCollectionViewCell.reuseIdentifier, for: indexPath) as! LogKindCollectionViewCell
-        if indexPath.row == 0 {
-            cell.setData(title: "All", isSelected: indexPath.row == selectedLogKindIndex)
-        } else if let kind = Log.Kind.allCases[safe: indexPath.row - 1] {
-            cell.setData(title: kind.emoji + " " + kind.titleShort, isSelected: indexPath.row == selectedLogKindIndex)
+        if let data = Log.Kind.allCasesForCollectionView[safe: indexPath.row] {
+            cell.setData(title: data.title, emoji: data.emoji, isSelected: indexPath.row == selectedLogKindIndex)
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row == 0 {
-            return .init(width: "All".width(font: LogKindCollectionViewCell.labelFont) + 4, height: LogKindCollectionViewCell.height)
-        } else if let kind = Log.Kind.allCases[safe: indexPath.row - 1] {
-            return LogKindCollectionViewCell.getSize(kind: kind)
-        } else {
-            return .init(width: 0, height: 0)
+        guard let data = Log.Kind.allCasesForCollectionView[safe: indexPath.row] else {
+            return .zero
         }
+        return LogKindCollectionViewCell.getSize(title: data.title, emoji: data.emoji)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
