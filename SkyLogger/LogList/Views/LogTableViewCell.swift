@@ -147,7 +147,7 @@ class LogTableViewCell: UITableViewCell {
     
     func setData(log: Log, number: Int, allCountNumber: Int) {
         cellViewColorView.backgroundColor = log.kind.color.alpha(0.15)
-        emojiLabel.text = log.kind.emoji
+        emojiLabel.text = log.customKey?.emojiString ?? log.kind.emoji
         fileTopLabel.text = Self.getFileLabelText(log: log)
         infoCenterLabel.text = Self.getInfoCenterLabelText(log: log)
         infoBottomLabel.text = Self.getInfoBottomLabelText(log: log)
@@ -305,12 +305,12 @@ private extension LogTableViewCell {
     
     private static func getFileLabelText(log: Log) -> String? {
         let fileName = SkyStringHandler.getLogFileLine(log: log, haveSpace: false, showDivider: false)
-        switch log.kind {
-        case .custom(key: let key, emoji: _):
-            return "Key: " + key + ".    " + fileName
-        default:
-            return fileName
+        var result = ""
+        if let customKey = log.customKey {
+            result += "\(customKey.title)  |  "
         }
+        result += fileName
+        return result
     }
     
     private static func getInfoCenterLabelText(log: Log) -> String? {

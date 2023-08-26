@@ -31,11 +31,11 @@ class ExampleViewController: UIViewController {
             
             Logger.log(.init(kind: .warning, message: nil))
             
-            Logger.log(.init(kind: .custom(key: "Test key"), message: "Test customKey"))
+            Logger.log(.init(kind: .print, message: "Test print customKey 1", customKey: .init(title: "CustomKey1")))
             
 //            Logger.log(.init(kind: .error(nil), message: "Test error"))
             
-            Logger.log(.init(kind: .custom(key: "emojiii", emoji: "✈️"), message: "Test customKey emoji"))
+            log(.init(kind: .warning, message: "Test print customKey 2", customKey: .init(title: "CustomKey2", emoji: "✈️")))
         }
         
         Logger.presentLogList(navigationController: navigationController)

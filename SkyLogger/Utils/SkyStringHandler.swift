@@ -38,10 +38,13 @@ public struct SkyStringHandler {
         return string
     }
     
-    static public func generateLogKindFirstLine(kind: Log.Kind, date: Date, showDivider: Bool) -> String {
+    static public func generateLogKindFirstLine(kind: Log.Kind, customKey: Log.CustomKey?, date: Date, showDivider: Bool) -> String {
         var result: String = ""
         let kindTitle: String = "\(kind.emoji) \(kind.title)"
         result.append("| SkyLogger: ")
+        if let customKey = customKey {
+            result.append(customKey.emojiString + " " + customKey.title + " | ")
+        }
         result.append(kindTitle)
         result.append(getTabSpace(repeatCount: 1, newLine: false, showDivider: showDivider))
         result.append(getDateString(date))
@@ -59,7 +62,7 @@ public struct SkyStringHandler {
     static public func convertLogToString(_ log: Log, showDivider: Bool, destination: SkyStringHandler.LogDetailDestination) -> String {
         var result: String = "\n"
         
-        result.append(generateLogKindFirstLine(kind: log.kind, date: log.date, showDivider: showDivider))
+        result.append(generateLogKindFirstLine(kind: log.kind, customKey: log.customKey, date: log.date, showDivider: showDivider))
         
         Log.LineKind.allCases.forEach({ item in
             result.append(item.getFormattedTitle(destination: destination))

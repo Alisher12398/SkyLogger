@@ -20,27 +20,27 @@ public class Log {
     let date: Date
     
     public convenience init(kind: Log.Kind, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: nil, parameters: nil, customKey: nil, file: file, function: function, line: line)
+        self.init(logKind: kind, message: nil, parameters: nil, customKey: customKey, file: file, function: function, line: line)
     }
     
     public convenience init(kind: Log.Kind, message: Any?, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: message, parameters: nil, customKey: nil, file: file, function: function, line: line)
+        self.init(logKind: kind, message: message, parameters: nil, customKey: customKey, file: file, function: function, line: line)
     }
     
     public convenience init(kind: Log.Kind, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: nil, parameters: [parameters], customKey: nil, file: file, function: function, line: line)
+        self.init(logKind: kind, message: nil, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
     }
     
     public convenience init(kind: Log.Kind, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: nil, parameters: parameters, customKey: nil, file: file, function: function, line: line)
+        self.init(logKind: kind, message: nil, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
     }
     
     public convenience init(kind: Log.Kind, message: Any?, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: message, parameters: [parameters], customKey: nil, file: file, function: function, line: line)
+        self.init(logKind: kind, message: message, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
     }
     
     public convenience init(kind: Log.Kind, message: Any?, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: message, parameters: parameters, customKey: nil, file: file, function: function, line: line)
+        self.init(logKind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
     }
     
     private init(logKind: Log.Kind, message: Any?, parameters: [Log.Parameter]?, customKey: CustomKey?, file: String, function: String, line: Int) {
@@ -66,7 +66,6 @@ extension Log {
         case system
         case error(Error?)
         case warning
-        case custom(key: String, emoji: String = "🟣")
         
         var index: Int {
             return Kind.allCases.firstIndex(of: self) ?? 0
@@ -84,8 +83,6 @@ extension Log {
                 return "🔴"
             case .warning:
                 return "🟡"
-            case .custom(key: _, emoji: let emoji):
-                return emoji
             }
         }
         
@@ -101,8 +98,6 @@ extension Log {
                 return .skyRed
             case .warning:
                 return .skyYellow
-            case .custom:
-                return .purple
             }
         }
         
@@ -118,8 +113,6 @@ extension Log {
                 return "Error"
             case .warning:
                 return "Warning"
-            case .custom(key: let key, emoji: _):
-                return "Custom. Key: \(key)"
             }
         }
         
@@ -135,8 +128,6 @@ extension Log {
                 return "Error"
             case .warning:
                 return "Warning"
-            case .custom:
-                return "Custom"
             }
         }
         
@@ -158,12 +149,17 @@ extension Log {
     
     public class CustomKey {
         let title: String
-        let emoji: Character?
+        let emoji: Character
         
-        init(title: String, emoji: Character? = nil) {
+        var emojiString: String {
+            return String(emoji)
+        }
+        
+        public init(title: String, emoji: Character = "🟣") {
             self.title = title
             self.emoji = emoji
         }
+        
     }
     
 }
@@ -235,7 +231,7 @@ extension Log {
 extension Log.Kind: CaseIterable, Equatable {
     
     public static var allCases: [Log.Kind] {
-        return [.print, .api(data: nil), .system, .error(nil), .warning, .custom(key: "")]
+        return [.print, .api(data: nil), .system, .error(nil), .warning]
     }
     
     public static func == (lhs: Log.Kind, rhs: Log.Kind) -> Bool {
@@ -271,13 +267,6 @@ extension Log.Kind: CaseIterable, Equatable {
         case .warning:
             switch rhs {
             case .warning:
-                return true
-            default:
-                return false
-            }
-        case .custom:
-            switch rhs {
-            case .custom:
                 return true
             default:
                 return false
