@@ -10,18 +10,19 @@ import Foundation
 public class SkyResponseData {
     
     let baseURL: URL?
-    let urlPath: String
-    let method: String
+    let urlPath: String?
+    let method: String?
     let statusCode: Int?
     let headers: [String: String]?
     let urlParameters: [String: Any]?
     let bodyParameters: [String: Any]?
     let error: Error?
     let responseBody: String?
-    let showAuthorizationHeader: Bool
     
-    var url: String {
-        var result: String = baseURL?.absoluteString ?? "" + urlPath
+    var fullURL: String? {
+        guard let baseURL = baseURL, !baseURL.absoluteString.isEmpty else { return nil }
+        guard let urlPath = urlPath else { return baseURL.absoluteString }
+        var result: String = baseURL.absoluteString + urlPath
         if let urlParameters = urlParameters, !urlParameters.isEmpty {
             result.append("?")
             for (index, item) in urlParameters.enumerated() {
@@ -53,7 +54,7 @@ public class SkyResponseData {
             case .urlPath:
                 return data.urlPath
             case .url:
-                return data.url
+                return data.fullURL
             case .method:
                 return data.method
             case .statusCode:
@@ -76,7 +77,7 @@ public class SkyResponseData {
         }
     }
     
-    public init(showAuthorizationHeader: Bool = false) {
+    public init() {
         self.baseURL = nil
         self.urlPath = ""
         self.method = ""
@@ -86,10 +87,9 @@ public class SkyResponseData {
         self.bodyParameters = nil
         self.error = nil
         self.responseBody = nil
-        self.showAuthorizationHeader = showAuthorizationHeader
     }
     
-    public init(baseURL: URL, urlPath: String, method: String, statusCode: Int?, headers: [String : String]?, urlParameters: [String : Any]?, bodyParameters: [String : Any]?, error: Error?, responseBody: String?, showAuthorizationHeader: Bool) {
+    public init(baseURL: URL, urlPath: String, method: String, statusCode: Int?, headers: [String : String]?, urlParameters: [String : Any]?, bodyParameters: [String : Any]?, error: Error?, responseBody: String?) {
         self.baseURL = baseURL
         self.urlPath = urlPath
         self.method = method
@@ -99,7 +99,6 @@ public class SkyResponseData {
         self.bodyParameters = bodyParameters
         self.error = error
         self.responseBody = responseBody
-        self.showAuthorizationHeader = showAuthorizationHeader
     }
     
 //    public init(state: TargetType, result: Result<MoyaResponse, MoyaError>, showAuthorizationHeader: Bool) {
