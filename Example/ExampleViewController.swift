@@ -27,9 +27,17 @@ class ExampleViewController: UIViewController {
             
             Logger.log(.init(kind: .system, message: "Test system"))
             
+            Logger.log(.init(kind: .print, message: 10))
+            Logger.log(.init(kind: .print, message: 5.22))
+            
+            Logger.log(.init(kind: .warning, message: Logger.convertObjectToString(TestClass(name: "Test name", value: 20))))
+            
             Logger.log(.init(kind: .warning, message: "Test warning"))
             
             Logger.log(.init(kind: .warning, message: nil))
+            
+            Logger.skyPrint("Test print message")
+            skyPrint("Test print message 2")
             
             Logger.log(.init(kind: .print, message: "Test print customKey 1", customKey: .init(title: "CustomKey1")))
             
@@ -37,6 +45,18 @@ class ExampleViewController: UIViewController {
         }
         
         Logger.presentLogList(navigationController: navigationController)
+    }
+    
+}
+
+class TestClass {
+    
+    let name: String
+    let value: Int
+    
+    init(name: String, value: Int) {
+        self.name = name
+        self.value = value
     }
     
 }

@@ -57,6 +57,19 @@ extension Logger {
     }
     
     /**
+     Convenience func to show a log with .print kind only in Xcode
+     */
+    public static func skyPrint(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
+        guard let message = message as? CustomStringConvertible else {
+            Swift.print(message)
+            return
+        }
+        let log = Log.init(kind: .print, message: message, file: file, function: function, line: line)
+        let string = SkyStringHandler.convertLogToString(log, showDivider: false, destination: .xcode)
+        Swift.print(string)
+    }
+    
+    /**
      Returns the URL for .txt file with logs.
      */
     public static func getTextFile() -> URL? {
@@ -143,6 +156,28 @@ extension Logger {
         let activityVC = UIActivityViewController(activityItems: [file], applicationActivities: nil)
         activityVC.configure(viewController: nil)
         return activityVC
+    }
+    
+    /**
+     Converts the class and struct object to String. But it is preferable to implement the `CustomStringConvertible` protocol.
+     
+     - Returns: String describing the object.
+     */
+    public static func convertObjectToString(_ object: Any) -> String {
+        let mirror = Mirror(reflecting: object)
+        var description = String(describing: mirror.subjectType) + ": "
+        for (index, (label, value)) in mirror.children.enumerated() {
+            if let label = label {
+                if index > 0 {
+                    description += ", "
+                }
+                description += "\(label): \(value)"
+                if index == mirror.children.count - 1 {
+                    description += ". "
+                }
+            }
+        }
+        return description
     }
     
 }

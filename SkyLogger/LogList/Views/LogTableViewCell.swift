@@ -352,8 +352,8 @@ private extension LogTableViewCell {
         case .api(data: let data):
             return data?.urlPath
         default:
-            if let result = log.message as? String, !result.isEmpty {
-                return result
+            if let message = log.message?.description as? String, !message.isEmpty {
+                return message
             } else {
                 return nil
             }

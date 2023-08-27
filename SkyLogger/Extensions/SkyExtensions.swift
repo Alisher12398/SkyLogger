@@ -14,12 +14,26 @@ public extension UIViewController {
         Logger.log(log)
     }
     
+    /**
+     Convenience func to show a log with .print kind only in Xcode
+     */
+    func skyPrint(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
+        Logger.skyPrint(message, file: file, function: function, line: line)
+    }
+    
 }
 
 public extension UIView {
     
     func log(_ log: Log) {
         Logger.log(log)
+    }
+    
+    /**
+     Convenience func to show a log with .print kind only in Xcode
+     */
+    func skyPrint(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
+        Logger.skyPrint(message, file: file, function: function, line: line)
     }
     
 }

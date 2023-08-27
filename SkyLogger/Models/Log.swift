@@ -12,7 +12,7 @@ public class Log {
     
     let kind: Kind
     let customKey: CustomKey?
-    let message: Any?
+    let message: CustomStringConvertible?
     let parameters: [Parameter]?
     let file: String
     let function: String
@@ -23,27 +23,51 @@ public class Log {
         self.init(logKind: kind, message: nil, parameters: nil, customKey: customKey, file: file, function: function, line: line)
     }
     
-    public convenience init(kind: Log.Kind, message: Any?, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    /**
+     Creates a log.
+     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+     */
+    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
         self.init(logKind: kind, message: message, parameters: nil, customKey: customKey, file: file, function: function, line: line)
     }
     
+    /**
+     Creates a log.
+     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+     */
     public convenience init(kind: Log.Kind, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
         self.init(logKind: kind, message: nil, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
     }
     
+    /**
+     Creates a log.
+     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+     */
     public convenience init(kind: Log.Kind, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
         self.init(logKind: kind, message: nil, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
     }
     
-    public convenience init(kind: Log.Kind, message: Any?, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    /**
+     Creates a log.
+     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+     */
+    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
         self.init(logKind: kind, message: message, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
     }
     
-    public convenience init(kind: Log.Kind, message: Any?, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    /**
+     Creates a log.
+     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+     */
+    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
         self.init(logKind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
     }
     
-    private init(logKind: Log.Kind, message: Any?, parameters: [Log.Parameter]?, customKey: CustomKey?, file: String, function: String, line: Int) {
+    /**
+     Creates a log.
+     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+     */
+    private init(logKind: Log.Kind, message: CustomStringConvertible?, parameters: [Log.Parameter]?, customKey: CustomKey?, file: String, function: String, line: Int) {
         self.kind = logKind
         self.message = message
         self.parameters = parameters
@@ -124,9 +148,9 @@ extension Log {
     
     public class Parameter {
         let key: String
-        let value: Any?
+        let value: CustomStringConvertible?
         
-        public init(key: String, value: Any?) {
+        public init(key: String, value: CustomStringConvertible?) {
             self.key = key
             self.value = value
         }
