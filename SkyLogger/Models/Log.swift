@@ -148,9 +148,9 @@ extension Log {
     
     public class Parameter {
         let key: String
-        let value: CustomStringConvertible?
+        let value: Any?
         
-        public init(key: String, value: CustomStringConvertible?) {
+        public init(key: String, value: Any?) {
             self.key = key
             self.value = value
         }
