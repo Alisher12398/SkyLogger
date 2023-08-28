@@ -8,5 +8,5 @@
 import Foundation
 
 struct SkyConstants {
-    static let version: String = "0.8"
+    static let version: String = "0.9"
 }
