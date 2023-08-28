@@ -18,6 +18,7 @@ public struct SkyStringHandler {
         Date (dd.mm.yyyy): \(calendar.component(.day, from: date)).\(calendar.component(.month, from: date)).\(calendar.component(.year, from: date))
         
         App Version: \(Logger.singleton.appVersion)
+        SkyLogger Version: \(SkyConstants.version)
         
         Device
             Name: \(UIDevice.current.getModelFromAll().rawValue)
@@ -41,13 +42,14 @@ public struct SkyStringHandler {
     static public func generateLogKindFirstLine(kind: Log.Kind, customKey: Log.CustomKey?, date: Date, showDivider: Bool, destination: LogDetailDestination) -> String {
         var result: String = ""
         let kindTitle: String = "\(kind.emoji) \(kind.title)"
+        result.append("| ")
         switch destination {
         case .device:
             ()
         case .xcode:
             ()
         case .share:
-            result.append("| SkyLogger: ")
+            result.append("SkyLogger: ")
         }
         if let customKey = customKey {
             result.append(customKey.emojiString + " " + customKey.title + " | ")
