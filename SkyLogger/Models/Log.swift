@@ -160,7 +160,7 @@ extension Log {
         
         func getFormattedTitle(destination: SkyStringHandler.LogDetailDestination) -> String {
             var result: String = ""
-            result.append(SkyStringHandler.getTabSpace(repeatCount: 1, showDivider: true))
+            result.append(SkyStringHandler.getTabSpace(repeatCount: 1, newLine: true, showDivider: true))
             switch destination {
             case .device:
                 result.append(iconForShare)
