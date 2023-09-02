@@ -217,10 +217,6 @@ extension UIColor {
     }
     
     public static var skyTextSecondary: UIColor {
-        .init(hex: "#858295")
-    }
-    
-    public static var skyTextTertiary: UIColor {
         .init(hex: "#A8A6B3")
     }
     

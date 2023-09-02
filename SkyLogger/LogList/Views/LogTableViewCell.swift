@@ -138,7 +138,7 @@ class LogTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .regular(10)
         label.textAlignment = .right
-        label.textColor = .skyTextTertiary
+        label.textColor = .skyTextSecondary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
