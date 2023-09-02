@@ -252,3 +252,9 @@ extension UIView {
     }
     
 }
+
+extension Notification.Name {
+    
+    static let newLogAdded = Notification.Name("new.log.added")
+    
+}

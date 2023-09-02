@@ -27,7 +27,13 @@ class LogListViewController: UIViewController {
     }
     
     private var filteredLogs: [Log] = Logger.getLogs()
-    private var allLogs: [Log] = Logger.getLogs()
+    
+    private lazy var allLogs: [Log] = fetchLogs() {
+        didSet {
+            updateFilteredLogs()
+            rootView.listTableView.reloadData()
+        }
+    }
     
     init() {
         self.rootView = LogListView()
@@ -40,6 +46,7 @@ class LogListViewController: UIViewController {
     
     deinit {
         Logger.print(message: "deinit Logger")
+        NotificationCenter.default.removeObserver(self, name: .newLogAdded, object: nil)
     }
     
 }
@@ -55,6 +62,8 @@ extension LogListViewController {
         super.viewDidLoad()
         configure()
         configureNavigationBar()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(newLogAddedNotification(_:)), name: .newLogAdded, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,6 +74,11 @@ extension LogListViewController {
 
 //MARK: - @objc Methods
 extension LogListViewController {
+    
+    @objc
+    private func newLogAddedNotification(_ sender: Notification) {
+        updateLogs()
+    }
     
 }
 
@@ -95,18 +109,26 @@ private extension LogListViewController {
         var filteredLogsNew: [Log] {
             switch selectedLogKindIndex {
             case 0:
-                return Logger.getLogs()
+                return allLogs
             case Log.Kind.allCasesForCollectionView.count - 1:
-                return Logger.getLogs().filter({ $0.customKey != nil })
+                return allLogs.filter({ $0.customKey != nil })
             default:
                 if let kind = Log.Kind.allCases[safe: selectedLogKindIndex - 1] {
-                    return Logger.getLogs().filter({ $0.kind == kind })
+                    return allLogs.filter({ $0.kind == kind })
                 } else {
                     return []
                 }
             }
         }
         self.filteredLogs = filteredLogsNew
+    }
+    
+    private func fetchLogs() -> [Log] {
+        return Logger.getLogs()
+    }
+    
+    private func updateLogs() {
+        self.allLogs = fetchLogs()
     }
     
 }
@@ -176,7 +198,7 @@ extension LogListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogTableViewCell.reuseIdentifier, for: indexPath) as! LogTableViewCell
         if let log = filteredLogs[safe: indexPath.row] {
-            cell.setData(log: log, number: indexPath.row + 1, allCountNumber: filteredLogs.count)
+            cell.setData(log: log, number: (allLogs.firstIndex(of: log) ?? 0) + 1, allCountNumber: allLogs.count)
         }
         return cell
     }

@@ -30,19 +30,23 @@ class ExampleViewController: UIViewController {
             Logger.log(.init(kind: .print, message: 10))
             Logger.log(.init(kind: .print, message: 5.22))
             
-            Logger.log(.init(kind: .warning, message: Logger.convertObjectToString(TestClass(name: "Test name", value: 20))))
+            Logger.log(.init(kind: .analytics, message: Logger.convertObjectToString(TestClass(name: "Test name", value: 20))))
             
-            Logger.log(.init(kind: .warning, message: "Test warning"))
+            Logger.log(.init(kind: .analytics, message: "Test analytics"))
             
-            Logger.log(.init(kind: .warning, message: nil))
+            Logger.log(.init(kind: .analytics, message: nil))
             
             Logger.skyPrint("Test print message")
             skyPrint("Test print message 2")
             
             Logger.log(.init(kind: .print, message: "Test print customKey 1", customKey: .init(title: "CustomKey1")))
             
-            log(.init(kind: .warning, message: "Test print customKey 2", customKey: .init(title: "CustomKey2", emoji: "✈️")))
+            log(.init(kind: .analytics, message: "Test print customKey 2", customKey: .init(title: "CustomKey2", emoji: "✈️")))
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
+            Logger.log(.init(kind: .error(nil), message: "asyncAfter log"))
+        })
         
         Logger.presentLogList(navigationController: navigationController)
     }

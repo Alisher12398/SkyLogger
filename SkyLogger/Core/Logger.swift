@@ -53,6 +53,7 @@ extension Logger {
             return
         }
         Logger.singleton.logs.append(newElement: log)
+        NotificationCenter.default.post(name: .newLogAdded, object: nil)
         Swift.print(SkyStringHandler.convertLogToString(log, showDivider: true, destination: .xcode))
     }
     
