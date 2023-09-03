@@ -2,11 +2,8 @@
 Библиотека для удобной записи и просмотра различных логов: принтов, ответа сервера, сообщений системы и кастомных сообщений.
 
 # Скриншоты
-<img src="Screenshots/sky-logger-screen-1.png" width="300">
-<img src="Screenshots/sky-logger-screen-2.png" width="300">
-<img src="Screenshots/sky-logger-screen-3.png" width="300">
-<img src="Screenshots/sky-logger-screen-4.png" width="300">
-<img src="Screenshots/sky-logger-screen-5.png" width="300">
+<img src="Screenshots/sky-logger-screen-1.png" width="300"> <img src="Screenshots/sky-logger-screen-2.png" width="300"> <img src="Screenshots/sky-logger-screen-3.png" width="300">
+<img src="Screenshots/sky-logger-screen-4.png" width="300"> <img src="Screenshots/sky-logger-screen-5.png" width="300">
 
 # Описание
 
@@ -41,7 +38,6 @@ pod 'SkyLogger', :git => "https://github.com/Alisher12398/SkyLogger"
 /// SkyCustomization пока не имеет параметров. Будут добавлены в будущем.
 Logger.setup(appVersion: String, customization: SkyCustomization)
 ```
-<br/>
 
 #### Запись лога.
 
@@ -52,14 +48,12 @@ log(Log)
 /// Из других файлов:
 Logger.log(Log)
 ```
-<br/>
 
 #### Создание объекта Log.
 ```swift
 /// Есть множество convenience init для удобного и быстрого создания объекта лога
 Log.init(logKind: Log.Kind, message: CustomStringConvertible?, parameters: [Log.Parameter]?, customKey: CustomKey?)
 ```
-<br/>
 
 #### Быстрая команда замена для обычного Swift.print(). Создает лог с типом .print и введённым сообщением.  
 
@@ -70,13 +64,11 @@ skyPrint(Any)
 /// Из других файлов:
 Logger.skyPrint(Any)
 ```
-<br/>
 
 #### Отобразить список логов. 
 ```swift
 Logger.presentLogList(navigationController: UINavigationController?)
 ```
-<br/>
 
 #### Преобразовать объект в строку
 ```swift
@@ -90,15 +82,12 @@ Logger.skyPrint(testClass) //Example.TestClass
 Logger.skyPrint(Logger.convertObjectToString(testClass)) // Message: TestClass: name: Test name, value: 10.
 ```
 
-<br/>
-
 ### Пример в UIViewController
 ```swift
 log(.init(kind: .system, message: "Test message", parameters: .init(key: "Test parameter", value: "Test parameter value")))
 skyPrint("Print test message")
 Logger.presentLogList(navigationController: navigationController)
 ```
-<br/>
 
 #### Вот и всё необходимое🙃
 
@@ -108,7 +97,6 @@ Logger.presentLogList(navigationController: navigationController)
 ```swift
 Logger.getLogListShareViewController()
 ```
-
 
 ##### Поделиться файлом с логами
 ```swift
