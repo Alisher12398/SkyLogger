@@ -25,7 +25,7 @@ class ExampleViewController: UIViewController {
             ]))
             Logger.log(.init(kind: .api(data: nil), message: "Test API"))
             
-            Logger.log(.init(kind: .system, message: "Test system"))
+            Logger.log(.init(kind: .system, message: "Test message", parameters: .init(key: "Test parameter", value: "Test parameter value")))
             
             Logger.log(.init(kind: .print, message: 10))
             Logger.log(.init(kind: .print, message: 5.22))
@@ -42,6 +42,12 @@ class ExampleViewController: UIViewController {
             Logger.log(.init(kind: .print, message: "Test print customKey 1", customKey: .init(title: "CustomKey1")))
             
             log(.init(kind: .analytics, message: "Test print customKey 2", customKey: .init(title: "CustomKey2", emoji: "✈️")))
+            
+            let testClass = TestClass(name: "Test name", value: 10)
+            
+            print("Swift.print: \(testClass)")
+            Logger.skyPrint(testClass)
+            Logger.skyPrint(Logger.convertObjectToString(testClass))
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {

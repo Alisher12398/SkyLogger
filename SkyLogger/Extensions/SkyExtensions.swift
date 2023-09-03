@@ -253,6 +253,7 @@ extension UIView {
     
 }
 
+//MARK: - Notification.Name
 extension Notification.Name {
     
     static let newLogAdded = Notification.Name("new.log.added")
