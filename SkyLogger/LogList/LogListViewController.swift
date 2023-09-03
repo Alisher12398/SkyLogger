@@ -14,14 +14,17 @@ class LogListViewController: UIViewController {
     private var selectedLogKindIndex: Int = 0 {
         didSet {
             guard oldValue != selectedLogKindIndex else { return }
-            updateFilteredLogs()
-            rootView.listTableView.reloadData()
-            rootView.logKindCollectionView.reloadData()
-            UIImpactFeedbackGenerator.init(style: .light).impactOccurred()
-            rootView.logKindCollectionView.scrollToItem(at: .init(row: selectedLogKindIndex, section: 0), at: .left, animated: true)
-            if rootView.listTableView.numberOfSections > 0, rootView.listTableView.numberOfRows(inSection: 0) > 0 {
-                rootView.listTableView.layoutIfNeeded()
-                rootView.listTableView.scrollToRow(at: .init(row: 0, section: 0), at: .top, animated: true)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.updateFilteredLogs()
+                self.rootView.listTableView.reloadData()
+                self.rootView.logKindCollectionView.reloadData()
+                UIImpactFeedbackGenerator.init(style: .light).impactOccurred()
+                self.rootView.logKindCollectionView.scrollToItem(at: .init(row: self.selectedLogKindIndex, section: 0), at: .left, animated: true)
+                if self.rootView.listTableView.numberOfSections > 0, self.rootView.listTableView.numberOfRows(inSection: 0) > 0 {
+                    self.rootView.listTableView.layoutIfNeeded()
+                    self.rootView.listTableView.scrollToRow(at: .init(row: 0, section: 0), at: .top, animated: true)
+                }
             }
         }
     }
@@ -30,8 +33,11 @@ class LogListViewController: UIViewController {
     
     private lazy var allLogs: [Log] = fetchLogs() {
         didSet {
-            updateFilteredLogs()
-            rootView.listTableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.updateFilteredLogs()
+                self.rootView.listTableView.reloadData()
+            }
         }
     }
     
