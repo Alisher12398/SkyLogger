@@ -55,10 +55,17 @@ public struct SkyStringHandler {
         }
         result.append(kindTitle)
         
-        result.append(getTabSpace(repeatCount: 1, newLine: false, showDivider: false))
-        let allLogs = Logger.getLogs()
-        let logIndex: Int = allLogs.firstIndex(of: log) ?? 0
-        result.append("(\(logIndex + 1)/\(allLogs.count))")
+        switch destination {
+        case .device:
+            result.append(getTabSpace(repeatCount: 1, newLine: false, showDivider: false))
+            let allLogs = Logger.getLogs()
+            let logIndex: Int = allLogs.firstIndex(of: log) ?? 0
+            result.append("(\(logIndex + 1)/\(allLogs.count))")
+        case .xcode:
+            ()
+        case .share:
+            ()
+        }
         
         result.append(getTabSpace(repeatCount: 1, newLine: false, showDivider: false))
         result.append(getDateString(log.date))
