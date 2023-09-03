@@ -21,6 +21,11 @@
 		74F50ED027383BFE0093E44F /* SkyDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F50ECF27383BFE0093E44F /* SkyDevice.swift */; };
 		C7266A882A910F9200C63533 /* SkyBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7266A872A910F9200C63533 /* SkyBarButtonItem.swift */; };
 		C7266A8A2A9131CC00C63533 /* SkyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7266A892A9131CC00C63533 /* SkyExtensions.swift */; };
+		C736C3742AA4E13000FDCB70 /* sky-logger-screen-4.png in Resources */ = {isa = PBXBuildFile; fileRef = C736C36F2AA4E13000FDCB70 /* sky-logger-screen-4.png */; };
+		C736C3752AA4E13000FDCB70 /* sky-logger-screen-2.png in Resources */ = {isa = PBXBuildFile; fileRef = C736C3702AA4E13000FDCB70 /* sky-logger-screen-2.png */; };
+		C736C3762AA4E13000FDCB70 /* sky-logger-screen-5.png in Resources */ = {isa = PBXBuildFile; fileRef = C736C3712AA4E13000FDCB70 /* sky-logger-screen-5.png */; };
+		C736C3772AA4E13000FDCB70 /* sky-logger-screen-1.png in Resources */ = {isa = PBXBuildFile; fileRef = C736C3722AA4E13000FDCB70 /* sky-logger-screen-1.png */; };
+		C736C3782AA4E13000FDCB70 /* sky-logger-screen-3.png in Resources */ = {isa = PBXBuildFile; fileRef = C736C3732AA4E13000FDCB70 /* sky-logger-screen-3.png */; };
 		C7456E892AA36DF9005DC167 /* Log+Kind.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7456E882AA36DF9005DC167 /* Log+Kind.swift */; };
 		C782FF4A2A9A833500EB9078 /* SkyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782FF492A9A833500EB9078 /* SkyConstants.swift */; };
 		C7B205C12A1539AC00AC837E /* UIColor+Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */; };
@@ -52,6 +57,11 @@
 		74F50ECF27383BFE0093E44F /* SkyDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyDevice.swift; sourceTree = "<group>"; };
 		C7266A872A910F9200C63533 /* SkyBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyBarButtonItem.swift; sourceTree = "<group>"; };
 		C7266A892A9131CC00C63533 /* SkyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyExtensions.swift; sourceTree = "<group>"; };
+		C736C36F2AA4E13000FDCB70 /* sky-logger-screen-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sky-logger-screen-4.png"; sourceTree = "<group>"; };
+		C736C3702AA4E13000FDCB70 /* sky-logger-screen-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sky-logger-screen-2.png"; sourceTree = "<group>"; };
+		C736C3712AA4E13000FDCB70 /* sky-logger-screen-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sky-logger-screen-5.png"; sourceTree = "<group>"; };
+		C736C3722AA4E13000FDCB70 /* sky-logger-screen-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sky-logger-screen-1.png"; sourceTree = "<group>"; };
+		C736C3732AA4E13000FDCB70 /* sky-logger-screen-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sky-logger-screen-3.png"; sourceTree = "<group>"; };
 		C7456E882AA36DF9005DC167 /* Log+Kind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+Kind.swift"; sourceTree = "<group>"; };
 		C782FF492A9A833500EB9078 /* SkyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyConstants.swift; sourceTree = "<group>"; };
 		C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hue.swift"; sourceTree = "<group>"; };
@@ -164,6 +174,7 @@
 			children = (
 				74F50EC0273824520093E44F /* SkyLogger */,
 				C7FC7AC428C76C0900C00F15 /* Example */,
+				C736C36E2AA4E12200FDCB70 /* Screenshots */,
 				74F50EBF273824520093E44F /* Products */,
 				74C0E3662745A30900F54583 /* Frameworks */,
 			);
@@ -202,6 +213,18 @@
 				C7B205BC2A15394B00AC837E /* Hue */,
 			);
 			path = LocalLibraries;
+			sourceTree = "<group>";
+		};
+		C736C36E2AA4E12200FDCB70 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				C736C3722AA4E13000FDCB70 /* sky-logger-screen-1.png */,
+				C736C3702AA4E13000FDCB70 /* sky-logger-screen-2.png */,
+				C736C3732AA4E13000FDCB70 /* sky-logger-screen-3.png */,
+				C736C36F2AA4E13000FDCB70 /* sky-logger-screen-4.png */,
+				C736C3712AA4E13000FDCB70 /* sky-logger-screen-5.png */,
+			);
+			path = Screenshots;
 			sourceTree = "<group>";
 		};
 		C7B205BC2A15394B00AC837E /* Hue */ = {
@@ -333,6 +356,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C736C3762AA4E13000FDCB70 /* sky-logger-screen-5.png in Resources */,
+				C736C3772AA4E13000FDCB70 /* sky-logger-screen-1.png in Resources */,
+				C736C3752AA4E13000FDCB70 /* sky-logger-screen-2.png in Resources */,
+				C736C3782AA4E13000FDCB70 /* sky-logger-screen-3.png in Resources */,
+				C736C3742AA4E13000FDCB70 /* sky-logger-screen-4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
