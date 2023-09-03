@@ -84,7 +84,8 @@ Logger.skyPrint(Logger.convertObjectToString(testClass)) // Message: TestClass: 
 
 ### Пример в UIViewController
 ```swift
-log(.init(kind: .system, message: "Test message", parameters: .init(key: "Test parameter", value: "Test parameter value")))
+log(.init(kind: .system, message: "Test message", parameters:
+    .init(key: "Test parameter", value: "Test parameter value")))
 skyPrint("Print test message")
 Logger.presentLogList(navigationController: navigationController)
 ```
