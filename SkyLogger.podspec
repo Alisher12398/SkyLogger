@@ -16,9 +16,9 @@ Pod::Spec.new do |s|
   #
 
   s.platform = :ios
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '12.0'
   s.name         = "SkyLogger"
-  s.version      = "0.12"
+  s.version      = "1.0"
   s.summary      = "Logger for iOS Apps using Swift."
   s.requires_arc = true
 
