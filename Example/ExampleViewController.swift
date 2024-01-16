@@ -48,6 +48,8 @@ class ExampleViewController: UIViewController {
             print("Swift.print: \(testClass)")
             Logger.skyPrint(testClass)
             Logger.skyPrint(Logger.convertObjectToString(testClass))
+            
+            Logger.log(.init(kind: .error(NSError.init(domain: "domain", code: 10, userInfo: ["errorInfo1": "value"]))))
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
