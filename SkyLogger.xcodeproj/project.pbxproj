@@ -28,6 +28,8 @@
 		C736C3782AA4E13000FDCB70 /* sky-logger-screen-3.png in Resources */ = {isa = PBXBuildFile; fileRef = C736C3732AA4E13000FDCB70 /* sky-logger-screen-3.png */; };
 		C7456E892AA36DF9005DC167 /* Log+Kind.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7456E882AA36DF9005DC167 /* Log+Kind.swift */; };
 		C782FF4A2A9A833500EB9078 /* SkyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782FF492A9A833500EB9078 /* SkyConstants.swift */; };
+		C79536B32B567C6000BFC302 /* SkyLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F50EBE273824520093E44F /* SkyLogger.framework */; };
+		C79536B42B567C6000BFC302 /* SkyLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74F50EBE273824520093E44F /* SkyLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C7B205C12A1539AC00AC837E /* UIColor+Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */; };
 		C7B205C22A1539AC00AC837E /* UIColor+Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B205BE2A1539AC00AC837E /* UIColor+Hue.swift */; };
 		C7B2EABF2A7C1DC40061E7CB /* SkyNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B2EABE2A7C1DC40061E7CB /* SkyNavigationViewController.swift */; };
@@ -40,6 +42,30 @@
 		C7FC7ACF28C76C0900C00F15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7FC7ACE28C76C0900C00F15 /* Assets.xcassets */; };
 		C7FC7AD228C76C0900C00F15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FC7AD028C76C0900C00F15 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C79536B52B567C6000BFC302 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 74F50EB5273824520093E44F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 74F50EBD273824520093E44F;
+			remoteInfo = SkyLogger;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C79536B72B567C6100BFC302 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C79536B42B567C6000BFC302 /* SkyLogger.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7458D9D727440F9600140F57 /* LogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C79536B32B567C6000BFC302 /* SkyLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,10 +331,12 @@
 				C7FC7ABF28C76C0900C00F15 /* Sources */,
 				C7FC7AC028C76C0900C00F15 /* Frameworks */,
 				C7FC7AC128C76C0900C00F15 /* Resources */,
+				C79536B72B567C6100BFC302 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C79536B62B567C6000BFC302 /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
@@ -416,6 +445,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C79536B62B567C6000BFC302 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 74F50EBD273824520093E44F /* SkyLogger */;
+			targetProxy = C79536B52B567C6000BFC302 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C7FC7ACB28C76C0900C00F15 /* Main.storyboard */ = {
