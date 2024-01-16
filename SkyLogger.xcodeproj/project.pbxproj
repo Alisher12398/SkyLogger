@@ -195,6 +195,8 @@
 		74F50EB4273824520093E44F = {
 			isa = PBXGroup;
 			children = (
+				C79537042B56A1DA00BFC302 /* Package.swift */,
+				C79536CE2B568D5900BFC302 /* Sources */,
 				74F50EC0273824520093E44F /* SkyLogger */,
 				C7FC7AC428C76C0900C00F15 /* Example */,
 				C736C36E2AA4E12200FDCB70 /* Screenshots */,
@@ -215,8 +217,6 @@
 		74F50EC0273824520093E44F /* SkyLogger */ = {
 			isa = PBXGroup;
 			children = (
-				C79537042B56A1DA00BFC302 /* Package.swift */,
-				C79536CE2B568D5900BFC302 /* Sources */,
 				C7DB5B8328C748DB003ADFBE /* Info.plist */,
 			);
 			path = SkyLogger;
