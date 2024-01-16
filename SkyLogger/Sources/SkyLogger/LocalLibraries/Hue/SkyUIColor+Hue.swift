@@ -3,7 +3,7 @@ import UIKit
 
 // MARK: - Color Builders
 
-public extension UIColor {
+extension UIColor {
   /// Constructing color from hex string
   ///
   /// - Parameter hex: A hex string, can either contain # or not
@@ -57,7 +57,7 @@ public extension UIColor {
 
 // MARK: - Helpers
 
-public extension UIColor {
+extension UIColor {
   
   func hex(hashPrefix: Bool = true) -> String {
     var (r, g, b, a): (CGFloat, CGFloat, CGFloat, CGFloat) = (0.0, 0.0, 0.0, 0.0)
@@ -130,7 +130,7 @@ public extension UIColor {
 
 // MARK: - Gradient
 
-public extension Array where Element : UIColor {
+extension Array where Element : UIColor {
   
   func gradient(_ transform: ((_ gradient: inout CAGradientLayer) -> CAGradientLayer)? = nil) -> CAGradientLayer {
     var gradient = CAGradientLayer()
@@ -146,7 +146,7 @@ public extension Array where Element : UIColor {
 
 // MARK: - Components
 
-public extension UIColor {
+extension UIColor {
 
   var redComponent: CGFloat {
     var red: CGFloat = 0
@@ -194,7 +194,7 @@ public extension UIColor {
 
 // MARK: - Blending
 
-public extension UIColor {
+extension UIColor {
   
   /**adds hue, saturation, and brightness to the HSB components of this color (self)*/
   func add(hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) -> UIColor {

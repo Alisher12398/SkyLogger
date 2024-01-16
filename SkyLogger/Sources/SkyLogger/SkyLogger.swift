@@ -1,10 +1,5 @@
-//
-//  Logger.swift
-//  OurMenu
-//
-//  Created by Alisher Khalykbayev on 07.11.2021.
-//  Copyright © 2021 Alisher Khalykbayev. All rights reserved.
-//
+// The Swift Programming Language
+// https://docs.swift.org/swift-book
 
 import UIKit
 
