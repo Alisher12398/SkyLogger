@@ -41,7 +41,7 @@ class LogListView: SkyBaseView {
         
         let label = UILabel(frame: .init(x: 0, y: 0, width: 0, height: 22))
         label.font = .regular(12)
-        label.text = "SkyLogger v\(SkyConstants.version) | App v\(Logger.singleton.appVersion)"
+        label.text = "SkyLogger \(SkyConstants.version) | App \(Logger.singleton.appVersion)"
         label.textColor = .skyTextSecondary
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
