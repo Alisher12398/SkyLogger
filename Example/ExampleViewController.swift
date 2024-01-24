@@ -14,7 +14,7 @@ class ExampleViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightGray
         Logger.setup(appVersion: "2.0", customization: .init())
-        for _ in 0...10 {
+        for _ in 0...5 {
             Logger.log(.init(kind: .print, message: "Test"))
             Logger.log(.init(kind: .print, message: "Message 1 Message 2 Message 3 Message 4 Message 5 Message 6 Message 7", parameters: [
                 .init(key: "Key", value: "Value"),
@@ -56,7 +56,7 @@ class ExampleViewController: UIViewController {
             Logger.log(.init(kind: .error(nil), message: "asyncAfter log"))
         })
         
-        Logger.presentLogList(navigationController: navigationController)
+        Logger.presentLogList(presentingViewController: navigationController)
     }
     
 }

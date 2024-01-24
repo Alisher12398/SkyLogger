@@ -1,6 +1,3 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
-
 import UIKit
 
 public func log(_ log: Log) {
@@ -82,24 +79,36 @@ extension Logger {
      Presents a list of logs. The present come in the passed UINavigationController.
      
      - Parameters:
-     - Log.
-     - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     - UIViewController that will present UIActivityViewController. When nill it will be found automatically.
      */
-    public static func presentLogList(navigationController: UINavigationController?) {
-        guard let navigationController = navigationController else {
-            Self.print(error: "can't present Logger: passed UINavigationController is nil")
+    public static func presentLogList(presentingViewController: UIViewController?) {
+        guard let presentingViewController = presentingViewController ?? tryGetCurrentViewController() else {
+            Self.print(error: "can't present Logger: presentingViewController UIViewController is nil and active UIViewController not found")
             return
         }
+        let presentedNC = SkyNavigationViewController(rootViewController: LogListViewController())
+        if presentingViewController is UINavigationController {
+            presentingViewController.present(presentedNC, animated: true)
+        } else if let navigationController = presentingViewController.navigationController {
+            navigationController.present(presentedNC, animated: true)
+        } else {
+            presentingViewController.present(presentedNC, animated: true)
+        }
+    }
+    
+    /**
+     Get a UIViewController with list of logs.
+     */
+    public static func generateLogListViewController() -> UIViewController {
         let vc = LogListViewController()
-        navigationController.present(SkyNavigationViewController(rootViewController: vc), animated: true, completion: nil)
+        return vc
     }
     
     /**
      Presents a modal popover `UIActivityViewController` to `Share` action that contains list of all logs. The present come in the passed UIViewController or in that is found automatically.
      
      - Parameters:
-     - Log.
-     - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     - UIViewController that will present UIActivityViewController. When nill it will be found automatically.
      */
     public static func shareLogList(presentingViewController: UIViewController? = nil) {
         guard let file = getTextFile(), let vc = presentingViewController ?? tryGetCurrentViewController() else {
@@ -115,7 +124,7 @@ extension Logger {
      
      - Parameters:
      - Log.
-     - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     - UIViewController that will present UIActivityViewController. When nill it will be found automatically.
      */
     public static func shareLog(log: Log, presentingViewController: UIViewController? = nil) {
         guard let vc = presentingViewController ?? tryGetCurrentViewController() else { return }
@@ -133,7 +142,7 @@ extension Logger {
      
      - Returns: popover `UIActivityViewController`.
      */
-    public static func getLogShareViewController(log: Log) -> UIActivityViewController {
+    public static func generateLogShareViewController(log: Log) -> UIActivityViewController {
         let data: String = SkyStringHandler.convertLogToString(log, showDivider: false, destination: .share)
         let activityVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
         activityVC.configure(viewController: nil)
@@ -145,7 +154,7 @@ extension Logger {
      
      - Returns: popover `UIActivityViewController` with list of all the logs.
      */
-    public static func getLogListShareViewController() -> UIActivityViewController? {
+    public static func generateLogListShareViewController() -> UIActivityViewController? {
         guard let file = getTextFile() else {
             return nil
         }
