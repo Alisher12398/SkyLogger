@@ -179,13 +179,9 @@ private extension LogTableViewCell {
     private func configure() {
         backgroundColor = .clear
         selectionStyle = .none
-        if #available(iOS 13.0, *) {
-            fileIconImageView.image = Log.LineKind.file.iconForDevice
-            infoCenterIconImageView.image = UIImage(systemName: "text.bubble", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
-            infoBottomIconImageView.image = UIImage(systemName: "info.circle", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
-        } else {
-            // Fallback on earlier versions
-        }
+        fileIconImageView.image = Log.LineKind.file.iconForDevice
+        infoCenterIconImageView.image = UIImage(systemName: "text.bubble", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+        infoBottomIconImageView.image = UIImage(systemName: "info.circle", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
     }
     
     private func makeConstraints() {

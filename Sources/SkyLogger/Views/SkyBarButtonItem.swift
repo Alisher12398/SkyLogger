@@ -23,7 +23,6 @@ class SkyBarButtonItem: UIBarButtonItem {
             }
         }
         
-        @available(iOS 13.0, *)
         var icon: UIImage? {
             switch self {
             case .shareLogList, .shareLog:
@@ -48,11 +47,7 @@ class SkyBarButtonItem: UIBarButtonItem {
         case .shareLogList, .shareLog:
             self.action = #selector(didTapShareButton(_:))
         }
-        if #available(iOS 13.0, *) {
-            self.image = kind.icon
-        } else {
-            self.title = kind.title
-        }
+        self.image = kind.icon
     }
     
     required init?(coder: NSCoder) {
@@ -61,11 +56,7 @@ class SkyBarButtonItem: UIBarButtonItem {
     
     @objc
     private func didTapCopyButton(_ sender: UIBarButtonItem) {
-        if #available(iOS 13.0, *) {
-            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-        } else {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        }
+        UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         switch kind {
         case .copy(log: let log):
             UIPasteboard.general.string = SkyStringHandler.convertLogToString(log, showDivider: false, destination: .share)
@@ -87,5 +78,5 @@ class SkyBarButtonItem: UIBarButtonItem {
             return
         }
     }
-
+    
 }

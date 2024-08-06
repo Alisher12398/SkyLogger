@@ -140,7 +140,6 @@ extension UIWindow {
 }
 
 //MARK: - UIWindowScene
-@available(iOS 13.0, *)
 extension UIWindowScene {
     
     var visibleViewController: UIViewController? {

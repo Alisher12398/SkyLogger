@@ -139,7 +139,6 @@ extension Log {
             }
         }
         
-        @available(iOS 13.0, *)
         var iconForDevice: UIImage? {
             switch self {
             case .file:
