@@ -17,64 +17,64 @@ public class Log: Equatable {
     let id: String
     let kind: Kind
     let customKey: CustomKey?
-    let message: CustomStringConvertible?
-    let parameters: [Parameter]?
+    private let message: Any?
+    let parameters: [Parameter]
     let file: String
     let function: String
     let line: String
     let date: Date
     
-    public convenience init(kind: Log.Kind, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: nil, parameters: nil, customKey: customKey, file: file, function: function, line: line)
-    }
+    //    public convenience init(kind: Log.Kind, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    //        self.init(logKind: kind, message: nil, parameters: nil, customKey: customKey, file: file, function: function, line: line)
+    //    }
+    //
+    //    /**
+    //     Creates a log.
+    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+    //     */
+    //    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    //        self.init(logKind: kind, message: message, parameters: nil, customKey: customKey, file: file, function: function, line: line)
+    //    }
+    //
+    //    /**
+    //     Creates a log.
+    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+    //     */
+    //    public convenience init(kind: Log.Kind, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    //        self.init(logKind: kind, message: nil, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
+    //    }
+    //
+    //    /**
+    //     Creates a log.
+    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+    //     */
+    //    public convenience init(kind: Log.Kind, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    //        self.init(logKind: kind, message: nil, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
+    //    }
+    //
+    //    /**
+    //     Creates a log.
+    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+    //     */
+    //    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    //        self.init(logKind: kind, message: message, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
+    //    }
+    //
+    //    /**
+    //     Creates a log.
+    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+    //     */
+    //    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+    //        self.init(logKind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
+    //    }
     
     /**
      Creates a log.
      You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
      */
-    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: message, parameters: nil, customKey: customKey, file: file, function: function, line: line)
-    }
-    
-    /**
-     Creates a log.
-     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-     */
-    public convenience init(kind: Log.Kind, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: nil, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
-    }
-    
-    /**
-     Creates a log.
-     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-     */
-    public convenience init(kind: Log.Kind, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: nil, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
-    }
-    
-    /**
-     Creates a log.
-     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-     */
-    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: message, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
-    }
-    
-    /**
-     Creates a log.
-     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-     */
-    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(logKind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
-    }
-    
-    /**
-     Creates a log.
-     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-     */
-    private init(logKind: Log.Kind, message: CustomStringConvertible?, parameters: [Log.Parameter]?, customKey: CustomKey?, file: String, function: String, line: Int) {
+    public init(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter] = [], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
         self.id = Self.makeRandomString(length: 15)
-        self.kind = logKind
+        self.kind = kind
         self.message = message
         self.parameters = parameters
         self.customKey = customKey
@@ -95,6 +95,10 @@ public class Log: Equatable {
         }
         
         return randomString
+    }
+    
+    func getMessage() -> String? {
+        return SkyStringHandler.convertAnyToString(message)
     }
     
 }

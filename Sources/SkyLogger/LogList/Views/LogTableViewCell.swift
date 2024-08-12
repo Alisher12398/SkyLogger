@@ -348,7 +348,7 @@ private extension LogTableViewCell {
         case .api(data: let data):
             return data?.urlPath
         default:
-            if let message = log.message?.description as? String, !message.isEmpty {
+            if let message = log.getMessage() {
                 return message
             } else {
                 return nil
@@ -357,7 +357,7 @@ private extension LogTableViewCell {
     }
     
     private static func getLogParametersText(log: Log) -> String? {
-        let parameters: [Log.Parameter] = log.parameters ?? []
+        let parameters: [Log.Parameter] = log.parameters
         switch log.kind {
         case .api(data: let data):
             if let statusCode = data?.statusCode {
@@ -381,7 +381,7 @@ private extension LogTableViewCell {
     
     private static func getSubstringForLogParameter(_ parameter: Log.Parameter) -> String? {
         if let value = parameter.value {
-            return "\"\(parameter.key)\"" + ": " + String(describing: value)
+            return "\"\(parameter.key)\"" + ": " + (SkyStringHandler.convertAnyToString(value) ?? String(describing: value))
         } else {
             return nil
         }

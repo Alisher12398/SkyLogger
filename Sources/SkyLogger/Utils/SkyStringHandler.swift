@@ -115,9 +115,79 @@ public struct SkyStringHandler {
         }
     }
     
+    static func convertAnyToString(_ value: Any?) -> String? {
+        guard let value = value else {
+            return nil
+        }
+        
+        let separator = ",\n"
+        
+        /// Array check
+        if let array = value as? [Any] {
+            return "Array: [" + array.map({
+                convertAnyObjectToString(value: $0)
+            }).joined(separator: separator) + "]"
+        }
+        
+        /// Set check
+        if let set = value as? Set<AnyHashable> {
+            return "Set: [" + set.map({
+                convertAnyObjectToString(value: $0.base)
+            }).joined(separator: separator) + "]"
+        }
+        
+        /// Dictionary check
+        if let dictionary = value as? [AnyHashable: Any] {
+            var convertedDictionary: [String: String] = [:]
+            for (key, value) in dictionary {
+                let keyString = convertAnyObjectToString(value: key.base)
+                let valueString = convertAnyObjectToString(value: value)
+                convertedDictionary[keyString] = valueString
+            }
+            return "Dictionary: [" + convertedDictionary.map({
+                "key: \($0.key): value: \($0.value)"
+            }).joined(separator: separator) + "]"
+        }
+        
+        return convertAnyObjectToString(value: value)
+    }
+    
+    static private func convertAnyObjectToString(value: Any?) -> String {
+        guard let value = value else {
+            return "nil"
+        }
+        if let result = value as? String {
+            return result
+        } else if let result = value as? CustomStringConvertible {
+            return result.description
+        } else {
+            return convertClassObjectToString(value)
+        }
+    }
+    
+    /**
+     Converts the class and struct object to String. But it is preferable to implement the `CustomStringConvertible` protocol.
+     
+     - Returns: String describing the object.
+     */
+    private static func convertClassObjectToString(_ object: Any) -> String {
+        let mirror = Mirror(reflecting: object)
+        var description = "'Object: " + String(describing: mirror.subjectType) + "("
+        for (index, (label, value)) in mirror.children.enumerated() {
+            if let label = label {
+                if index > 0 {
+                    description += ", "
+                }
+                description += "\(label): \(value)"
+            }
+        }
+        description.append(")'")
+        return description
+    }
+    
     static private func getLogInfoLine(log: Log, showDivider: Bool) -> String {
         var dataResult: String = ""
-        if let message = log.message {
+        if let message = log.getMessage() {
             dataResult.append(getMessageLine(key: "Message", value: message, showDivider: showDivider))
         }
         
@@ -133,8 +203,8 @@ public struct SkyStringHandler {
         }
         
         /// Log parameters
-        if let parameters = log.parameters {
-            for value in parameters {
+        if !log.parameters.isEmpty {
+            for value in log.parameters {
                 dataResult.append(getMessageLine(key: value.key, value: value.value, showDivider: showDivider))
             }
         }
@@ -170,7 +240,7 @@ public struct SkyStringHandler {
     
     private static func getMessageLine(key: String, value: Any?, showDivider: Bool) -> String {
         let tabSpace = getTabSpace(repeatCount: 2, newLine: true, showDivider: showDivider) + "  "
-        return tabSpace + "\(key): \(value ?? "nil")"
+        return tabSpace + "\(key): \(convertAnyToString(value) ?? "nil")"
     }
 }
 

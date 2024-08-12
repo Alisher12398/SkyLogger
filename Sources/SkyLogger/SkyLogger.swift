@@ -39,6 +39,13 @@ extension Logger {
     /**
      Write a log.
      */
+    public static func log(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter] = [], customKey: Log.CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        Self.log(Log.init(kind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line))
+    }
+    
+    /**
+     Write a log.
+     */
     public static func log(_ log: Log, file: String = #file, function: String = #function, line: Int = #line) {
         guard isEnabled else {
             Self.print(message: "log is not written because the Logger is disabled")
@@ -53,10 +60,7 @@ extension Logger {
      Convenience func to show a log with .print kind only in Xcode
      */
     public static func skyPrint(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
-        guard let message = message as? CustomStringConvertible else {
-            Swift.print(message)
-            return
-        }
+        let message = SkyStringHandler.convertAnyToString(message) ?? "Can't convert message to String. Message: \(message)"
         let log = Log.init(kind: .print, message: message, file: file, function: function, line: line)
         let string = SkyStringHandler.convertLogToString(log, showDivider: false, destination: .xcode)
         Swift.print(string)
@@ -161,28 +165,6 @@ extension Logger {
         let activityVC = UIActivityViewController(activityItems: [file], applicationActivities: nil)
         activityVC.configure(viewController: nil)
         return activityVC
-    }
-    
-    /**
-     Converts the class and struct object to String. But it is preferable to implement the `CustomStringConvertible` protocol.
-     
-     - Returns: String describing the object.
-     */
-    public static func convertObjectToString(_ object: Any) -> String {
-        let mirror = Mirror(reflecting: object)
-        var description = String(describing: mirror.subjectType) + ": "
-        for (index, (label, value)) in mirror.children.enumerated() {
-            if let label = label {
-                if index > 0 {
-                    description += ", "
-                }
-                description += "\(label): \(value)"
-                if index == mirror.children.count - 1 {
-                    description += ". "
-                }
-            }
-        }
-        return description
     }
     
 }
