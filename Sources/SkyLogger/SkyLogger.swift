@@ -173,7 +173,12 @@ extension Logger {
 extension Logger {
     
     static func getLogs() -> [Log] {
-        return Logger.singleton.logs.allCases
+        if SkyCustomization.shared.newLogsOnTop {
+            return Logger.singleton.logs.allCases.reversed()
+        } else {
+            return Logger.singleton.logs.allCases
+        }
+        
     }
     
     static func print(message: String) {

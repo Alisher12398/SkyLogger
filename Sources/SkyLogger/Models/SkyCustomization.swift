@@ -14,11 +14,13 @@ public class SkyCustomization {
     
     static var shared: SkyCustomization = .init()
     
+    let newLogsOnTop: Bool
+    
     /**
      Class for future Logger customization.
      */
-    public init() {
-        
+    public init(newLogsOnTop: Bool = false) {
+        self.newLogsOnTop = newLogsOnTop
     }
     
 }

@@ -13,7 +13,7 @@ class ExampleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightGray
-        Logger.setup(appVersion: "2.0", customization: .init())
+        Logger.setup(appVersion: "2.0", customization: .init(newLogsOnTop: false))
         
         for _ in 0...5 {
             Logger.log(.init(kind: .print, message: "Test"))
@@ -36,7 +36,7 @@ class ExampleViewController: UIViewController {
             Logger.log(.init(kind: .analytics, message: nil))
             
             Logger.skyPrint("Test print message")
-            skyPrint("Test print message 2")
+            Logger.skyPrint("Test print message 2")
             
             Logger.log(.init(kind: .print, message: "Test print customKey 1", customKey: .init(title: "CustomKey1")))
             

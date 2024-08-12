@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct SkyStringHandler {
+struct SkyStringHandler {
     
     static public func generateInfoHeaderString(additionalInfoParameters: [Log.Parameter] = []) -> String {
         let date = Date()
