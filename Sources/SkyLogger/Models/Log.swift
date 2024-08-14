@@ -70,7 +70,13 @@ public class Log: Equatable {
     
     /**
      Creates a log.
-     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
+     */
+    public convenience init(kind: Log.Kind, message: Any? = nil, parameter: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(kind: kind, message: message, parameters: [parameter], customKey: customKey, file: file, function: function, line: line)
+    }
+    
+    /**
+     Creates a log.
      */
     public init(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter] = [], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
         self.id = Self.makeRandomString(length: 15)
