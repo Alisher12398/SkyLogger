@@ -71,8 +71,8 @@ public class Log: Equatable {
     /**
      Creates a log.
      */
-    public convenience init(kind: Log.Kind, message: Any? = nil, parameter: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-        self.init(kind: kind, message: message, parameters: [parameter], customKey: customKey, file: file, function: function, line: line)
+    public convenience init(kind: Log.Kind, message: Any? = nil, parameters: Log.Parameter..., customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        self.init(kind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
     }
     
     /**

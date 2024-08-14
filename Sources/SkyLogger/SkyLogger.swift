@@ -39,6 +39,13 @@ extension Logger {
     /**
      Write a log.
      */
+    public static func log(kind: Log.Kind, message: Any? = nil, parameters: Log.Parameter..., customKey: Log.CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
+        Self.log(Log.init(kind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line))
+    }
+    
+    /**
+     Write a log.
+     */
     public static func log(kind: Log.Kind, message: Any? = nil, parameters: [Log.Parameter] = [], customKey: Log.CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
         Self.log(Log.init(kind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line))
     }
