@@ -16,8 +16,7 @@ class LogListViewController: UIViewController {
             guard oldValue != selectedLogKindIndex else { return }
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.updateFilteredLogs()
-                self.rootView.listTableView.reloadData()
+                self.reloadData()
                 self.rootView.logKindCollectionView.reloadData()
                 UIImpactFeedbackGenerator.init(style: .light).impactOccurred()
                 self.rootView.logKindCollectionView.scrollToItem(at: .init(row: self.selectedLogKindIndex, section: 0), at: .left, animated: true)
@@ -33,11 +32,7 @@ class LogListViewController: UIViewController {
     
     private lazy var allLogs: [Log] = fetchLogs() {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.updateFilteredLogs()
-                self.rootView.listTableView.reloadData()
-            }
+            reloadData()
         }
     }
     
@@ -91,6 +86,14 @@ extension LogListViewController {
 //MARK: - Private Methods
 private extension LogListViewController {
     
+    private func reloadData() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.updateFilteredLogs()
+            self.rootView.listTableView.reloadData()
+        }
+    }
+    
     private func configure() {
         rootView.logKindCollectionView.delegate = self
         rootView.logKindCollectionView.dataSource = self
@@ -108,7 +111,10 @@ private extension LogListViewController {
         let backBarButtonItem = UIBarButtonItem()
         backBarButtonItem.title = ""
         navigationItem.backBarButtonItem = backBarButtonItem
-        navigationItem.rightBarButtonItem = SkyBarButtonItem(kind: .shareLogList, vc: self)
+        navigationItem.rightBarButtonItems = [
+            SkyBarButtonItem(kind: .shareLogList, vc: self),
+            SkyBarButtonItem(kind: .changeSortType, vc: self)
+        ]
     }
     
     func updateFilteredLogs() {
@@ -205,10 +211,10 @@ extension LogListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogTableViewCell.reuseIdentifier, for: indexPath) as! LogTableViewCell
         if let log = filteredLogs[safe: indexPath.row] {
             let number: Int = {
-                if SkyCustomization.shared.newLogsOnTop {
+                switch SkyCustomization.shared.sortType {
+                case .newOnTop:
                     return allLogs.count - (allLogs.firstIndex(of: log) ?? 0)
-                } else {
-                    
+                case .newOnBottom:
                     return (allLogs.firstIndex(of: log) ?? 0) + 1
                 }
             }()

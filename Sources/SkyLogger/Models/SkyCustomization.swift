@@ -12,15 +12,34 @@ import UIKit
  */
 public class SkyCustomization {
     
-    static var shared: SkyCustomization = .init()
+    static var shared: SkyCustomization = .init(sortType: .newOnTop)
     
-    let newLogsOnTop: Bool
+    private(set) var sortType: SortType
     
     /**
      Class for future Logger customization.
      */
-    public init(newLogsOnTop: Bool = false) {
-        self.newLogsOnTop = newLogsOnTop
+    public init(sortType: SortType) {
+        self.sortType = sortType
+    }
+    
+    func toogleSortType() {
+        switch sortType {
+        case .newOnTop:
+            self.sortType = .newOnBottom
+        case .newOnBottom:
+            self.sortType = .newOnTop
+        }
+        NotificationCenter.default.post(name: .newLogAdded, object: nil)
+    }
+    
+}
+
+public extension SkyCustomization {
+    
+    enum SortType {
+        case newOnTop
+        case newOnBottom
     }
     
 }

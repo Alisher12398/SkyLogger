@@ -21,7 +21,7 @@ public class Logger {
 //MARK: - Public Methods
 extension Logger {
     
-    public static func setup(appVersion: String, customization: SkyCustomization = .init()) {
+    public static func setup(appVersion: String, customization: SkyCustomization) {
         Logger.singleton.appVersion = appVersion
         SkyCustomization.shared = customization
     }
@@ -196,12 +196,12 @@ extension Logger {
 extension Logger {
     
     static func getLogs() -> [Log] {
-        if SkyCustomization.shared.newLogsOnTop {
+        switch SkyCustomization.shared.sortType {
+        case .newOnTop:
             return Logger.singleton.logs.allCases.reversed()
-        } else {
+        case .newOnBottom:
             return Logger.singleton.logs.allCases
         }
-        
     }
     
     static func print(message: String) {

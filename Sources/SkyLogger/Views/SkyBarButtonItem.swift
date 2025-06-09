@@ -13,23 +13,20 @@ class SkyBarButtonItem: UIBarButtonItem {
         case shareLogList
         case shareLog(log: Log)
         case copy(log: Log)
-        
-        var title: String {
-            switch self {
-            case .shareLogList, .shareLog:
-                return "Share"
-            case .copy:
-                return "Copy"
-            }
-        }
+        case changeSortType
         
         var icon: UIImage? {
-            switch self {
-            case .shareLogList, .shareLog:
-                return UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
-            case .copy:
-                return UIImage(systemName: "doc.on.doc", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
-            }
+            let systemName: String = {
+                switch self {
+                case .shareLogList, .shareLog:
+                    return "square.and.arrow.up"
+                case .copy:
+                    return "doc.on.doc"
+                case .changeSortType:
+                    return "arrow.up.arrow.down"
+                }
+            }()
+            return UIImage(systemName: systemName, withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
         }
     }
     
@@ -46,6 +43,8 @@ class SkyBarButtonItem: UIBarButtonItem {
             self.action = #selector(didTapCopyButton(_:))
         case .shareLogList, .shareLog:
             self.action = #selector(didTapShareButton(_:))
+        case .changeSortType:
+            self.action = #selector(didTapChangeSortType(_:))
         }
         self.image = kind.icon
     }
@@ -74,9 +73,14 @@ class SkyBarButtonItem: UIBarButtonItem {
             Logger.shareLogList(presentingViewController: self.vc)
         case .shareLog(let log):
             Logger.shareLog(log: log, presentingViewController: self.vc)
-        case .copy:
+        case .copy, .changeSortType:
             return
         }
+    }
+    
+    @objc
+    private func didTapChangeSortType(_ sender: UIBarButtonItem) {
+        SkyCustomization.shared.toogleSortType()
     }
     
 }
