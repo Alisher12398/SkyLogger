@@ -13,8 +13,8 @@ class ExampleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightGray
-        let customization = SkyConfiguration.init(sortType: .newOnTop, shakeToPresent: true)
-        Logger.setup(appVersion: "2.0", customization: customization)
+        let configuration = SkyConfiguration.init(sortType: .newOnTop, shakeToPresent: true)
+        Logger.setup(appVersion: "2.0", configuration: configuration)
         
         for _ in 0...5 {
             Logger.log(.init(kind: .print, message: "Test"))

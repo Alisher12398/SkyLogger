@@ -8,7 +8,7 @@
 import UIKit
 
 /**
- Class for future Logger customization.
+ Class for future Logger configuration.
  */
 public class SkyConfiguration {
     
@@ -18,7 +18,7 @@ public class SkyConfiguration {
     private(set) var shakeToPresent: Bool
     
     /**
-     Class for future Logger customization.
+     Class for future Logger configuration.
      */
     public init(sortType: SortType, shakeToPresent: Bool) {
         self.sortType = sortType

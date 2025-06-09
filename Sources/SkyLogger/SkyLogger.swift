@@ -21,9 +21,9 @@ public class Logger {
 //MARK: - Public Methods
 extension Logger {
     
-    public static func setup(appVersion: String, customization: SkyConfiguration) {
+    public static func setup(appVersion: String, configuration: SkyConfiguration) {
         Logger.singleton.appVersion = appVersion
-        SkyConfiguration.shared = customization
+        SkyConfiguration.shared = configuration
         if SkyConfiguration.shared.shakeToPresent {
             ShakeDetectManager.shared.configure()
         }
