@@ -12,18 +12,20 @@ import UIKit
  */
 public class SkyCustomization {
     
-    static var shared: SkyCustomization = .init(sortType: .newOnTop)
+    static var shared: SkyCustomization = .init(sortType: .newOnTop, shakeToPresent: true)
     
     private(set) var sortType: SortType
+    private(set) var shakeToPresent: Bool
     
     /**
      Class for future Logger customization.
      */
-    public init(sortType: SortType) {
+    public init(sortType: SortType, shakeToPresent: Bool) {
         self.sortType = sortType
+        self.shakeToPresent = shakeToPresent
     }
     
-    func toogleSortType() {
+    public func toogleSortType() {
         switch sortType {
         case .newOnTop:
             self.sortType = .newOnBottom

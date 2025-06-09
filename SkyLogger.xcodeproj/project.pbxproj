@@ -26,6 +26,7 @@
 		C736C3772AA4E13000FDCB70 /* sky-logger-screen-1.png in Resources */ = {isa = PBXBuildFile; fileRef = C736C3722AA4E13000FDCB70 /* sky-logger-screen-1.png */; };
 		C736C3782AA4E13000FDCB70 /* sky-logger-screen-3.png in Resources */ = {isa = PBXBuildFile; fileRef = C736C3732AA4E13000FDCB70 /* sky-logger-screen-3.png */; };
 		C7456E892AA36DF9005DC167 /* Log+Kind.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7456E882AA36DF9005DC167 /* Log+Kind.swift */; };
+		C76DC5F62DF7604F008B1848 /* ShakeDetectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76DC5F52DF7604E008B1848 /* ShakeDetectManager.swift */; };
 		C782FF4A2A9A833500EB9078 /* SkyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782FF492A9A833500EB9078 /* SkyConstants.swift */; };
 		C79536B32B567C6000BFC302 /* SkyLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F50EBE273824520093E44F /* SkyLogger.framework */; };
 		C79536B42B567C6000BFC302 /* SkyLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74F50EBE273824520093E44F /* SkyLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -89,6 +90,7 @@
 		C736C3722AA4E13000FDCB70 /* sky-logger-screen-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sky-logger-screen-1.png"; sourceTree = "<group>"; };
 		C736C3732AA4E13000FDCB70 /* sky-logger-screen-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sky-logger-screen-3.png"; sourceTree = "<group>"; };
 		C7456E882AA36DF9005DC167 /* Log+Kind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+Kind.swift"; sourceTree = "<group>"; };
+		C76DC5F52DF7604E008B1848 /* ShakeDetectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeDetectManager.swift; sourceTree = "<group>"; };
 		C782FF492A9A833500EB9078 /* SkyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyConstants.swift; sourceTree = "<group>"; };
 		C79536D02B568D7900BFC302 /* SkyLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyLogger.swift; sourceTree = "<group>"; };
 		C79536D42B568DA000BFC302 /* SkyLoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyLoggerTests.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 		7458D9DE2744102100140F57 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C76DC5F52DF7604E008B1848 /* ShakeDetectManager.swift */,
 				C782FF492A9A833500EB9078 /* SkyConstants.swift */,
 				74CB1D332739BFA100EBD2A4 /* SkyFileManager.swift */,
 				7479080A27418EDE0071DE0F /* SkyStringHandler.swift */,
@@ -455,6 +458,7 @@
 				7458D9E42744121D00140F57 /* SkyCustomization.swift in Sources */,
 				C7B2EABF2A7C1DC40061E7CB /* SkyNavigationViewController.swift in Sources */,
 				C7266A8A2A9131CC00C63533 /* SkyExtensions.swift in Sources */,
+				C76DC5F62DF7604F008B1848 /* ShakeDetectManager.swift in Sources */,
 				C79536D12B568D7900BFC302 /* SkyLogger.swift in Sources */,
 				7458D9DA27440FA400140F57 /* LogListView.swift in Sources */,
 				7458D9E1274411DB00140F57 /* SkyBaseView.swift in Sources */,

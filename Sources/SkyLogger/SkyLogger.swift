@@ -24,6 +24,9 @@ extension Logger {
     public static func setup(appVersion: String, customization: SkyCustomization) {
         Logger.singleton.appVersion = appVersion
         SkyCustomization.shared = customization
+        if SkyCustomization.shared.shakeToPresent {
+            ShakeDetectManager.shared.configure()
+        }
     }
     
     /**
