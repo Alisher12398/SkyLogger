@@ -135,6 +135,14 @@ extension UIViewController {
         }
     }
     
+    func setStatusBar(color: UIColor? = nil) {
+        UIApplication.shared.statusBarUIView?.backgroundColor = color ?? view.backgroundColor
+    }
+    
+    func setStatusBarClear() {
+        UIApplication.shared.statusBarUIView?.backgroundColor = .clear
+    }
+    
 }
 
 //MARK: - UIColor
@@ -225,5 +233,31 @@ extension UIView {
 extension Notification.Name {
     
     static let newLogAdded = Notification.Name("new.log.added")
+    
+}
+
+//MARK: - UIApplication
+extension UIApplication {
+    
+    var statusBarUIView: UIView? {
+        let tag = 38482
+        
+        let keyWindow = UIApplication.shared.connectedScenes
+            .map({$0 as? UIWindowScene})
+            .compactMap({$0})
+            .first?.windows.first
+        
+        if let statusBar = keyWindow?.viewWithTag(tag) {
+            return statusBar
+        } else {
+            let height = keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+            let statusBarView = UIView(frame: height)
+            statusBarView.tag = tag
+            statusBarView.layer.zPosition = 999999
+            
+            keyWindow?.addSubview(statusBarView)
+            return statusBarView
+        }
+    }
     
 }

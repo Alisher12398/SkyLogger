@@ -28,6 +28,8 @@ class LogListViewController: UIViewController {
         }
     }
     
+    private let parentStatusBarColor: UIColor?
+    
     private var filteredLogs: [Log] = Logger.getLogs()
     
     private lazy var allLogs: [Log] = fetchLogs() {
@@ -43,8 +45,10 @@ class LogListViewController: UIViewController {
     }
     
     init() {
+        self.parentStatusBarColor = UIApplication.shared.statusBarUIView?.backgroundColor
         self.rootView = LogListView()
         super.init(nibName: nil, bundle: nil)
+        print("parentStatusBarColor", self.parentStatusBarColor)
     }
     
     required init?(coder: NSCoder) {
@@ -79,6 +83,13 @@ extension LogListViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let parentStatusBarColor {
+            setStatusBar(color: parentStatusBarColor)
+        }
     }
     
 }
@@ -132,6 +143,9 @@ private extension LogListViewController {
             SkyBarButtonItem(kind: .shareLogList, vc: self),
             SkyBarButtonItem(kind: .changeSortType, vc: self)
         ]
+        if let _ = parentStatusBarColor {
+            setStatusBarClear()
+        }
     }
     
     func updateFilteredLogs() {
