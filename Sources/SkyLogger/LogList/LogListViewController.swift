@@ -231,7 +231,7 @@ extension LogListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogTableViewCell.reuseIdentifier, for: indexPath) as! LogTableViewCell
         if let log = filteredLogs[safe: indexPath.row] {
             let number: Int = {
-                switch SkyCustomization.shared.sortType {
+                switch SkyConfiguration.shared.sortType {
                 case .newOnTop:
                     return allLogs.count - (allLogs.firstIndex(of: log) ?? 0)
                 case .newOnBottom:

@@ -11,7 +11,7 @@ public final class ShakeDetectManager {
     public static let shared = ShakeDetectManager()
     
     private init() {
-        if SkyCustomization.shared.shakeToPresent {
+        if SkyConfiguration.shared.shakeToPresent {
             swizzleWindowMotion()
         }
     }
@@ -33,7 +33,7 @@ public final class ShakeDetectManager {
     
     @objc private func shake_motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            guard SkyCustomization.shared.shakeToPresent else { return }
+            guard SkyConfiguration.shared.shakeToPresent else { return }
             Logger.presentLogList(presentingViewController: nil)
         }
         //        shake_motionEnded(motion, with: event)

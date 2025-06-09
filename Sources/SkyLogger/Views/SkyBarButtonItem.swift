@@ -80,7 +80,7 @@ class SkyBarButtonItem: UIBarButtonItem {
     
     @objc
     private func didTapChangeSortType(_ sender: UIBarButtonItem) {
-        SkyCustomization.shared.toogleSortType()
+        SkyConfiguration.shared.toogleSortType()
     }
     
 }

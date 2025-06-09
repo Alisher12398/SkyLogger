@@ -21,10 +21,10 @@ public class Logger {
 //MARK: - Public Methods
 extension Logger {
     
-    public static func setup(appVersion: String, customization: SkyCustomization) {
+    public static func setup(appVersion: String, customization: SkyConfiguration) {
         Logger.singleton.appVersion = appVersion
-        SkyCustomization.shared = customization
-        if SkyCustomization.shared.shakeToPresent {
+        SkyConfiguration.shared = customization
+        if SkyConfiguration.shared.shakeToPresent {
             ShakeDetectManager.shared.configure()
         }
     }
@@ -199,7 +199,7 @@ extension Logger {
 extension Logger {
     
     static func getLogs() -> [Log] {
-        switch SkyCustomization.shared.sortType {
+        switch SkyConfiguration.shared.sortType {
         case .newOnTop:
             return Logger.singleton.logs.allCases.reversed()
         case .newOnBottom:

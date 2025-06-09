@@ -10,7 +10,7 @@
 		7458D9D827440F9600140F57 /* LogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D727440F9600140F57 /* LogListViewController.swift */; };
 		7458D9DA27440FA400140F57 /* LogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9D927440FA400140F57 /* LogListView.swift */; };
 		7458D9E1274411DB00140F57 /* SkyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E0274411DB00140F57 /* SkyBaseView.swift */; };
-		7458D9E42744121D00140F57 /* SkyCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E32744121D00140F57 /* SkyCustomization.swift */; };
+		7458D9E42744121D00140F57 /* SkyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E32744121D00140F57 /* SkyConfiguration.swift */; };
 		7458D9E72744141400140F57 /* LogKindCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7458D9E62744141400140F57 /* LogKindCollectionViewCell.swift */; };
 		7479080B27418EDE0071DE0F /* SkyStringHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479080A27418EDE0071DE0F /* SkyStringHandler.swift */; };
 		74C0E3652745A19800F54583 /* LogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E3642745A19800F54583 /* LogTableViewCell.swift */; };
@@ -73,7 +73,7 @@
 		7458D9D727440F9600140F57 /* LogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListViewController.swift; sourceTree = "<group>"; };
 		7458D9D927440FA400140F57 /* LogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListView.swift; sourceTree = "<group>"; };
 		7458D9E0274411DB00140F57 /* SkyBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyBaseView.swift; sourceTree = "<group>"; };
-		7458D9E32744121D00140F57 /* SkyCustomization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyCustomization.swift; sourceTree = "<group>"; };
+		7458D9E32744121D00140F57 /* SkyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyConfiguration.swift; sourceTree = "<group>"; };
 		7458D9E62744141400140F57 /* LogKindCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogKindCollectionViewCell.swift; sourceTree = "<group>"; };
 		7479080A27418EDE0071DE0F /* SkyStringHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyStringHandler.swift; sourceTree = "<group>"; };
 		74C0E3642745A19800F54583 /* LogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewCell.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 				74F22641273983F400A08532 /* Log.swift */,
 				C7456E882AA36DF9005DC167 /* Log+Kind.swift */,
 				7458D9E0274411DB00140F57 /* SkyBaseView.swift */,
-				7458D9E32744121D00140F57 /* SkyCustomization.swift */,
+				7458D9E32744121D00140F57 /* SkyConfiguration.swift */,
 				74EE13F527454EF8009030E1 /* SkyResponseData.swift */,
 				C7FC7A9828C75B9C00C00F15 /* SkyThreadSafeArray.swift */,
 			);
@@ -455,7 +455,7 @@
 				C79536D52B568DA000BFC302 /* SkyLoggerTests.swift in Sources */,
 				C7266A882A910F9200C63533 /* SkyBarButtonItem.swift in Sources */,
 				74F22642273983F400A08532 /* Log.swift in Sources */,
-				7458D9E42744121D00140F57 /* SkyCustomization.swift in Sources */,
+				7458D9E42744121D00140F57 /* SkyConfiguration.swift in Sources */,
 				C7B2EABF2A7C1DC40061E7CB /* SkyNavigationViewController.swift in Sources */,
 				C7266A8A2A9131CC00C63533 /* SkyExtensions.swift in Sources */,
 				C76DC5F62DF7604F008B1848 /* ShakeDetectManager.swift in Sources */,

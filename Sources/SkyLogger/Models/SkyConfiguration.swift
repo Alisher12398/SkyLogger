@@ -1,5 +1,5 @@
 //
-//  SkyCustomization.swift
+//  SkyConfiguration.swift
 //  SkyLogger
 //
 //  Created by Алишер Халыкбаев on 16.11.2021.
@@ -10,9 +10,9 @@ import UIKit
 /**
  Class for future Logger customization.
  */
-public class SkyCustomization {
+public class SkyConfiguration {
     
-    static var shared: SkyCustomization = .init(sortType: .newOnTop, shakeToPresent: true)
+    static var shared: SkyConfiguration = .init(sortType: .newOnTop, shakeToPresent: true)
     
     private(set) var sortType: SortType
     private(set) var shakeToPresent: Bool
@@ -37,7 +37,7 @@ public class SkyCustomization {
     
 }
 
-public extension SkyCustomization {
+public extension SkyConfiguration {
     
     enum SortType {
         case newOnTop
