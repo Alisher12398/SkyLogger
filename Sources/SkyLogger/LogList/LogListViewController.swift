@@ -36,6 +36,12 @@ class LogListViewController: UIViewController {
         }
     }
     
+    private var searchBarText: String? = nil {
+        didSet {
+            updateLogs()
+        }
+    }
+    
     init() {
         self.rootView = LogListView()
         super.init(nibName: nil, bundle: nil)
@@ -65,6 +71,10 @@ extension LogListViewController {
         configureNavigationBar()
         
         NotificationCenter.default.addObserver(self, selector: #selector(newLogAddedNotification(_:)), name: .newLogAdded, object: nil)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(_:)))
+        tapGesture.cancelsTouchesInView = false
+        rootView.listTableView.addGestureRecognizer(tapGesture)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,6 +89,11 @@ extension LogListViewController {
     @objc
     private func newLogAddedNotification(_ sender: Notification) {
         updateLogs()
+    }
+    
+    @objc
+    private func dismissKeyboard(_ sender: UIGestureRecognizer) {
+        view.endEditing(true)
     }
     
 }
@@ -102,6 +117,8 @@ private extension LogListViewController {
         rootView.listTableView.delegate = self
         rootView.listTableView.dataSource = self
         rootView.listTableView.register(LogTableViewCell.self, forCellReuseIdentifier: LogTableViewCell.reuseIdentifier)
+        
+        rootView.searchBar.delegate = self
     }
     
     private func configureNavigationBar() {
@@ -118,7 +135,7 @@ private extension LogListViewController {
     }
     
     func updateFilteredLogs() {
-        var filteredLogsNew: [Log] {
+        var filteredLogsNew: [Log] = {
             switch selectedLogKindIndex {
             case 0:
                 return allLogs
@@ -131,6 +148,9 @@ private extension LogListViewController {
                     return []
                 }
             }
+        }()
+        if let searchBarText, !searchBarText.isEmpty {
+            filteredLogsNew = filteredLogsNew.filter({ $0.containsText(searchBarText) })
         }
         self.filteredLogs = filteredLogsNew
     }
@@ -245,6 +265,23 @@ extension LogListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
+    }
+    
+}
+
+//MARK: - UISearchBarDelegate
+extension LogListViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchBarText = searchText
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
     
 }

@@ -32,7 +32,7 @@ struct SkyStringHandler {
         if !additionalInfoParameters.isEmpty {
             string.append("Additional parameters:")
             additionalInfoParameters.forEach({
-                string.append("\n\($0.key): \($0.value ?? "")")
+                string.append(getMessageLine(key: $0.key, value: $0.value, showDivider: false))
             })
         }
         string.append("\n\n\n")

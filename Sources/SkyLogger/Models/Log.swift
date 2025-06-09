@@ -123,6 +123,12 @@ public class Log: Equatable {
         return SkyStringHandler.convertAnyToString(message)
     }
     
+    func containsText(_ text: String) -> Bool {
+        guard !text.isEmpty else { return true }
+        let log = SkyStringHandler.convertLogToString(self, showDivider: false, destination: .device)
+        return log.lowercased().contains(text.lowercased())
+    }
+    
 }
 
 //MARK: - Enums And Classes
