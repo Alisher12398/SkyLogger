@@ -13,24 +13,20 @@ class SkyBarButtonItem: UIBarButtonItem {
         case shareLogList
         case shareLog(log: Log)
         case copy(log: Log)
+        case changeSortType
         
-        var title: String {
-            switch self {
-            case .shareLogList, .shareLog:
-                return "Share"
-            case .copy:
-                return "Copy"
-            }
-        }
-        
-        @available(iOS 13.0, *)
         var icon: UIImage? {
-            switch self {
-            case .shareLogList, .shareLog:
-                return UIImage(systemName: "square.and.arrow.up", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
-            case .copy:
-                return UIImage(systemName: "doc.on.doc", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
-            }
+            let systemName: String = {
+                switch self {
+                case .shareLogList, .shareLog:
+                    return "square.and.arrow.up"
+                case .copy:
+                    return "doc.on.doc"
+                case .changeSortType:
+                    return "arrow.up.arrow.down"
+                }
+            }()
+            return UIImage(systemName: systemName, withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
         }
     }
     
@@ -47,12 +43,10 @@ class SkyBarButtonItem: UIBarButtonItem {
             self.action = #selector(didTapCopyButton(_:))
         case .shareLogList, .shareLog:
             self.action = #selector(didTapShareButton(_:))
+        case .changeSortType:
+            self.action = #selector(didTapChangeSortType(_:))
         }
-        if #available(iOS 13.0, *) {
-            self.image = kind.icon
-        } else {
-            self.title = kind.title
-        }
+        self.image = kind.icon
     }
     
     required init?(coder: NSCoder) {
@@ -61,11 +55,7 @@ class SkyBarButtonItem: UIBarButtonItem {
     
     @objc
     private func didTapCopyButton(_ sender: UIBarButtonItem) {
-        if #available(iOS 13.0, *) {
-            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-        } else {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        }
+        UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         switch kind {
         case .copy(log: let log):
             UIPasteboard.general.string = SkyStringHandler.convertLogToString(log, showDivider: false, destination: .share)
@@ -83,9 +73,14 @@ class SkyBarButtonItem: UIBarButtonItem {
             Logger.shareLogList(presentingViewController: self.vc)
         case .shareLog(let log):
             Logger.shareLog(log: log, presentingViewController: self.vc)
-        case .copy:
+        case .copy, .changeSortType:
             return
         }
     }
-
+    
+    @objc
+    private func didTapChangeSortType(_ sender: UIBarButtonItem) {
+        SkyConfiguration.shared.toogleSortType()
+    }
+    
 }

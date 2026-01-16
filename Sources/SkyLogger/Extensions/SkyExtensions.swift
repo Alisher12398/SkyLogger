@@ -7,37 +7,6 @@
 
 import UIKit
 
-//MARK: - SkyLogger Call
-public extension UIViewController {
-    
-    func log(_ log: Log) {
-        Logger.log(log)
-    }
-    
-    /**
-     Convenience func to show a log with .print kind only in Xcode
-     */
-    func skyPrint(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
-        Logger.skyPrint(message, file: file, function: function, line: line)
-    }
-    
-}
-
-public extension UIView {
-    
-    func log(_ log: Log) {
-        Logger.log(log)
-    }
-    
-    /**
-     Convenience func to show a log with .print kind only in Xcode
-     */
-    func skyPrint(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
-        Logger.skyPrint(message, file: file, function: function, line: line)
-    }
-    
-}
-
 //MARK: - UINavigationBar
 extension UINavigationBar {
     
@@ -140,7 +109,6 @@ extension UIWindow {
 }
 
 //MARK: - UIWindowScene
-@available(iOS 13.0, *)
 extension UIWindowScene {
     
     var visibleViewController: UIViewController? {
@@ -165,6 +133,14 @@ extension UIViewController {
         } else {
             return self
         }
+    }
+    
+    func setStatusBar(color: UIColor? = nil) {
+        UIApplication.shared.statusBarUIView?.backgroundColor = color ?? view.backgroundColor
+    }
+    
+    func setStatusBarClear() {
+        UIApplication.shared.statusBarUIView?.backgroundColor = .clear
     }
     
 }
@@ -257,5 +233,31 @@ extension UIView {
 extension Notification.Name {
     
     static let newLogAdded = Notification.Name("new.log.added")
+    
+}
+
+//MARK: - UIApplication
+extension UIApplication {
+    
+    var statusBarUIView: UIView? {
+        let tag = 38482
+        
+        let keyWindow = UIApplication.shared.connectedScenes
+            .map({$0 as? UIWindowScene})
+            .compactMap({$0})
+            .first?.windows.first
+        
+        if let statusBar = keyWindow?.viewWithTag(tag) {
+            return statusBar
+        } else {
+            let height = keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+            let statusBarView = UIView(frame: height)
+            statusBarView.tag = tag
+            statusBarView.layer.zPosition = 999999
+            
+            keyWindow?.addSubview(statusBarView)
+            return statusBarView
+        }
+    }
     
 }

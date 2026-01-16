@@ -16,8 +16,7 @@ class LogListViewController: UIViewController {
             guard oldValue != selectedLogKindIndex else { return }
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.updateFilteredLogs()
-                self.rootView.listTableView.reloadData()
+                self.reloadData()
                 self.rootView.logKindCollectionView.reloadData()
                 UIImpactFeedbackGenerator.init(style: .light).impactOccurred()
                 self.rootView.logKindCollectionView.scrollToItem(at: .init(row: self.selectedLogKindIndex, section: 0), at: .left, animated: true)
@@ -29,21 +28,27 @@ class LogListViewController: UIViewController {
         }
     }
     
+    private let parentStatusBarColor: UIColor?
+    
     private var filteredLogs: [Log] = Logger.getLogs()
     
     private lazy var allLogs: [Log] = fetchLogs() {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.updateFilteredLogs()
-                self.rootView.listTableView.reloadData()
-            }
+            reloadData()
+        }
+    }
+    
+    private var searchBarText: String? = nil {
+        didSet {
+            updateLogs()
         }
     }
     
     init() {
+        self.parentStatusBarColor = UIApplication.shared.statusBarUIView?.backgroundColor
         self.rootView = LogListView()
         super.init(nibName: nil, bundle: nil)
+        print("parentStatusBarColor", self.parentStatusBarColor)
     }
     
     required init?(coder: NSCoder) {
@@ -70,10 +75,21 @@ extension LogListViewController {
         configureNavigationBar()
         
         NotificationCenter.default.addObserver(self, selector: #selector(newLogAddedNotification(_:)), name: .newLogAdded, object: nil)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(_:)))
+        tapGesture.cancelsTouchesInView = false
+        rootView.listTableView.addGestureRecognizer(tapGesture)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let parentStatusBarColor {
+            setStatusBar(color: parentStatusBarColor)
+        }
     }
     
 }
@@ -86,10 +102,23 @@ extension LogListViewController {
         updateLogs()
     }
     
+    @objc
+    private func dismissKeyboard(_ sender: UIGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
 }
 
 //MARK: - Private Methods
 private extension LogListViewController {
+    
+    private func reloadData() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.updateFilteredLogs()
+            self.rootView.listTableView.reloadData()
+        }
+    }
     
     private func configure() {
         rootView.logKindCollectionView.delegate = self
@@ -99,6 +128,8 @@ private extension LogListViewController {
         rootView.listTableView.delegate = self
         rootView.listTableView.dataSource = self
         rootView.listTableView.register(LogTableViewCell.self, forCellReuseIdentifier: LogTableViewCell.reuseIdentifier)
+        
+        rootView.searchBar.delegate = self
     }
     
     private func configureNavigationBar() {
@@ -108,11 +139,17 @@ private extension LogListViewController {
         let backBarButtonItem = UIBarButtonItem()
         backBarButtonItem.title = ""
         navigationItem.backBarButtonItem = backBarButtonItem
-        navigationItem.rightBarButtonItem = SkyBarButtonItem(kind: .shareLogList, vc: self)
+        navigationItem.rightBarButtonItems = [
+            SkyBarButtonItem(kind: .shareLogList, vc: self),
+            SkyBarButtonItem(kind: .changeSortType, vc: self)
+        ]
+        if let _ = parentStatusBarColor {
+            setStatusBarClear()
+        }
     }
     
     func updateFilteredLogs() {
-        var filteredLogsNew: [Log] {
+        var filteredLogsNew: [Log] = {
             switch selectedLogKindIndex {
             case 0:
                 return allLogs
@@ -125,6 +162,9 @@ private extension LogListViewController {
                     return []
                 }
             }
+        }()
+        if let searchBarText, !searchBarText.isEmpty {
+            filteredLogsNew = filteredLogsNew.filter({ $0.containsText(searchBarText) })
         }
         self.filteredLogs = filteredLogsNew
     }
@@ -204,7 +244,15 @@ extension LogListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogTableViewCell.reuseIdentifier, for: indexPath) as! LogTableViewCell
         if let log = filteredLogs[safe: indexPath.row] {
-            cell.setData(log: log, number: (allLogs.firstIndex(of: log) ?? 0) + 1, allCountNumber: allLogs.count)
+            let number: Int = {
+                switch SkyConfiguration.shared.sortType {
+                case .newOnTop:
+                    return allLogs.count - (allLogs.firstIndex(of: log) ?? 0)
+                case .newOnBottom:
+                    return (allLogs.firstIndex(of: log) ?? 0) + 1
+                }
+            }()
+            cell.setData(log: log, number: number, allCountNumber: allLogs.count)
         }
         return cell
     }
@@ -231,6 +279,23 @@ extension LogListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
+    }
+    
+}
+
+//MARK: - UISearchBarDelegate
+extension LogListViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchBarText = searchText
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
     
 }

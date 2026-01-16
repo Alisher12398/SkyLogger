@@ -179,13 +179,9 @@ private extension LogTableViewCell {
     private func configure() {
         backgroundColor = .clear
         selectionStyle = .none
-        if #available(iOS 13.0, *) {
-            fileIconImageView.image = Log.LineKind.file.iconForDevice
-            infoCenterIconImageView.image = UIImage(systemName: "text.bubble", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
-            infoBottomIconImageView.image = UIImage(systemName: "info.circle", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
-        } else {
-            // Fallback on earlier versions
-        }
+        fileIconImageView.image = Log.LineKind.file.iconForDevice
+        infoCenterIconImageView.image = UIImage(systemName: "text.bubble", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
+        infoBottomIconImageView.image = UIImage(systemName: "info.circle", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
     }
     
     private func makeConstraints() {
@@ -352,7 +348,7 @@ private extension LogTableViewCell {
         case .api(data: let data):
             return data?.urlPath
         default:
-            if let message = log.message?.description as? String, !message.isEmpty {
+            if let message = log.getMessage() {
                 return message
             } else {
                 return nil
@@ -361,7 +357,7 @@ private extension LogTableViewCell {
     }
     
     private static func getLogParametersText(log: Log) -> String? {
-        let parameters: [Log.Parameter] = log.parameters ?? []
+        let parameters: [Log.Parameter] = log.parameters
         switch log.kind {
         case .api(data: let data):
             if let statusCode = data?.statusCode {
@@ -385,7 +381,7 @@ private extension LogTableViewCell {
     
     private static func getSubstringForLogParameter(_ parameter: Log.Parameter) -> String? {
         if let value = parameter.value {
-            return "\"\(parameter.key)\"" + ": " + String(describing: value)
+            return "\"\(parameter.key)\"" + ": " + (SkyStringHandler.convertAnyToString(value) ?? String(describing: value))
         } else {
             return nil
         }

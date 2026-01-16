@@ -9,6 +9,27 @@ import UIKit
 
 class LogListView: SkyBaseView {
     
+    let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.showsCancelButton = false
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.searchBarStyle = .minimal
+        searchBar.returnKeyType = .done
+        searchBar.searchTextField.textColor = UIColor.skyLightGray
+        searchBar.barTintColor = UIColor.skyBackgroundLight
+        searchBar.backgroundColor = UIColor.skyBackground
+        
+        
+        let textField = searchBar.searchTextField
+        let tintColor = UIColor.skyLightGray.alpha(0.3)
+        textField.leftView?.tintColor = tintColor
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Search",
+            attributes: [.foregroundColor: tintColor]
+        )
+        return searchBar
+    }()
+    
     lazy var logKindCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 24
@@ -38,10 +59,11 @@ class LogListView: SkyBaseView {
         tv.alwaysBounceHorizontal = false
         tv.estimatedRowHeight = 105
         tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.keyboardDismissMode = .onDrag
         
         let label = UILabel(frame: .init(x: 0, y: 0, width: 0, height: 22))
         label.font = .regular(12)
-        label.text = "SkyLogger v\(SkyConstants.version) | App v\(Logger.singleton.appVersion)"
+        label.text = "SkyLogger \(SkyConstants.version) | App \(Logger.singleton.appVersion)"
         label.textColor = .skyTextSecondary
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
@@ -67,15 +89,20 @@ extension LogListView: SkyBaseViewProtocol {
     
     func configure() {
         backgroundColor = UIColor.skyBackground
+        addSubview(searchBar)
         addSubview(logKindCollectionView)
         addSubview(listTableView)
     }
     
     func makeConstraints() {
         NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
             logKindCollectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
             logKindCollectionView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            logKindCollectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            logKindCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             logKindCollectionView.heightAnchor.constraint(equalToConstant: LogKindCollectionViewCell.height),
             
             listTableView.leftAnchor.constraint(equalTo: self.leftAnchor),

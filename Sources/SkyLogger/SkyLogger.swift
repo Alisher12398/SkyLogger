@@ -1,11 +1,3 @@
-//
-//  Logger.swift
-//  OurMenu
-//
-//  Created by Alisher Khalykbayev on 07.11.2021.
-//  Copyright © 2021 Alisher Khalykbayev. All rights reserved.
-//
-
 import UIKit
 
 public func log(_ log: Log) {
@@ -29,9 +21,12 @@ public class Logger {
 //MARK: - Public Methods
 extension Logger {
     
-    public static func setup(appVersion: String, customization: SkyCustomization = .init()) {
+    public static func setup(appVersion: String, configuration: SkyConfiguration) {
         Logger.singleton.appVersion = appVersion
-        SkyCustomization.shared = customization
+        SkyConfiguration.shared = configuration
+        if SkyConfiguration.shared.shakeToPresent {
+            ShakeDetectManager.shared.configure()
+        }
     }
     
     /**
@@ -42,6 +37,36 @@ extension Logger {
      */
     public static func setAdditionalInfo(_ parameters: [Log.Parameter]) {
         Logger.singleton.additionalInfoParameters = parameters
+    }
+    
+    /**
+     Write a log.
+     */
+    public static func log(
+        kind: Log.Kind,
+        message: Any? = nil,
+        parameters: Log.Parameter...,
+        customKey: Log.CustomKey? = nil,
+        file: String = #file,
+        function: String = #function,
+        line: Int = #line
+    ) {
+        Self.log(Log.init(kind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line))
+    }
+    
+    /**
+     Write a log.
+     */
+    public static func log(
+        kind: Log.Kind,
+        message: Any? = nil,
+        parameters: [Log.Parameter] = [],
+        customKey: Log.CustomKey? = nil,
+        file: String = #file,
+        function: String = #function,
+        line: Int = #line
+    ) {
+        Self.log(Log.init(kind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line))
     }
     
     /**
@@ -61,10 +86,7 @@ extension Logger {
      Convenience func to show a log with .print kind only in Xcode
      */
     public static func skyPrint(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
-        guard let message = message as? CustomStringConvertible else {
-            Swift.print(message)
-            return
-        }
+        let message = SkyStringHandler.convertAnyToString(message) ?? "Can't convert message to String. Message: \(message)"
         let log = Log.init(kind: .print, message: message, file: file, function: function, line: line)
         let string = SkyStringHandler.convertLogToString(log, showDivider: false, destination: .xcode)
         Swift.print(string)
@@ -87,24 +109,36 @@ extension Logger {
      Presents a list of logs. The present come in the passed UINavigationController.
      
      - Parameters:
-     - Log.
-     - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     - UIViewController that will present UIActivityViewController. When nill it will be found automatically.
      */
-    public static func presentLogList(navigationController: UINavigationController?) {
-        guard let navigationController = navigationController else {
-            Self.print(error: "can't present Logger: passed UINavigationController is nil")
+    public static func presentLogList(presentingViewController: UIViewController?) {
+        guard let presentingViewController = presentingViewController ?? tryGetCurrentViewController() else {
+            Self.print(error: "can't present Logger: presentingViewController UIViewController is nil and active UIViewController not found")
             return
         }
+        let presentedNC = SkyNavigationViewController(rootViewController: LogListViewController())
+        if presentingViewController is UINavigationController {
+            presentingViewController.present(presentedNC, animated: true)
+        } else if let navigationController = presentingViewController.navigationController {
+            navigationController.present(presentedNC, animated: true)
+        } else {
+            presentingViewController.present(presentedNC, animated: true)
+        }
+    }
+    
+    /**
+     Get a UIViewController with list of logs.
+     */
+    public static func generateLogListViewController() -> UIViewController {
         let vc = LogListViewController()
-        navigationController.present(SkyNavigationViewController(rootViewController: vc), animated: true, completion: nil)
+        return vc
     }
     
     /**
      Presents a modal popover `UIActivityViewController` to `Share` action that contains list of all logs. The present come in the passed UIViewController or in that is found automatically.
      
      - Parameters:
-     - Log.
-     - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     - UIViewController that will present UIActivityViewController. When nill it will be found automatically.
      */
     public static func shareLogList(presentingViewController: UIViewController? = nil) {
         guard let file = getTextFile(), let vc = presentingViewController ?? tryGetCurrentViewController() else {
@@ -120,7 +154,7 @@ extension Logger {
      
      - Parameters:
      - Log.
-     - UIViewController that will present UIActivityViewController. When nill it's found automatically.
+     - UIViewController that will present UIActivityViewController. When nill it will be found automatically.
      */
     public static func shareLog(log: Log, presentingViewController: UIViewController? = nil) {
         guard let vc = presentingViewController ?? tryGetCurrentViewController() else { return }
@@ -138,7 +172,7 @@ extension Logger {
      
      - Returns: popover `UIActivityViewController`.
      */
-    public static func getLogShareViewController(log: Log) -> UIActivityViewController {
+    public static func generateLogShareViewController(log: Log) -> UIActivityViewController {
         let data: String = SkyStringHandler.convertLogToString(log, showDivider: false, destination: .share)
         let activityVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
         activityVC.configure(viewController: nil)
@@ -150,7 +184,7 @@ extension Logger {
      
      - Returns: popover `UIActivityViewController` with list of all the logs.
      */
-    public static func getLogListShareViewController() -> UIActivityViewController? {
+    public static func generateLogListShareViewController() -> UIActivityViewController? {
         guard let file = getTextFile() else {
             return nil
         }
@@ -159,35 +193,18 @@ extension Logger {
         return activityVC
     }
     
-    /**
-     Converts the class and struct object to String. But it is preferable to implement the `CustomStringConvertible` protocol.
-     
-     - Returns: String describing the object.
-     */
-    public static func convertObjectToString(_ object: Any) -> String {
-        let mirror = Mirror(reflecting: object)
-        var description = String(describing: mirror.subjectType) + ": "
-        for (index, (label, value)) in mirror.children.enumerated() {
-            if let label = label {
-                if index > 0 {
-                    description += ", "
-                }
-                description += "\(label): \(value)"
-                if index == mirror.children.count - 1 {
-                    description += ". "
-                }
-            }
-        }
-        return description
-    }
-    
 }
 
 //MARK: - Protected Methods
 extension Logger {
     
     static func getLogs() -> [Log] {
-        return Logger.singleton.logs.allCases
+        switch SkyConfiguration.shared.sortType {
+        case .newOnTop:
+            return Logger.singleton.logs.allCases.reversed()
+        case .newOnBottom:
+            return Logger.singleton.logs.allCases
+        }
     }
     
     static func print(message: String) {
