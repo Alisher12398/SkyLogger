@@ -21,8 +21,7 @@ struct SkyStringHandler {
         SkyLogger Version: \(SkyConstants.version)
         
         Device
-            Name: \(UIDevice.current.getModelFromAll().rawValue)
-            Identifier: \(UIDevice.current.identifier)
+            Identifier: \(getDeviceIdentifier())
             iOS Version: \(UIDevice.current.systemVersion)
             System Name: \(UIDevice.current.systemName)
             Location: \(TimeZone.current.identifier)
@@ -241,6 +240,23 @@ struct SkyStringHandler {
     private static func getMessageLine(key: String, value: Any?, showDivider: Bool) -> String {
         let tabSpace = getTabSpace(repeatCount: 2, newLine: true, showDivider: showDivider) + "  "
         return tabSpace + "\(key): \(convertAnyToString(value) ?? "nil")"
+    }
+    
+    private static func getDeviceIdentifier() -> String {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        guard
+            let validatingNSString = NSString(
+                bytes: &systemInfo.machine,
+                length: Int(_SYS_NAMELEN),
+                encoding: String.Encoding.ascii.rawValue
+            ),
+            let validatingUTF8String = validatingNSString.utf8String,
+            let validatingString = String(validatingCString: validatingUTF8String)
+        else {
+            return ""
+        }
+        return validatingString
     }
 }
 
