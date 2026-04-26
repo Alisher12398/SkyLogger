@@ -222,35 +222,14 @@ extension Logger {
 private extension Logger {
     
     private static func tryGetCurrentViewController() -> UIViewController? {
-        let currentWindow = UIApplication.shared.windows.first
         let error = "can't find current visible UIViewController to share"
-        if #available(iOS 15, *) {
-            if let currentScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
-            {
-                if let visibleViewController = currentScene.visibleViewController {
-                    return visibleViewController
-                } else if let visibleViewController = tryGetFromAppDelegate() {
-                    return visibleViewController
-                } else {
-                    Self.print(error: error)
-                    return nil
-                }
-                
-            } else {
-                return tryGetFromAppDelegate()
-            }
-        } else {
-            return tryGetFromAppDelegate()
+        let activeScene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
+        if let visibleViewController = activeScene?.visibleViewController {
+            return visibleViewController
         }
-        
-        func tryGetFromAppDelegate() -> UIViewController? {
-            if let visibleViewController =  currentWindow?.visibleViewController {
-                return visibleViewController
-            } else {
-                Self.print(error: error)
-                return nil
-            }
-        }
+        Self.print(error: error)
+        return nil
     }
     
 }

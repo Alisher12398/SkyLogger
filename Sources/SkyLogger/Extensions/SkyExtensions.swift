@@ -96,18 +96,6 @@ extension UILabel {
     
 }
 
-//MARK: - UIWindow
-extension UIWindow {
-    
-    var visibleViewController: UIViewController? {
-        if let rootViewController = self.rootViewController {
-            return rootViewController.getVisibleViewController()
-        }
-        return nil
-    }
-    
-}
-
 //MARK: - UIWindowScene
 extension UIWindowScene {
     
