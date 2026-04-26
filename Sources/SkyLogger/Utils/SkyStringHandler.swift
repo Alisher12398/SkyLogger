@@ -244,8 +244,9 @@ struct SkyStringHandler {
     private static func getDeviceIdentifier() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)
+        let machineSize = MemoryLayout.size(ofValue: systemInfo.machine)
         return withUnsafePointer(to: &systemInfo.machine) { ptr in
-            ptr.withMemoryRebound(to: CChar.self, capacity: MemoryLayout.size(ofValue: systemInfo.machine)) {
+            ptr.withMemoryRebound(to: CChar.self, capacity: machineSize) {
                 String(cString: $0)
             }
         }
