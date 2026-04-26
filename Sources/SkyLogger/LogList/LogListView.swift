@@ -21,7 +21,7 @@ class LogListView: SkyBaseView {
         
         
         let textField = searchBar.searchTextField
-        let tintColor = UIColor.skyLightGray.alpha(0.3)
+        let tintColor = UIColor.skyLightGray.withAlphaComponent(0.3)
         textField.leftView?.tintColor = tintColor
         textField.attributedPlaceholder = NSAttributedString(
             string: "Search",
@@ -84,8 +84,8 @@ class LogListView: SkyBaseView {
     
 }
 
-//MARK: - SkyBaseViewProtocol
-extension LogListView: SkyBaseViewProtocol {
+//MARK: - Layout
+extension LogListView {
     
     func configure() {
         backgroundColor = UIColor.skyBackground

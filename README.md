@@ -9,24 +9,31 @@
 Библиотека предоставляет возможность записывать логи и просматривать их общий список, а так же делиться ими. Возможность делиться логами помогает в отладке и нахождении багов у тестировщиков или сотрудников, а возможность просмотра логов (без Xcode) в любой момент упрощает выявление ошибок.
 
 Лог состоит из: названия файла и функции откуда произошел вызов, сообщения (опционально), массива параметров ключ-значение (опционально), времени вызова, категории лога.
-Возможные категории:  
+Возможные категории:
 
-• Print (обычный print)  
-• API (ответ сервера)  
-• Error (сообщение об ошибке)  
-• System (сообщение от системы)  
-• Analytics / Debug (аналитика и дебаггинг)    
-• Custom (кастомные, с отдельным ключом)  
+• Print (обычный print)
+• API (ответ сервера)
+• Error (сообщение об ошибке)
+• System (сообщение от системы)
+• Analytics / Debug (аналитика и дебаггинг)
+• Custom (кастомные, с отдельным ключом)
 
-В списке логов можно включить фильтрацию по категории.
+В списке логов можно включить фильтрацию по категории и поиск по тексту.
 
 При нажатии на лог можно увидеть его детальную информацию, копировать текст.
 
 Есть возможность поделиться текстовым файлом со списком логов.
 
-# CocoaPods
-```ruby
-pod 'SkyLogger', :git => "https://github.com/Alisher12398/SkyLogger"
+# Требования
+iOS 15+, Swift 5.9+.
+
+# Установка
+
+## Swift Package Manager
+В Xcode: **File → Add Packages…** и добавить URL репозитория. Либо в `Package.swift`:
+
+```swift
+.package(url: "https://github.com/Alisher12398/SkyLogger", branch: "develop")
 ```
 
 # Основные команды
@@ -34,71 +41,100 @@ pod 'SkyLogger', :git => "https://github.com/Alisher12398/SkyLogger"
 #### Конфигурация логгера в AppDelegate/SceneDelegate.
 
 ```swift
-/// SkyCustomization пока не имеет параметров. Будут добавлены в будущем.
-Logger.setup(appVersion: String, customization: SkyCustomization)
+let configuration = SkyConfiguration(sortType: .newOnTop, shakeToPresent: true)
+Logger.setup(appVersion: "2.0", configuration: configuration)
 ```
+
+`shakeToPresent: true` включает открытие списка логов по встряхиванию устройства.
 
 #### Запись лога.
 
 ```swift
-/// Из UIViewController или UIView доступна быстрая команда
+/// Глобальная функция (доступна везде в модуле, импортирующем SkyLogger):
 log(Log)
 
-/// Из других файлов:
+/// Эквивалент:
 Logger.log(Log)
+
+/// Короткие формы без явного создания Log:
+Logger.log(kind: .system, message: "Test", parameters: .init(key: "k", value: "v"))
 ```
 
 #### Создание объекта Log.
-```swift
-/// Есть множество convenience init для удобного и быстрого создания объекта лога
-Log.init(logKind: Log.Kind, message: CustomStringConvertible?, parameters: [Log.Parameter]?, customKey: CustomKey?)
-```
-
-#### Быстрая команда замена для обычного Swift.print(). Создает лог с типом .print и введённым сообщением.  
 
 ```swift
-/// Из UIViewController или UIView доступна быстрая команда
-skyPrint(Any)
-
-/// Из других файлов:
-Logger.skyPrint(Any)
+public init(
+    kind: Log.Kind,
+    message: Any? = nil,
+    parameters: [Log.Parameter] = [],
+    customKey: CustomKey? = nil,
+    file: String = #file,
+    function: String = #function,
+    line: Int = #line
+)
 ```
 
-#### Отобразить список логов. 
+`message: Any?` принимает любой объект — он стрингифицируется один раз на момент создания (через `CustomStringConvertible`, либо через `Mirror` для классов/структур без него).
+
+#### Быстрая команда замена для обычного Swift.print().
+
 ```swift
-Logger.presentLogList(navigationController: UINavigationController?)
+skyPrint(Any)            // глобальная
+Logger.skyPrint(Any)     // эквивалент
 ```
 
-#### Преобразовать объект в строку
+Создаёт лог типа `.print` и **сохраняет его** в общий список (попадает в UI и в шаринг).
+
+#### Отобразить список логов.
+
 ```swift
-Logger.convertObjectToString(Any)
-
-/// Пример для чего полезна функция
-let testClass = TestClass(name: "Test name", value: 10)
-
-print("Swift.print: \(testClass)") // Swift.print: Example.TestClass
-Logger.skyPrint(testClass) //Example.TestClass
-Logger.skyPrint(Logger.convertObjectToString(testClass)) // Message: TestClass: name: Test name, value: 10.
+Logger.presentLogList(presentingViewController: UIViewController?)
 ```
+
+Если передать `nil`, текущий видимый VC будет найден автоматически.
+
+#### Дополнительная информация для шаринга
+
+```swift
+Logger.setAdditionalInfo([
+    .init(key: "User ID", value: "12345"),
+    .init(key: "Build", value: "release"),
+])
+```
+
+Эти параметры включаются в шапку текстового файла при шаринге всех логов.
 
 ### Пример в UIViewController
 ```swift
-log(.init(kind: .system, message: "Test message", parameters:
-    .init(key: "Test parameter", value: "Test parameter value")))
+log(.init(kind: .system, message: "Test message",
+          parameters: .init(key: "Test parameter", value: "Test parameter value")))
 skyPrint("Print test message")
-Logger.presentLogList(navigationController: navigationController)
+Logger.presentLogList(presentingViewController: self)
 ```
-
-#### Вот и всё необходимое🙃
 
 ## Дополнительные команды
 
-##### Получить список логов в виде UIActivityViewController. Если не хотите использвать presentLogList().
+##### Получить `UIActivityViewController` с файлом логов
 ```swift
-Logger.getLogListShareViewController()
+Logger.generateLogListShareViewController()
 ```
 
-##### Поделиться файлом с логами
+##### Поделиться файлом со всеми логами
 ```swift
 Logger.shareLogList(presentingViewController: UIViewController?)
+```
+
+##### Поделиться одним логом
+```swift
+Logger.shareLog(log: Log, presentingViewController: UIViewController?)
+```
+
+##### Получить URL текстового файла с логами
+```swift
+Logger.getTextFile()
+```
+
+##### Глобальный выключатель
+```swift
+Logger.isEnabled = false
 ```

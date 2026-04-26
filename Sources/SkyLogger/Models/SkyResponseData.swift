@@ -21,18 +21,19 @@ public class SkyResponseData {
     
     var fullURL: String? {
         guard let baseURL = baseURL, !baseURL.absoluteString.isEmpty else { return nil }
-        guard let urlPath = urlPath else { return baseURL.absoluteString }
-        var result: String = baseURL.absoluteString + urlPath
-        if let urlParameters = urlParameters, !urlParameters.isEmpty {
-            result.append("?")
-            for (index, item) in urlParameters.enumerated() {
-                if index > 0 {
-                    result.append("&")
-                }
-                result.append("\(item.key)=\(item.value)")
+        let url: URL = {
+            if let urlPath, !urlPath.isEmpty {
+                return baseURL.appendingPathComponent(urlPath)
             }
+            return baseURL
+        }()
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return url.absoluteString
         }
-        return result
+        if let urlParameters, !urlParameters.isEmpty {
+            components.queryItems = urlParameters.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+        }
+        return components.url?.absoluteString ?? components.string
     }
     
     enum Key: String, CaseIterable {

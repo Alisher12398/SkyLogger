@@ -163,7 +163,8 @@ private extension LogListViewController {
             }
         }()
         if let searchBarText, !searchBarText.isEmpty {
-            filteredLogsNew = filteredLogsNew.filter({ $0.containsText(searchBarText) })
+            let needle = searchBarText.lowercased()
+            filteredLogsNew = filteredLogsNew.filter({ $0.containsText(lowercased: needle) })
         }
         self.filteredLogs = filteredLogsNew
     }
@@ -191,7 +192,7 @@ extension LogListViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Log.Kind.allCasesForCollectionView.count + 1
+        return Log.Kind.allCasesForCollectionView.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

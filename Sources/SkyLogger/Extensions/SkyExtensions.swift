@@ -192,35 +192,18 @@ extension UIColor {
 
 //MARK: - UIView
 extension UIView {
-    
+
     func reAddSubview(_ view: UIView) {
         view.removeFromSuperview()
         self.addSubview(view)
     }
-    
-    func reAddSubviews(_ views: [UIView]) {
-        views.forEach({
-            $0.removeFromSuperview()
-            self.addSubview($0)
-        })
-    }
-    
-    func removeSubview(_ view: UIView) {
-        view.removeFromSuperview()
-    }
-    
-    func removeSubviews(_ views: [UIView]) {
-        views.forEach({
-            $0.removeFromSuperview()
-        })
-    }
-    
+
 }
 
 //MARK: - Notification.Name
 extension Notification.Name {
     
-    static let newLogAdded = Notification.Name("new.log.added")
+    static let newLogAdded = Notification.Name("sky.logger.new.log.added")
     
 }
 

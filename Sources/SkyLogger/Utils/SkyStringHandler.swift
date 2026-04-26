@@ -10,12 +10,10 @@ import UIKit
 struct SkyStringHandler {
     
     static public func generateInfoHeaderString(additionalInfoParameters: [Log.Parameter] = []) -> String {
-        let date = Date()
-        let calendar = Calendar.current
         var string: String = """
         SkyLogger by Alisher Khalykbayev
-        
-        Date (dd.mm.yyyy): \(calendar.component(.day, from: date)).\(calendar.component(.month, from: date)).\(calendar.component(.year, from: date))
+
+        Date (dd.mm.yyyy): \(headerDateFormatter.string(from: Date()))
         
         App Version: \(Logger.singleton.appVersion)
         SkyLogger Version: \(SkyConstants.version)
@@ -31,7 +29,7 @@ struct SkyStringHandler {
         if !additionalInfoParameters.isEmpty {
             string.append("Additional parameters:")
             additionalInfoParameters.forEach({
-                string.append(getMessageLine(key: $0.key, value: $0.value, showDivider: false))
+                string.append(getMessageLine(key: $0.key, value: $0.valueString, showDivider: false))
             })
         }
         string.append("\n\n\n")
@@ -186,7 +184,7 @@ struct SkyStringHandler {
     
     static private func getLogInfoLine(log: Log, showDivider: Bool) -> String {
         var dataResult: String = ""
-        if let message = log.getMessage() {
+        if let message = log.messageString {
             dataResult.append(getMessageLine(key: "Message", value: message, showDivider: showDivider))
         }
         
@@ -204,14 +202,14 @@ struct SkyStringHandler {
         /// Log parameters
         if !log.parameters.isEmpty {
             for value in log.parameters {
-                dataResult.append(getMessageLine(key: value.key, value: value.value, showDivider: showDivider))
+                dataResult.append(getMessageLine(key: value.key, value: value.valueString, showDivider: showDivider))
             }
         }
         
         switch log.kind {
         case .api(data: let data):
             if let data = data {
-                SkyLogger.SkyResponseData.Key.allCases.forEach({
+                SkyResponseData.Key.allCases.forEach({
                     dataResult.append(getMessageLine(key: $0.rawValue, value: $0.getValue(data: data), showDivider: showDivider))
                 })
             }
@@ -222,19 +220,20 @@ struct SkyStringHandler {
         return dataResult
     }
     
+    private static let dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "dd.MM HH:mm"
+        return f
+    }()
+
+    private static let headerDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "dd.MM.yyyy"
+        return f
+    }()
+
     static func getDateString(_ date: Date) -> String {
-        let calendar = Calendar.current
-        var result: String = ""
-        result.append("[")
-        result.append(calendar.component(.day, from: date))
-        result.append(".")
-        result.append(calendar.component(.month, from: date))
-        result.append(" ")
-        result.append(calendar.component(.hour, from: date))
-        result.append(":")
-        result.append(calendar.component(.minute, from: date))
-        result.append("]")
-        return result
+        return "[" + dateFormatter.string(from: date) + "]"
     }
     
     private static func getMessageLine(key: String, value: Any?, showDivider: Bool) -> String {
@@ -245,18 +244,11 @@ struct SkyStringHandler {
     private static func getDeviceIdentifier() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)
-        guard
-            let validatingNSString = NSString(
-                bytes: &systemInfo.machine,
-                length: Int(_SYS_NAMELEN),
-                encoding: String.Encoding.ascii.rawValue
-            ),
-            let validatingUTF8String = validatingNSString.utf8String,
-            let validatingString = String(validatingCString: validatingUTF8String)
-        else {
-            return ""
+        return withUnsafePointer(to: &systemInfo.machine) { ptr in
+            ptr.withMemoryRebound(to: CChar.self, capacity: MemoryLayout.size(ofValue: systemInfo.machine)) {
+                String(cString: $0)
+            }
         }
-        return validatingString
     }
 }
 
@@ -266,22 +258,6 @@ extension SkyStringHandler {
         case device
         case xcode
         case share
-    }
-    
-}
-
-fileprivate extension Calendar {
-    
-    func component(_ component: Calendar.Component, from date: Date) -> String {
-        let valueInt: Int = self.component(component, from: date)
-        switch component {
-        case .month, .day, .hour, .minute, .second:
-            var value: String = String(valueInt)
-            if value.count == 1 { value.insert("0", at: value.startIndex) }
-            return value
-        default:
-            return String(valueInt)
-        }
     }
     
 }

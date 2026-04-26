@@ -154,7 +154,7 @@ class LogTableViewCell: UITableViewCell {
     }
     
     func setData(log: Log, number: Int, allCountNumber: Int) {
-        cellViewColorView.backgroundColor = log.kind.color.alpha(0.15)
+        cellViewColorView.backgroundColor = log.kind.color.withAlphaComponent(0.15)
         if let customKey = log.customKey {
             emojiLabel.text = customKey.emojiString
             additionalEmojiLabel.text = log.kind.emojiString
@@ -348,11 +348,7 @@ private extension LogTableViewCell {
         case .api(data: let data):
             return data?.urlPath
         default:
-            if let message = log.getMessage() {
-                return message
-            } else {
-                return nil
-            }
+            return log.messageString
         }
     }
     
@@ -380,11 +376,8 @@ private extension LogTableViewCell {
     }
     
     private static func getSubstringForLogParameter(_ parameter: Log.Parameter) -> String? {
-        if let value = parameter.value {
-            return "\"\(parameter.key)\"" + ": " + (SkyStringHandler.convertAnyToString(value) ?? String(describing: value))
-        } else {
-            return nil
-        }
+        guard let valueString = parameter.valueString else { return nil }
+        return "\"\(parameter.key)\"" + ": " + valueString
     }
     
 }

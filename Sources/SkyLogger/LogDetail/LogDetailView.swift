@@ -35,8 +35,8 @@ class LogDetailView: SkyBaseView {
     
 }
 
-//MARK: - SkyBaseViewProtocol
-extension LogDetailView: SkyBaseViewProtocol {
+//MARK: - Layout
+extension LogDetailView {
     
     func configure() {
         backgroundColor = .skyBackground

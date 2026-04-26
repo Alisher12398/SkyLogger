@@ -8,65 +8,30 @@
 
 import UIKit
 
-public class Log: Equatable {
-    
+public class Log: Hashable {
+
     public static func == (lhs: Log, rhs: Log) -> Bool {
         return lhs.id == rhs.id
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     let id: String
     let kind: Kind
     let customKey: CustomKey?
-    private let message: Any?
+    let messageString: String?
     let parameters: [Parameter]
     let file: String
     let function: String
     let line: String
     let date: Date
-    
-    //    public convenience init(kind: Log.Kind, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-    //        self.init(logKind: kind, message: nil, parameters: nil, customKey: customKey, file: file, function: function, line: line)
-    //    }
-    //
-    //    /**
-    //     Creates a log.
-    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-    //     */
-    //    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-    //        self.init(logKind: kind, message: message, parameters: nil, customKey: customKey, file: file, function: function, line: line)
-    //    }
-    //
-    //    /**
-    //     Creates a log.
-    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-    //     */
-    //    public convenience init(kind: Log.Kind, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-    //        self.init(logKind: kind, message: nil, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
-    //    }
-    //
-    //    /**
-    //     Creates a log.
-    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-    //     */
-    //    public convenience init(kind: Log.Kind, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-    //        self.init(logKind: kind, message: nil, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
-    //    }
-    //
-    //    /**
-    //     Creates a log.
-    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-    //     */
-    //    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, parameters: Log.Parameter, customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-    //        self.init(logKind: kind, message: message, parameters: [parameters], customKey: customKey, file: file, function: function, line: line)
-    //    }
-    //
-    //    /**
-    //     Creates a log.
-    //     You can use `'Logger.convertObjectToString()'` func to convert non-CustomStringConvertible class/struct object to String.
-    //     */
-    //    public convenience init(kind: Log.Kind, message: CustomStringConvertible?, parameters: [Log.Parameter], customKey: CustomKey? = nil, file: String = #file, function: String = #function, line: Int = #line) {
-    //        self.init(logKind: kind, message: message, parameters: parameters, customKey: customKey, file: file, function: function, line: line)
-    //    }
+
+    /// Lowercased text representation, built once on first search query. Read on main thread only.
+    private lazy var searchableLowercasedString: String = SkyStringHandler
+        .convertLogToString(self, showDivider: false, destination: .device)
+        .lowercased()
     
     /**
      Creates a log.
@@ -95,9 +60,9 @@ public class Log: Equatable {
         function: String = #function,
         line: Int = #line
     ) {
-        self.id = Self.makeRandomString(length: 15)
+        self.id = UUID().uuidString
         self.kind = kind
-        self.message = message
+        self.messageString = SkyStringHandler.convertAnyToString(message)
         self.parameters = parameters
         self.customKey = customKey
         self.file = file
@@ -106,27 +71,9 @@ public class Log: Equatable {
         self.date = Date()
     }
     
-    private static func makeRandomString(length: Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        var randomString = ""
-        
-        for _ in 0..<length {
-            if let randomChar = letters.randomElement() {
-                randomString.append(randomChar)
-            }
-        }
-        
-        return randomString
-    }
-    
-    func getMessage() -> String? {
-        return SkyStringHandler.convertAnyToString(message)
-    }
-    
-    func containsText(_ text: String) -> Bool {
-        guard !text.isEmpty else { return true }
-        let log = SkyStringHandler.convertLogToString(self, showDivider: false, destination: .device)
-        return log.lowercased().contains(text.lowercased())
+    func containsText(lowercased: String) -> Bool {
+        guard !lowercased.isEmpty else { return true }
+        return searchableLowercasedString.contains(lowercased)
     }
     
 }

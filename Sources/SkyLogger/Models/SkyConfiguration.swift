@@ -12,11 +12,15 @@ import UIKit
  */
 public class SkyConfiguration {
     
-    static var shared: SkyConfiguration = .init(sortType: .newOnTop, shakeToPresent: true)
-    
+    static private(set) var shared: SkyConfiguration = .init(sortType: .newOnTop, shakeToPresent: true)
+
+    static func setShared(_ configuration: SkyConfiguration) {
+        shared = configuration
+    }
+
     private(set) var sortType: SortType
     private(set) var shakeToPresent: Bool
-    
+
     /**
      Class for future Logger configuration.
      */
@@ -25,7 +29,7 @@ public class SkyConfiguration {
         self.shakeToPresent = shakeToPresent
     }
     
-    public func toogleSortType() {
+    public func toggleSortType() {
         switch sortType {
         case .newOnTop:
             self.sortType = .newOnBottom

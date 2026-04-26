@@ -62,12 +62,12 @@ extension SkyFileManager {
 }
 
 //MARK: - Private Functions
-extension SkyFileManager: TextOutputStream {
-    
+extension SkyFileManager {
+
     private func setup() {
         removeTextFile()
     }
-    
+
     func write(_ string: String) {
         guard let textFileURL = textFileURL else { return }
         do {

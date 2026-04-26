@@ -7,11 +7,6 @@
 
 import UIKit
 
-protocol SkyBaseViewProtocol {
-    func configure()
-    func makeConstraints()
-}
-
 class SkyBaseView: UIView {
     
     init() {

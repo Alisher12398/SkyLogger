@@ -10,17 +10,13 @@ import UIKit
 extension Log {
     
     public enum Kind {
-        
+
         case print
         case api(data: SkyResponseData?)
         case system
         case error(Error?)
         case analytics
-        
-        var index: Int {
-            return Kind.allCases.firstIndex(of: self) ?? 0
-        }
-        
+
         var emoji: Character {
             switch self {
             case .print:
@@ -74,11 +70,11 @@ extension Log {
     
     public class Parameter {
         let key: String
-        let value: Any?
-        
+        let valueString: String?
+
         public init(key: String, value: Any?) {
             self.key = key
-            self.value = value
+            self.valueString = SkyStringHandler.convertAnyToString(value)
         }
     }
     
@@ -99,42 +95,15 @@ extension Log.Kind: CaseIterable, Equatable {
     }
     
     public static func == (lhs: Log.Kind, rhs: Log.Kind) -> Bool {
-        switch lhs {
-        case .print:
-            switch rhs {
-            case .print:
-                return true
-            default:
-                return false
-            }
-        case .api:
-            switch rhs {
-            case .api:
-                return true
-            default:
-                return false
-            }
-        case .system:
-            switch rhs {
-            case .system:
-                return true
-            default:
-                return false
-            }
-        case .error:
-            switch rhs {
-            case .error:
-                return true
-            default:
-                return false
-            }
-        case .analytics:
-            switch rhs {
-            case .analytics:
-                return true
-            default:
-                return false
-            }
+        switch (lhs, rhs) {
+        case (.print, .print),
+             (.api, .api),
+             (.system, .system),
+             (.error, .error),
+             (.analytics, .analytics):
+            return true
+        default:
+            return false
         }
     }
     

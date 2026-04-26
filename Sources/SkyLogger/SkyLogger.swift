@@ -5,17 +5,30 @@ public func log(_ log: Log) {
 }
 
 public class Logger {
-    
+
     public static var isEnabled: Bool = true
-    
+
     static let singleton: Logger = .init()
-    
+
     private var logs = SkyThreadSafeArray<Log>.init()
-    
-    var appVersion: String = "unknown"
-    private var additionalInfoParameters: [Log.Parameter] = []
-    
+
+    private let stateQueue = DispatchQueue(label: "skylogger.state.queue", attributes: .concurrent)
+    private var _appVersion: String = "unknown"
+    private var _additionalInfoParameters: [Log.Parameter] = []
+
+    var appVersion: String {
+        get { stateQueue.sync { _appVersion } }
+        set { stateQueue.async(flags: .barrier) { self._appVersion = newValue } }
+    }
+
+    var additionalInfoParameters: [Log.Parameter] {
+        get { stateQueue.sync { _additionalInfoParameters } }
+        set { stateQueue.async(flags: .barrier) { self._additionalInfoParameters = newValue } }
+    }
+
     private static let loggerPrintName: String = "SkyLogger. "
+
+    private init() {}
 }
 
 //MARK: - Public Methods
@@ -23,7 +36,7 @@ extension Logger {
     
     public static func setup(appVersion: String, configuration: SkyConfiguration) {
         Logger.singleton.appVersion = appVersion
-        SkyConfiguration.shared = configuration
+        SkyConfiguration.setShared(configuration)
         if SkyConfiguration.shared.shakeToPresent {
             ShakeDetectManager.shared.configure()
         }
@@ -83,13 +96,12 @@ extension Logger {
     }
     
     /**
-     Convenience func to show a log with .print kind only in Xcode
+     Convenience func that creates a `.print` log and stores it. Equivalent to
+     `Logger.log(kind: .print, message:)`.
      */
     public static func skyPrint(_ message: Any, file: String = #file, function: String = #function, line: Int = #line) {
-        let message = SkyStringHandler.convertAnyToString(message) ?? "Can't convert message to String. Message: \(message)"
-        let log = Log.init(kind: .print, message: message, file: file, function: function, line: line)
-        let string = SkyStringHandler.convertLogToString(log, showDivider: false, destination: .xcode)
-        Swift.print(string)
+        let messageString = SkyStringHandler.convertAnyToString(message) ?? "Can't convert message to String. Message: \(message)"
+        Self.log(Log(kind: .print, message: messageString, file: file, function: function, line: line))
     }
     
     /**

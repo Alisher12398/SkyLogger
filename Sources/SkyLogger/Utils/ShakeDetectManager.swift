@@ -9,33 +9,35 @@ import UIKit
 
 public final class ShakeDetectManager {
     public static let shared = ShakeDetectManager()
-    
-    private init() {
-        if SkyConfiguration.shared.shakeToPresent {
-            swizzleWindowMotion()
-        }
-    }
-    
+
+    private static var didSwizzle = false
+
+    private init() {}
+
     func configure() {
-        
+        Self.swizzleIfNeeded()
     }
-    
-    private func swizzleWindowMotion() {
+
+    private static func swizzleIfNeeded() {
+        guard !didSwizzle else { return }
+        let cls = UIWindow.self
         guard
-            let cls = NSClassFromString("UIWindow"),
             let orig = class_getInstanceMethod(cls, #selector(UIResponder.motionEnded(_:with:))),
-            let imp = class_getInstanceMethod(ShakeDetectManager.self, #selector(shake_motionEnded(_:with:)))
+            let new = class_getInstanceMethod(cls, #selector(UIWindow.sky_motionEnded(_:with:)))
         else {
             return
         }
-        method_exchangeImplementations(orig, imp)
+        method_exchangeImplementations(orig, new)
+        didSwizzle = true
     }
-    
-    @objc private func shake_motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            guard SkyConfiguration.shared.shakeToPresent else { return }
-            Logger.presentLogList(presentingViewController: nil)
-        }
-        //        shake_motionEnded(motion, with: event)
+}
+
+private extension UIWindow {
+
+    @objc func sky_motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        // After exchange, this selector points to the original implementation — call it first.
+        sky_motionEnded(motion, with: event)
+        guard motion == .motionShake, SkyConfiguration.shared.shakeToPresent else { return }
+        Logger.presentLogList(presentingViewController: nil)
     }
 }
