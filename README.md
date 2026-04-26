@@ -2,8 +2,7 @@
 Библиотека для удобной записи и просмотра различных логов: принтов, ответа сервера, сообщений системы и кастомных сообщений.
 
 # Скриншоты
-<img src="Screenshots/sky-logger-screen-1.png" width="300"> <img src="Screenshots/sky-logger-screen-2.png" width="300"> <img src="Screenshots/sky-logger-screen-3.png" width="300">
-<img src="Screenshots/sky-logger-screen-4.png" width="300"> <img src="Screenshots/sky-logger-screen-5.png" width="300">
+<img src="Screenshots/sky-logger-screen-1.png" width="300">
 
 # Описание
 
