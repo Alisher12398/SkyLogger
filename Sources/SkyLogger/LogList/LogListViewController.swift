@@ -48,7 +48,6 @@ class LogListViewController: UIViewController {
         self.parentStatusBarColor = UIApplication.shared.statusBarUIView?.backgroundColor
         self.rootView = LogListView()
         super.init(nibName: nil, bundle: nil)
-        print("parentStatusBarColor", self.parentStatusBarColor)
     }
     
     required init?(coder: NSCoder) {
